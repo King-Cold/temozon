@@ -1,0 +1,168 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: #f2f2f2;
+}
+
+.login-container {
+    display: flex;
+    width: 900px;
+    height: 500px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+}
+
+/* Estilos para la parte izquierda */
+.login-left {
+    width: 50%;
+    background: #d400ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.fondo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Estilos para la parte derecha */
+.login-right {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-box {
+    width: 80%;
+    text-align: center;
+}
+
+.avatar {
+    width: 80px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.input-group {
+    margin-bottom: 15px;
+    text-align: left;
+    position: relative;
+}
+
+.input-group label {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Ícono de ver contraseña */
+.password-group {
+    position: relative;
+}
+
+.ver-password {
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 35px;
+}
+
+.olvide {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: #007BFF;
+    text-decoration: none;
+    margin-bottom: 20px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    background: #9c367f;
+    color: white;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #1c1462;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        width: 90%;
+        height: auto;
+    }
+
+    .login-left {
+        width: 100%;
+        height: 200px;
+    }
+
+    .login-right {
+        width: 100%;
+        padding: 20px;
+    }
+
+    .login-box {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 20px;
+    }
+
+    .input-group input {
+        padding: 8px;
+    }
+
+    button {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+.mensaje-error {
+    color: #d9534f; /* Rojo suave */
+    background-color: #f8d7da; /* Fondo rojo claro */
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+}
