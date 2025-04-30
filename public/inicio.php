@@ -13,7 +13,14 @@ session_start(); // Iniciar la sesión al comienzo
     <?php include 'header.php'; ?>
     <?php include 'sidebar.php'; ?>
 <main id="main">
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam eum esse maiores vitae eligendi voluptatibus veniam facere tenetur exercitationem enim dolores quasi quaerat amet error, temporibus nostrum fugiat. Accusamus, nostrum.</p>
+    <p>“- Tu conoces a Pin Pon?
+        - Pin Pon?
+        - Si, Pin Pon.
+        - Si, es un muñeco, muy guapo y de cartón.
+        - Y se lava la carita, con agua y con jabón.
+        - Se lava la carita? 
+        - SI, SE LAVA LA CARITA!
+        - Se lava la carita con agua y con jabón...”</p>
 </main>
 <script src="js/script.js">
 </script>

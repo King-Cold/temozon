@@ -6,8 +6,8 @@ $sql = "SELECT p.ID_Prod, p.Nomb_Prod, p.Desc_Prod, p.Lote_Prod, p.Cant_Disp_Pro
                a.Direccion_Alm AS Almacen, p.Prec_Comp, p.Prec_vent, p.Nombre_Prov, 
                c.Categoria_Nombre, p.Prod_Estatus, p.Fec_Cad
         FROM productos p
-        JOIN almacen a ON p.ID_Almacen = a.ID_Almacen
-        JOIN categoria c ON p.ID_Categoria = c.ID_Categoria";
+        LEFT JOIN almacen a ON p.ID_Almacen = a.ID_Almacen
+        lEFT JOIN categoria c ON p.ID_Categoria = c.ID_Categoria";
 $resultado = $conexion->query($sql);
 ?>
 <!DOCTYPE html>
