@@ -1,5 +1,5 @@
 <?php
-include("controlador.php");
+include("server/controlador.php");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -7,7 +7,7 @@ include("controlador.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="public/css/estilos.css">
     <style>
         .ver-password {
             cursor: pointer;
@@ -17,11 +17,11 @@ include("controlador.php");
 <body>
     <div class="login-container">
         <div class="login-left">
-            <img src="logo.png" alt="Fondo" class="fondo">
+            <img src="icons/logo.png" alt="Fondo" class="fondo">
         </div>
         <div class="login-right">
             <div class="login-box">
-                <img src="icono.png" alt="Usuario" class="avatar">
+                <img src="icons/icono.png" alt="Usuario" class="avatar">
                 <h2>BIENVENIDO</h2>
 
                 <!-- Mostrar mensaje de error -->
@@ -30,7 +30,7 @@ include("controlador.php");
                     
                 <?php endif; ?>
                 <?php
-                include("conexion_bd.php"); 
+                include("server/conexion_bd.php"); 
                 ?>
                 
 

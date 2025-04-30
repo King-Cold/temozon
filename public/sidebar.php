@@ -1,0 +1,42 @@
+<div class="sidebar" id="sidebar">
+    <nav>
+        <ul>
+            <li>
+                <a href="inicio.php">
+                    <img src="../Icons/home-svgrepo-com.svg" alt="Home">
+                    <span>PAGINA PRINCIPAL</span>
+                </a>
+            </li>
+            <li>
+                <a href="inventario.php" >
+                    <img src="../Icons/product-guide-svgrepo-com.svg" alt="Inventario">
+                    <span>INVENTARIO</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="../Icons/lorry-svgrepo-com.svg" alt="Envios">
+                    <span>ENVIOS</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="../Icons/list-check-svgrepo-com.svg" alt="Pedidos">
+                    <span>PEDIDOS</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="../Icons/building-user-svgrepo-com.svg" alt="Proveedores">
+                    <span>PROVEEDORES</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <img src="../Icons/users-group-svgrepo-com.svg" alt="Usuarios">
+                    <span>USUARIOS</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

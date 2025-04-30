@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (empty($_SESSION["id"])) {
-    header("location:login.php"); // Redirige si no es admin
+    header("location:../index.php"); // Redirige si no es admin
     exit();
 }
 ?>
