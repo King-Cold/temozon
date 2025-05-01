@@ -2,13 +2,19 @@
 session_start();
 require_once '../server/conexion_bd.php'; 
 
+// Consulta principal del inventario
 $sql = "SELECT p.ID_Prod, p.Nomb_Prod, p.Desc_Prod, p.Lote_Prod, p.Cant_Disp_Prod, 
                a.Direccion_Alm AS Almacen, p.Prec_Comp, p.Prec_vent, p.Nombre_Prov, 
                c.Categoria_Nombre, p.Prod_Estatus, p.Fec_Cad
         FROM productos p
         LEFT JOIN almacen a ON p.ID_Almacen = a.ID_Almacen
-        lEFT JOIN categoria c ON p.ID_Categoria = c.ID_Categoria";
+        LEFT JOIN categoria c ON p.ID_Categoria = c.ID_Categoria";
 $resultado = $conexion->query($sql);
+
+// Consultas para selects
+$almacenes = $conexion->query("SELECT ID_Almacen FROM almacen");
+$categorias = $conexion->query("SELECT ID_Categoria, Categoria_Nombre FROM categoria");
+$proveedores = $conexion->query("SELECT Nomb_Prov FROM proveedor");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -17,10 +23,12 @@ $resultado = $conexion->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventario</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script> 
 </head>
 <body>
     <?php include 'header.php'; ?>
     <?php include 'sidebar.php'; ?>
+    
     <main id="main">
         <h2>Inventario de Productos</h2>
         <table border="1" cellspacing="0" cellpadding="5">
@@ -63,6 +71,84 @@ $resultado = $conexion->query($sql);
         </table>
     </main>
 
+    <button onclick="mostrarEscaner()" style="
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        font-size: 16px;
+    ">Escanear Código de Barras</button>
+
+
+    <!-- Contenedor del escáner -->
+    <div id="escaneoCont" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000000c2; z-index:999;">
+        <div id="lector" style="width:100%; height:60%; margin:auto;"></div>
+        <button onclick="cerrarEscaner()" style="position:absolute; top:10px; right:10px;">Cerrar</button>
+    </div>
+
+    <!-- Modal para completar datos -->
+    <div id="modalForm" style="display:none; position:fixed; top:10%; left:30%; background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
+        <h3>Registrar Nuevo Producto</h3>
+        <form id="productoForm" action="../server/p_codigoBarras.php" method="POST">
+            <input type="hidden" name="ID_Prod" id="ID_Prod">
+
+            <label>Nombre:</label><input type="text" name="Nomb_Prod" required><br>
+            <label>Descripción:</label><input type="text" name="Desc_Prod" maxlength="3" required><br>
+            <label>Lote:</label><input type="text" name="Lote_Prod" maxlength="6" required><br>
+            <label>Cantidad:</label><input type="number" name="Cant_Disp_Prod" required><br>
+
+            <label>Almacén:</label>
+            <select name="ID_Almacen" required>
+                <?php
+                if ($almacenes && $almacenes->num_rows > 0) {
+                    while ($a = $almacenes->fetch_assoc()) {
+                        echo '<option value="' . htmlspecialchars($a['ID_Almacen']) . '">' . htmlspecialchars($a['ID_Almacen']) . '</option>';
+                    }
+                } else {
+                    echo '<option value="">No hay almacenes</option>';
+                }
+                ?>
+            </select><br>
+            <label>Precio Compra:</label><input type="number" step="0.01" name="Prec_Comp" required><br>
+            <label>Precio Venta:</label><input type="number" step="0.01" name="Prec_vent" required><br>
+
+            <label>Proveedor:</label>
+            <select name="Nombre_Prov" required>
+                <?php
+                if ($proveedores && $proveedores->num_rows > 0) {
+                    while ($p = $proveedores->fetch_assoc()) {
+                        echo '<option value="' . htmlspecialchars($p['Nomb_Prov']) . '">' . htmlspecialchars($p['Nomb_Prov']) . '</option>';
+                    }
+                } else {
+                    echo '<option value="">No hay proveedores</option>';
+                }
+                ?>
+            </select><br>
+
+            <label>Categoría:</label>
+            <select name="ID_Categoria" required>
+                <?php
+                if ($categorias && $categorias->num_rows > 0) {
+                    while ($c = $categorias->fetch_assoc()) {
+                        echo '<option value="' . htmlspecialchars($c['ID_Categoria']) . '">' . htmlspecialchars($c['ID_Categoria']) . ' - ' . htmlspecialchars($c['Categoria_Nombre']) . '</option>';
+                    }
+                } else {
+                    echo '<option value="">No hay categorías</option>';
+                }
+                ?>
+            </select><br>
+
+            <label>Estatus:</label>
+            <select name="Prod_Estatus">
+                <option value="1">Activo</option>
+                <option value="0">Inactivo</option>
+            </select><br>
+
+            <label>Fecha Caducidad:</label><input type="date" name="Fec_Cad" required><br><br>
+
+            <button type="submit">Guardar Producto</button>
+            <button type="button" onclick="cerrarForm()">Cancelar</button>
+        </form>
+    </div>
     <script src="js/script.js"></script>
 </body>
 </html>
