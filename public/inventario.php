@@ -79,7 +79,7 @@ $proveedores = $conexion->query("SELECT Nomb_Prov FROM proveedor");
     ">Escanear Código de Barras con la camara</button>
 
 
-    <!-- Contenedor del escáner -->
+    <!-- Contenedor del escáner (temporal, ya que se ve feo jajaja)-->
     <div id="escaneoCont" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000000c2; z-index:999;">
         <div id="lector" style="width:100%; height:60%; margin:auto;"></div>
         <button onclick="cerrarEscaner()" style="position:absolute; top:10px; right:10px;">Cerrar</button>

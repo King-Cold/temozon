@@ -20,7 +20,7 @@ function mostrarEscaner() {
             type: "LiveStream",
             target: document.querySelector('#lector'), 
             constraints: {
-                facingMode: "environment" // 
+                facingMode: "environment"  
             },
         },
         decoder: {
@@ -76,7 +76,7 @@ document.addEventListener('keypress', function (e) {
     } else {
         if (buffer.length >= 6) { 
             const codigo = buffer;
-            console.log("Código escaner USB: ", codigo); // 👈 Aquí está bien
+            console.log("Código escaner USB: ", codigo); 
             buffer = '';
         
             const input = document.getElementById('ID_Prod');
