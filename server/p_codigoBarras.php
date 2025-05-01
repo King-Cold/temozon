@@ -2,7 +2,7 @@
 require_once '../server/conexion_bd.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // 📥 Recolectar datos del formulario
+    //Recolectar datos del formulario
     $id_producto = $_POST['ID_Prod'];
     $nombre = $_POST['Nomb_Prod'];
     $descripcion = $_POST['Desc_Prod'];

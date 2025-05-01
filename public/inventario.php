@@ -76,7 +76,7 @@ $proveedores = $conexion->query("SELECT Nomb_Prov FROM proveedor");
         margin: 20px auto;
         padding: 10px 20px;
         font-size: 16px;
-    ">Escanear Código de Barras</button>
+    ">Escanear Código de Barras con la camara</button>
 
 
     <!-- Contenedor del escáner -->

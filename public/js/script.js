@@ -10,6 +10,7 @@ menu.addEventListener('click',()=>{
     
 });
 
+//Escaner de codigo de barras con la camara
 function mostrarEscaner() {
     document.getElementById('escaneoCont').style.display = 'block';
 
@@ -54,3 +55,37 @@ function cerrarEscaner() {
 function cerrarForm() {
     document.getElementById('modalForm').style.display = 'none';
 }
+
+//Escaneo por lector USB
+let buffer = '';
+let lastKeyTime = Date.now();
+
+document.addEventListener('keypress', function (e) {
+    const currentTime = Date.now();
+    const timeDiff = currentTime - lastKeyTime;
+
+    // Si hay un retraso grande entre teclas, se asume que no es el escaner y renicia el buffer para que no explote
+    if (timeDiff > 100) {
+        buffer = '';
+    }
+
+    lastKeyTime = currentTime;
+
+    if (e.key !== 'Enter') {
+        buffer += e.key;
+    } else {
+        if (buffer.length >= 6) { 
+            const codigo = buffer;
+            console.log("Código escaner USB: ", codigo); // 👈 Aquí está bien
+            buffer = '';
+        
+            const input = document.getElementById('ID_Prod');
+            input.value = codigo;
+        
+            // Mostrar formulario
+            document.getElementById('modalForm').style.display = 'block';
+            input.focus();
+        }
+        
+    }
+});
