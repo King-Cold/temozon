@@ -11,7 +11,7 @@ $sql = "SELECT p.ID_Prod, p.Nomb_Prod, p.Desc_Prod, p.Lote_Prod, p.Cant_Disp_Pro
         LEFT JOIN categoria c ON p.ID_Categoria = c.ID_Categoria";
 $resultado = $conexion->query($sql);
 
-// Consultas para selects
+// Consultas para selects en el formulario
 $almacenes = $conexion->query("SELECT ID_Almacen FROM almacen");
 $categorias = $conexion->query("SELECT ID_Categoria, Categoria_Nombre FROM categoria");
 $proveedores = $conexion->query("SELECT Nomb_Prov FROM proveedor");
@@ -29,13 +29,22 @@ $proveedores = $conexion->query("SELECT Nomb_Prov FROM proveedor");
     <?php include 'header.php'; ?>
     <?php include 'sidebar.php'; ?>
     
+    <!-- El boton :O-->
     <main id="main">
+        <button onclick="ventanaEscaneo()" style="
+            display: block;
+            margin: 5px auto 1px;
+            padding: 10px 20px;
+            font-size: 16px;
+        ">Escanear Código de Barras</button>
+
+
         <h2>Inventario de Productos</h2>
         <table border="1" cellspacing="0" cellpadding="5">
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Descripción</th>
+                <th>Descuento</th>
                 <th>Lote</th>
                 <th>Cantidad</th>
                 <th>Almacén</th>
@@ -71,28 +80,20 @@ $proveedores = $conexion->query("SELECT Nomb_Prov FROM proveedor");
         </table>
     </main>
 
-    <button onclick="mostrarEscaner()" style="
-        display: block;
-        margin: 20px auto;
-        padding: 10px 20px;
-        font-size: 16px;
-    ">Escanear Código de Barras con la camara</button>
-
-
-    <!-- Contenedor del escáner (temporal, ya que se ve feo jajaja)-->
+    <!-- Contenedor del escáner (temporal, ya que se ve feo jajaja, solo dalta darle diseño)-->
     <div id="escaneoCont" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:#000000c2; z-index:999;">
         <div id="lector" style="width:100%; height:60%; margin:auto;"></div>
         <button onclick="cerrarEscaner()" style="position:absolute; top:10px; right:10px;">Cerrar</button>
     </div>
 
-    <!-- Modal para completar datos -->
+    <!-- Ventana modal para el formulario -->
     <div id="modalForm" style="display:none; position:fixed; top:10%; left:30%; background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
         <h3>Registrar Nuevo Producto</h3>
         <form id="productoForm" action="../server/p_codigoBarras.php" method="POST">
             <input type="hidden" name="ID_Prod" id="ID_Prod">
 
             <label>Nombre:</label><input type="text" name="Nomb_Prod" required><br>
-            <label>Descripción:</label><input type="text" name="Desc_Prod" maxlength="3" required><br>
+            <label>Descuento:</label><input type="text" name="Desc_Prod" maxlength="3" required><br>
             <label>Lote:</label><input type="text" name="Lote_Prod" maxlength="6" required><br>
             <label>Cantidad:</label><input type="number" name="Cant_Disp_Prod" required><br>
 
@@ -148,6 +149,15 @@ $proveedores = $conexion->query("SELECT Nomb_Prov FROM proveedor");
             <button type="submit">Guardar Producto</button>
             <button type="button" onclick="cerrarForm()">Cancelar</button>
         </form>
+    </div>
+
+    <!-- Ventana modal para selección de escaneo -->
+    <div id="modalEscaneo" style="display:none; position:fixed; top:20%; left:35%; background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
+        <h3>Pase el producto para su escaneo</h3>
+        <div style="margin-top: 20px;">
+            <button onclick="mostrarEscaner()">O escanear con la cámara</button>
+            <button onclick="cerrarModalEscaneo()" style="margin-left: 10px;">Cancelar</button>
+        </div>
     </div>
     <script src="js/script.js"></script>
 </body>
