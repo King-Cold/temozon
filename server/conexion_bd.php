@@ -4,6 +4,13 @@ $usuario = "root";        // Usuario de MySQL (por defecto "root" en XAMPP)
 $clave = "1234";              // Contraseña (por defecto vacío en XAMPP)
 $base_datos = "temozon"; // Reemplázalo con el nombre real de tu base de datos
 
+/*
+$servidor = "sql211.infinityfree.com"; 
+$usuario = "if0_38412147";        
+$clave = "hbht1YUBmA";             
+$base_datos = "if0_38412147_temozon"; 
+*/ 
+
 // Crear conexión
 $conexion = new mysqli($servidor, $usuario, $clave, $base_datos);
 $conexion->set_charset("utf8");
