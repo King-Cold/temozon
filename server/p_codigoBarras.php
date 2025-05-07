@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //Recolectar datos del formulario
     $id_producto = $_POST['ID_Prod'];
     $nombre = $_POST['Nomb_Prod'];
-    $descripcion = $_POST['Desc_Prod'];
+    $descuento = $_POST['Desc_Prod'];
     $lote = $_POST['Lote_Prod'];
     $cantidad = $_POST['Cant_Disp_Prod'];
     $almacen_id = $_POST['ID_Almacen'];
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         "ssssisddssis",
         $id_producto,
         $nombre,
-        $descripcion,
+        $descuento,
         $lote,
         $cantidad,
         $almacen_id,
