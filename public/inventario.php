@@ -24,6 +24,103 @@ $proveedores = $conexion->query("SELECT Nomb_Prov FROM proveedor");
     <title>Inventario</title>
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script> 
+
+    <style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f4f6f8;
+        margin: 0;
+        padding: 20px;
+    }
+
+    main#main {
+        padding: 20px;
+    }
+
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        box-shadow: 0 0 0 2px #000000; /* margen exterior morado */
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    table th, table td {
+        padding: 12px 15px;
+        text-align: center;
+        border: 1px solid #ccc;
+    }
+
+    table th {
+        background-color:rgb(0, 5, 8); /* azul fuerte */
+        color: #ffffff;
+        font-weight: 600;
+    }
+
+    table tr:nth-child(even) {
+        background-color:rgb(255, 255, 255); /* morado muy clarito para filas pares */
+    }
+
+    table tr:nth-child(odd) {
+        background-color:rgb(213, 224, 231); /* azul clarito para filas impares */
+    }
+
+    table tr:hover {
+        background-color: #c5cae9; /* hover azul-morado suave */
+    }
+
+    table td {
+        color: #333;
+        font-size: 14px;
+    }
+
+    button {
+        background-color: #5e35b1;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #4527a0;
+    }
+
+    #escaneoCont {
+        display: none;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #000000cc;
+        z-index: 999;
+    }
+
+    #lector {
+        width: 80%;
+        height: 60%;
+        margin: 50px auto;
+        background: #000;
+        border-radius: 8px;
+    }
+
+    #escaneoCont button {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+
+ 
+    </style>
 </head>
 <body>
     <?php include 'header.php'; ?>

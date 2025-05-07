@@ -14,11 +14,11 @@
     </div>
     <div class="right">
         <a href="#" class="icons-header">
-            <img src="../Icons/warning-svgrepo-com.svg" alt="notificacion">
+            <img src="../Icons/notification_11511750.png" alt="notificacion">
         </a>
         <a href="#" class="icons-header">
             <img src="../Icons/logout-2-svgrepo-com.svg" alt="salida">
         </a>
-        <img src="../Icons/user-svgrepo-com.svg" alt="img-user" class="user">
+        <img src="../Icons/call-center_7381686.png" alt="img-user" class="user">
     </div>
 </header>

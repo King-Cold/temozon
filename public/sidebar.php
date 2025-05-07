@@ -14,25 +14,25 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="envios.php">
                     <img src="../Icons/lorry-svgrepo-com.svg" alt="Envios">
                     <span>ENVIOS</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="pedios.php">
                     <img src="../Icons/list-check-svgrepo-com.svg" alt="Pedidos">
                     <span>PEDIDOS</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="proveedores.php">
                     <img src="../Icons/building-user-svgrepo-com.svg" alt="Proveedores">
                     <span>PROVEEDORES</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="usuarios.php">
                     <img src="../Icons/users-group-svgrepo-com.svg" alt="Usuarios">
                     <span>USUARIOS</span>
                 </a>
