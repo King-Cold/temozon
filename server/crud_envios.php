@@ -26,19 +26,34 @@ $envio = $resultado->fetch_assoc();
 
 // Procesar formulario
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $estado = $_POST['estado'];
-    $fecha_envio = $_POST['fecha_envio'];
-    $fecha_recibo = $_POST['fecha_recibo'];
+    if (isset($_POST['eliminar'])) {
+        // Eliminar el envío
+        $sqlDelete = "DELETE FROM envios WHERE ID_Envio = ?";
+        $stmtDelete = $conexion->prepare($sqlDelete);
+        $stmtDelete->bind_param("i", $id);
 
-    $sqlUpdate = "UPDATE envios SET Estado_de_Envio = ?, Fecha_Envio = ?, Fecha_Recibo = ? WHERE ID_Envio = ?";
-    $stmtUpdate = $conexion->prepare($sqlUpdate);
-    $stmtUpdate->bind_param("sssi", $estado, $fecha_envio, $fecha_recibo, $id);
-
-    if ($stmtUpdate->execute()) {
-        header("Location: envios.php");
-        exit;
+        if ($stmtDelete->execute()) {
+            header("Location: ../public/envios.php");
+            exit;
+        } else {
+            echo "Error al eliminar el envío.";
+        }
     } else {
-        echo "Error al actualizar.";
+        // Actualizar el envío
+        $estado = $_POST['estado'];
+        $fecha_envio = $_POST['fecha_envio'];
+        $fecha_recibo = $_POST['fecha_recibo'];
+
+        $sqlUpdate = "UPDATE envios SET Estado_de_Envio = ?, Fecha_Envio = ?, Fecha_Recibo = ? WHERE ID_Envio = ?";
+        $stmtUpdate = $conexion->prepare($sqlUpdate);
+        $stmtUpdate->bind_param("sssi", $estado, $fecha_envio, $fecha_recibo, $id);
+
+        if ($stmtUpdate->execute()) {
+            header("Location: ../public/envios.php");
+            exit;
+        } else {
+            echo "Error al actualizar.";
+        }
     }
 }
 ?>
@@ -47,19 +62,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Editar Envío</title>
+    <title>Editar o Eliminar Envío</title>
     <style>
         body { font-family: sans-serif; background: #f4f6f8; padding: 20px; }
         form { background: #fff; padding: 20px; border-radius: 8px; max-width: 500px; margin: auto; }
         label { display: block; margin-top: 10px; }
         input, select { width: 100%; padding: 8px; margin-top: 5px; }
-        button { margin-top: 20px; padding: 10px 20px; background: #1976d2; color: #fff; border: none; border-radius: 6px; }
-        button:hover { background: #125ea6; }
+        button { margin-top: 20px; padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; }
+        .guardar { background: #1976d2; color: #fff; }
+        .guardar:hover { background: #125ea6; }
+        .eliminar { background: #d32f2f; color: #fff; margin-left: 10px; }
+        .eliminar:hover { background: #a31818; }
     </style>
 </head>
 <body>
 
-<h2 style="text-align:center;">Editar Envío #<?php echo $id; ?></h2>
+<h2 style="text-align:center;">Editar o Eliminar Envío #<?php echo $id; ?></h2>
 
 <form method="POST">
     <label>Estado de Envío:</label>
@@ -76,7 +94,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <label>Fecha de Recibo:</label>
     <input type="date" name="fecha_recibo" value="<?php echo $envio['Fecha_Recibo']; ?>">
 
-    <button type="submit">Guardar Cambios</button>
+    <div style="display: flex; justify-content: center;">
+        <button type="submit" class="guardar">Guardar Cambios</button>
+        <button type="submit" name="eliminar" value="1" class="eliminar" onclick="return confirm('¿Estás seguro de eliminar este envío?');">Eliminar Envío</button>
+    </div>
 </form>
 
 </body>

@@ -127,8 +127,11 @@ $resultado = $conexion->query($sql);
                 <td>" . htmlspecialchars($fila["Email"]) . "</td>
                 <td>" . htmlspecialchars($fila["Contraseña"]) . "</td>
                 <td>
-                    <a class='btn btn-edit' href='editar_Usuario.php?id=" . $fila["ID_Usuario"] . "'>Modificar</a>
-                    <a class='btn btn-delete' href='eliminar_Usuario.php?id=" . $fila["ID_Usuario"] . "' onclick=\"return confirm('¿Seguro que deseas eliminar este envío?');\">Eliminar</a>
+                    <a class='btn btn-edit' href='../server/crud_user.php?id=" . $fila["ID_Usuario"] . "'>Modificar</a>
+                    <form method='POST' action='../server/crud_user.php?id=" . $fila["ID_Usuario"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar este envío?');\">
+                        <input type='hidden' name='eliminar' value='1'>
+                        <button type='submit' class='btn btn-delete'>Eliminar</button>
+                    </form>
                 </td>
             </tr>";
         }

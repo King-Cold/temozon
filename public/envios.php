@@ -124,8 +124,11 @@ $resultado = $conexion->query($sql);
                 <td>" . htmlspecialchars($fila["Fecha_Envio"]) . "</td>
                 <td>" . ($fila["Fecha_Recibo"] ? htmlspecialchars($fila["Fecha_Recibo"]) : 'Pendiente') . "</td>
                 <td>
-                    <a class='btn btn-edit' href='editar_envio.php?id=" . $fila["ID_Envio"] . "'>Modificar</a>
-                    <a class='btn btn-delete' href='eliminar_envio.php?id=" . $fila["ID_Envio"] . "' onclick=\"return confirm('¿Seguro que deseas eliminar este envío?');\">Eliminar</a>
+                    <a class='btn btn-edit' href='../server/crud_envios.php?id=" . $fila["ID_Envio"] . "'>Modificar</a>
+                    <form method='POST' action='../server/crud_envios.php?id=" . $fila["ID_Envio"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar este envío?');\">
+                        <input type='hidden' name='eliminar' value='1'>
+                        <button type='submit' class='btn btn-delete'>Eliminar</button>
+                    </form>
                 </td>
             </tr>";
         }
