@@ -24,18 +24,22 @@
 | Empleado Auxilar    | ✅            |               |
 
 ### ENVIOS 
-> Solo lo ve Encargado de Bodega y Empleado Auxilar
+> Todos lo ven
 
 | ROL                 | SOLO LECTURA | CRUD completo |
 | ------------------- | ------------ | ------------- |
-| Encargado de Bodega |              | ✅             |
-| Empleado Auxilar    | ✅            |               |
+| Administrador       | ✅           |               |
+| Gerente             | ✅           |               |
+| Encargado de Bodega |              | ✅            |
+| Empleado Auxilar    | ✅           |               |
 
 ### PEDIDOS
-> Solo lo ve Encargado de Bodega y Empleado Auxilar
+> Todos lo ven
 
 | ROL                 | SOLO LECTURA | CRUD completo |
 | ------------------- | ------------ | ------------- |
+| Administrador       | ✅           |               |
+| Gerente             | ✅           |               |
 | Encargado de Bodega |              | ✅             |
 | Empleado Auxilar    | ✅            |               |
 
@@ -61,6 +65,6 @@
 
 | ROL                 | SOLO LECTURA | CRUD completo |
 | ------------------- | ------------ | ------------- |
-| Encargado de Bodega |              | ✅           |
-| Gerente             | ✅           |              |
+| Encargado de Bodega | ✅           |               |
+| Gerente             |              |  ✅           |
 

@@ -16,7 +16,7 @@ require_once '../server/permisos.php';
                     <span>INVENTARIO</span>
                 </a>
             </li>
-            <?php if (tienePermiso(['Encargado de Bodega', 'Empleado Auxilar'])): ?>
+            <?php if (tienePermiso(['Administrador', 'Gerente', 'Encargado de Bodega', 'Empleado Auxilar'])): ?>
             <li>
                 <a href="envios.php">
                     <img src="../Icons/lorry-svgrepo-com.svg" alt="Envios">
