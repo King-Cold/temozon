@@ -55,7 +55,7 @@ $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Invitado';
     <?php include 'sidebar.php'; ?>
 
     <main id="main">
-        <h1>Bienvenido, <?php echo htmlspecialchars($nombreUsuario); ?>!</h1>
+        <h1>Bienvenid@, <?php echo htmlspecialchars($nombreUsuario); ?>!</h1>
         <h2>Nos alegra tenerte de vuelta</h2>
         <div class="reloj" id="horaActual"></div>
 

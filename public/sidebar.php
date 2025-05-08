@@ -1,3 +1,6 @@
+<?php
+require_once '../server/permisos.php';
+?>
 <div class="sidebar" id="sidebar">
     <nav>
         <ul>
@@ -13,6 +16,7 @@
                     <span>INVENTARIO</span>
                 </a>
             </li>
+            <?php if (tienePermiso(['Encargado de Bodega', 'Empleado Auxilar'])): ?>
             <li>
                 <a href="envios.php">
                     <img src="../Icons/lorry-svgrepo-com.svg" alt="Envios">
@@ -25,18 +29,29 @@
                     <span>PEDIDOS</span>
                 </a>
             </li>
+            <?php endif; ?>
             <li>
                 <a href="proveedores.php">
                     <img src="../Icons/building-user-svgrepo-com.svg" alt="Proveedores">
                     <span>PROVEEDORES</span>
                 </a>
             </li>
+            <?php if (tienePermiso(['Administrador'])): ?>
             <li>
                 <a href="usuarios.php">
                     <img src="../Icons/users-group-svgrepo-com.svg" alt="Usuarios">
                     <span>USUARIOS</span>
                 </a>
             </li>
+            <?php endif; ?>
+            <?php if (tienePermiso(['Gerente', 'Encargado de Bodega'])): ?>
+            <li>
+                <a href="clientes.php">
+                    <img src="../Icons/users-group-svgrepo-com.svg" alt="Clientes">
+                    <span>Clientes</span>
+                </a>
+            </li>
+            <?php endif; ?>
         </ul>
     </nav>
 </div>

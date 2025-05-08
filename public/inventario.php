@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../server/conexion_bd.php'; 
+require_once '../server/permisos.php';
 
 // Consulta principal del inventario
 $sql = "SELECT p.ID_Prod, p.Nomb_Prod, p.Desc_Prod, p.Lote_Prod, p.Cant_Disp_Prod, 
@@ -125,16 +126,18 @@ $proveedores = $conexion->query("SELECT Nomb_Prov FROM proveedor");
 <body>
     <?php include 'header.php'; ?>
     <?php include 'sidebar.php'; ?>
-    
-    <!-- El boton :O-->
+
     <main id="main">
+
+        <?php if (tienePermiso(['Encargado de Bodega','Gerente'])): ?>
+        <!-- El boton :O-->
         <button onclick="ventanaEscaneo()" style="
             display: block;
             margin: 5px auto 1px;
             padding: 10px 20px;
             font-size: 16px;
         ">Escanear Código de Barras</button>
-
+        <?php endif; ?>
 
         <h2>Inventario de Productos</h2>
         <table border="1" cellspacing="0" cellpadding="5">

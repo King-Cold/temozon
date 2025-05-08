@@ -113,7 +113,9 @@ $resultado = $conexion->query($sql);
         <th>Estado</th>
         <th>Fecha de Envío</th>
         <th>Fecha de Recibo</th>
+        <?php if (tienePermiso(['Encargado de Bodega'])): ?>
         <th>Acciones</th>
+        <?php endif; ?>
     </tr>
     <?php
     if ($resultado && $resultado->num_rows > 0) {
@@ -122,15 +124,17 @@ $resultado = $conexion->query($sql);
                 <td>" . htmlspecialchars($fila["ID_Envio"]) . "</td>
                 <td>" . htmlspecialchars($fila["Estado_de_Envio"]) . "</td>
                 <td>" . htmlspecialchars($fila["Fecha_Envio"]) . "</td>
-                <td>" . ($fila["Fecha_Recibo"] ? htmlspecialchars($fila["Fecha_Recibo"]) : 'Pendiente') . "</td>
-                <td>
+                <td>" . ($fila["Fecha_Recibo"] ? htmlspecialchars($fila["Fecha_Recibo"]) : 'Pendiente') . "</td>";
+            
+            if (tienePermiso(['Encargado de Bodega'])) {
+                echo "<td>
                     <a class='btn btn-edit' href='../server/crud_envios.php?id=" . $fila["ID_Envio"] . "'>Modificar</a>
                     <form method='POST' action='../server/crud_envios.php?id=" . $fila["ID_Envio"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar este envío?');\">
                         <input type='hidden' name='eliminar' value='1'>
                         <button type='submit' class='btn btn-delete'>Eliminar</button>
                     </form>
-                </td>
-            </tr>";
+                </td>";
+            }
         }
     } else {
         echo "<tr><td colspan='5'>No hay registros de envíos.</td></tr>";
