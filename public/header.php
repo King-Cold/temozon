@@ -16,7 +16,7 @@
         <a href="#" class="icons-header">
             <img src="../Icons/notification_11511750.png" alt="notificacion">
         </a>
-        <a href="#" class="icons-header">
+        <a href="../server/logout.php" class="icons-header">
             <img src="../Icons/logout-2-svgrepo-com.svg" alt="salida">
         </a>
         <img src="../Icons/call-center_7381686.png" alt="img-user" class="user">
