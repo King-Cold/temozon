@@ -15,19 +15,25 @@ $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Invitado';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pantalla de Inicio</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg,#662952,rgb(17, 11, 105));
-            color: #f5f5f5;
+            background-image: url("../Icons/221.gif"); /* Ruta de tu imagen de fondo */
+            color:rgb(0, 0, 0);
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+        background-size: cover;
+    background-position:bottom;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
         }
         main#main {
-            padding: 40px;
+            padding: 15px;
             text-align: center;
             flex: 1;
         }
@@ -37,17 +43,17 @@ $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Invitado';
         }
         h2 {
             font-size: 28px;
-            margin-bottom: 30px;
+            margin-bottom: 0px;
         }
         .reloj {
             font-size: 24px;
             margin-top: 20px;
-            color: #cfd8dc;
+            color:rgb(0, 0, 0);
         }
         p {
             font-size: 20px;
             margin-top: 50px;
-            color: #eceff1;
+            color:rgb(0, 0, 0);
         }
     </style>
 </head>

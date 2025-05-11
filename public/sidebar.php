@@ -52,6 +52,15 @@ require_once '../server/permisos.php';
                 </a>
             </li>
             <?php endif; ?>
+            <?php if (tienePermiso(['Administrador', 'Gerente', 'Encargado de Bodega', 'Empleado Auxilar'])): ?>
+            <li>
+                <a href="clientes.php">
+                    <img src="../Icons/contentment-customer-feedback-svgrepo-com.svg" alt="Envios">
+                    <span>CLIENTES</span>
+                </a>
+            </li>
+            <?php endif; ?>
+            
         </ul>
     </nav>
 </div>
