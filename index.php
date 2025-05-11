@@ -8,6 +8,9 @@ include("server/controlador.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="public/css/estilos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <style>
         .ver-password {
             cursor: pointer;
@@ -21,7 +24,7 @@ include("server/controlador.php");
         </div>
         <div class="login-right">
             <div class="login-box">
-                <img src="icons/icono.png" alt="Usuario" class="avatar">
+                <img src="icons/gatito.png" alt="Usuario" class="avatar">
                 <h2>BIENVENIDO</h2>
 
                 <!-- Mostrar mensaje de error -->
@@ -44,10 +47,12 @@ include("server/controlador.php");
                         <input type="text" id="usuario" placeholder="Ingrese su usuario" name="usuario">
                     </div>
                     <div class="input-group password-group">
-                        <label for="password">Contraseña</label>
-                        <input type="password" id="password" placeholder="Ingrese su contraseña" name="contraseña">
-                        <span class="ver-password">👁</span>
-                    </div>
+    <label for="password">Contraseña</label>
+    <input type="password" id="password" placeholder="Ingrese su contraseña" name="contraseña">
+    <span class="ver-password" onclick="togglePassword()">
+        <img id="eyeIcon" src="Icons/ojo.png" alt="Ver contraseña" width="20" height="20">
+    </span>
+</div>
                     <a href="#" class="olvide">Olvidé mi contraseña</a>
                     <button type="submit" name="btningresar">INICIAR SESIÓN</button>
                 </form>
@@ -56,12 +61,18 @@ include("server/controlador.php");
     </div>
 
     <script>
-        const eyeIcon = document.querySelector('.ver-password');
-        const passwordInput = document.getElementById('password');
+function togglePassword() {
+    const passwordInput = document.getElementById("password");
+    const eyeIcon = document.getElementById("eyeIcon");
 
-        eyeIcon.addEventListener('click', () => {
-            passwordInput.type = passwordInput.type === 'password' ? 'text' : 'password';
-        });
-    </script>
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.src = "Icons/ciego.png"; // Cambia a ícono de ojo cerrado
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.src = "Icons/ojo.png"; // Vuelve al ícono de ojo abierto
+    }
+}
+</script>
 </body>
 </html>
