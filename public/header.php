@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="right">
-        <a href="#" class="icons-header">
+        <a href="../server/notificaciones.php" class="icons-header">
             <img src="../Icons/notification_11511750.png" alt="notificacion">
         </a>
         <a href="../server/logout.php" class="icons-header">
