@@ -1,48 +1,4 @@
-<?php
-// Mostrar errores para depurar
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
 
-require_once 'conexion_bd.php';
-
-echo "<p>⚙️ Entrando al script...</p>";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    echo "<p>📨 Método POST detectado</p>";
-
-    if (isset($_POST['guardar_todos'])) {
-        echo "<p>✅ Botón 'guardar_todos' detectado</p>";
-
-        if (isset($_POST['descuentos']) && is_array($_POST['descuentos'])) {
-            $descuentos = $_POST['descuentos'];
-
-            foreach ($descuentos as $id => $nuevo_descuento) {
-                $id = (int)$id;
-                $nuevo_descuento = (int)$nuevo_descuento;
-
-                $stmt = $conexion->prepare("UPDATE productos SET Desc_Prod = ? WHERE ID_Prod = ?");
-                if ($stmt) {
-                    $stmt->bind_param("ii", $nuevo_descuento, $id);
-                    $stmt->execute();
-                    $stmt->close();
-                    echo "<p>✔️ Producto ID $id actualizado a $nuevo_descuento%</p>";
-                } else {
-                    echo "<p style='color:red;'>❌ Error al preparar la sentencia para el producto $id</p>";
-                }
-            }
-
-            echo "<p style='color:green;'>✅ Todos los descuentos han sido actualizados.</p>";
-        } else {
-            echo "<p style='color:red;'>❌ No se recibieron datos de descuentos.</p>";
-        }
-
-        // Opcional: redirige para evitar reenvío (comenta esto mientras depuras)
-        // header("Location: " . $_SERVER['PHP_SELF']);
-        // exit;
-    }
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -98,7 +54,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-size: 22px;
             color: #3f51b5;
             margin-bottom: 15px;
-            border-bottom: 2px solid rgb(0, 0, 0);
             padding-bottom: 5px;
             text-align: center;
         }
@@ -122,8 +77,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <div class="tabla-formal">
     <h2>Productos próximos a caducar</h2>
-
-    <form method="POST">
         <table>
             <tr>
                 <th>ID</th>
@@ -132,8 +85,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <th>Fecha Caducidad</th>
             </tr>
             <?php
+session_start();
+require_once 'conexion_bd.php'; 
             $sql = "SELECT ID_Prod, Nomb_Prod, Desc_Prod, Fec_Cad FROM productos
-                    WHERE Fec_Cad BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 1000 DAY)
+                    WHERE Fec_Cad BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)
                     AND Prod_Estatus = 1
                     ORDER BY Fec_Cad ASC";
             $resultado = $conexion->query($sql);
@@ -143,9 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     echo "<tr>
                             <td>{$row['ID_Prod']}</td>
                             <td>{$row['Nomb_Prod']}</td>
-                            <td>
-                                <input type='number' name='descuentos[{$row['ID_Prod']}]' value='{$row['Desc_Prod']}' min='0' max='100'>
-                            </td>
+                            <td>{$row['Desc_Prod']}</td>
                             <td>{$row['Fec_Cad']}</td>
                           </tr>";
                 }
@@ -155,11 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $conexion->close();
             ?>
-        </table><br>
-        <div style="text-align: center;">
-            <button type="submit" name="guardar_todos">Guardar todos</button>
-        </div>
-    </form>
+        </table>
 </div>
 
 </body>
