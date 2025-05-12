@@ -13,11 +13,14 @@
 
         .tabla-formal table {
             border-collapse: collapse;
-            width: 100%;
+                    
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             overflow: hidden;
             border-radius: 8px;
-        }
+             width: 90%;
+    margin: 0 auto; /* Para centrarla */
+}
+        
 
         .tabla-formal th {
             background-color: #3f51b5;
@@ -58,19 +61,7 @@
             text-align: center;
         }
 
-        .tabla-formal button {
-            padding: 5px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-        }
 
-        .tabla-formal button:hover {
-            background-color: #45a049;
-        }
     </style>
 </head>
 <body>
@@ -81,14 +72,14 @@
             <tr>
                 <th>ID</th>
                 <th>Nombre</th>
-                <th>Descuento (%)</th>
+                <th>Cantidad</th>
                 <th>Fecha Caducidad</th>
             </tr>
             <?php
 session_start();
 require_once 'conexion_bd.php'; 
-            $sql = "SELECT ID_Prod, Nomb_Prod, Desc_Prod, Fec_Cad FROM productos
-                    WHERE Fec_Cad BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 7 DAY)
+            $sql = "SELECT ID_Prod, Nomb_Prod, Cant_Disp_Prod, Fec_Cad FROM productos
+                    WHERE Fec_Cad BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 100 DAY)
                     AND Prod_Estatus = 1
                     ORDER BY Fec_Cad ASC";
             $resultado = $conexion->query($sql);
@@ -98,7 +89,7 @@ require_once 'conexion_bd.php';
                     echo "<tr>
                             <td>{$row['ID_Prod']}</td>
                             <td>{$row['Nomb_Prod']}</td>
-                            <td>{$row['Desc_Prod']}</td>
+                            <td>{$row['Cant_Disp_Prod']}</td>
                             <td>{$row['Fec_Cad']}</td>
                           </tr>";
                 }
