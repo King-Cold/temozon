@@ -39,7 +39,7 @@ $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Invitado';
         }
         h1 {
             font-size: 48px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         h2 {
             font-size: 28px;
