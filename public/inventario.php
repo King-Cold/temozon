@@ -253,7 +253,7 @@ $proveedores = $conexion->query("SELECT ID_Prov FROM proveedor");
 
     <!-- Ventana modal para selección de escaneo -->
     <div id="modalEscaneo" style="display:none; position:fixed; top:20%; left:35%; background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
-        <h3>Pase el producto para su escaneo</h3>
+        <h3>Checar producteishon</h3>
         <div style="margin-top: 20px;">
             <button onclick="mostrarEscaner()">O escanear con la cámara</button>
             <button onclick="cerrarModalEscaneo()" style="margin-left: 10px;">Cancelar</button>

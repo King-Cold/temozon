@@ -73,7 +73,7 @@ function ventanaEscaneo() {
         const currentTime = Date.now();
         const timeDiff = currentTime - lastKeyTime;
 
-        if (timeDiff > 100) buffer = '';
+        if (timeDiff > 250) buffer = '';
         lastKeyTime = currentTime;
 
         if (e.key !== 'Enter') {
@@ -88,6 +88,7 @@ function ventanaEscaneo() {
                 input.value = codigo;
 
                 document.getElementById('modalForm').style.display = 'block';
+                console.log("Cerrando modalEscaneo...");
                 document.getElementById('modalEscaneo').style.display = 'none';
                 input.focus();
 
