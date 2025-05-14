@@ -4,18 +4,20 @@ require_once '../server/conexion_bd.php';
 require_once '../server/permisos.php';
 
 // Consulta principal del inventario
-$sql = "SELECT p.ID_Prod, p.Nomb_Prod, p.Desc_Prod, p.Lote_Prod, p.Cant_Disp_Prod, 
-               a.Direccion_Alm AS Almacen, p.Prec_Comp, p.Prec_vent, p.Nombre_Prov, 
+$sql = "SELECT p.ID_Prod, p.Nomb_Prod, p.Desc_Prod, p.Cant_Disp_Prod, 
+               a.Direccion_Alm AS Almacen, p.Prec_Comp, p.Prec_vent, pr.Nomb_Prov, 
                c.Categoria_Nombre, p.Prod_Estatus, p.Fec_Cad
         FROM productos p
         LEFT JOIN almacen a ON p.ID_Almacen = a.ID_Almacen
-        LEFT JOIN categoria c ON p.ID_Categoria = c.ID_Categoria";
+        LEFT JOIN categoria c ON p.ID_Categoria = c.ID_Categoria
+        LEFT JOIN proveedor pr ON p.ID_Prov = pr.ID_Prov";
+
 $resultado = $conexion->query($sql);
 
 // Consultas para selects en el formulario
 $almacenes = $conexion->query("SELECT ID_Almacen FROM almacen");
 $categorias = $conexion->query("SELECT ID_Categoria, Categoria_Nombre FROM categoria");
-$proveedores = $conexion->query("SELECT Nomb_Prov FROM proveedor");
+$proveedores = $conexion->query("SELECT ID_Prov FROM proveedor");
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -40,7 +42,7 @@ $proveedores = $conexion->query("SELECT Nomb_Prov FROM proveedor");
 
     h2 {
         text-align: center;
-        color: #333;
+        color: #4527a0;
         margin-bottom: 20px;
     }
 
@@ -145,7 +147,6 @@ $proveedores = $conexion->query("SELECT Nomb_Prov FROM proveedor");
                 <th>ID</th>
                 <th>Nombre</th>
                 <th>Descuento</th>
-                <th>Lote</th>
                 <th>Cantidad</th>
                 <th>Almacén</th>
                 <th>Precio Compra</th>
@@ -162,12 +163,11 @@ $proveedores = $conexion->query("SELECT Nomb_Prov FROM proveedor");
                         <td>" . htmlspecialchars($fila["ID_Prod"]) . "</td>
                         <td>" . htmlspecialchars($fila["Nomb_Prod"]) . "</td>
                         <td>" . htmlspecialchars($fila["Desc_Prod"]) . "</td>
-                        <td>" . htmlspecialchars($fila["Lote_Prod"]) . "</td>
                         <td>" . htmlspecialchars($fila["Cant_Disp_Prod"]) . "</td>
                         <td>" . htmlspecialchars($fila["Almacen"]) . "</td>
                         <td>$" . htmlspecialchars($fila["Prec_Comp"]) . "</td>
                         <td>$" . htmlspecialchars($fila["Prec_vent"]) . "</td>
-                        <td>" . htmlspecialchars($fila["Nombre_Prov"]) . "</td>
+                        <td>" . htmlspecialchars($fila["Nomb_Prov"]) . "</td>
                         <td>" . htmlspecialchars($fila["Categoria_Nombre"]) . "</td>
                         <td>" . ($fila["Prod_Estatus"] ? 'Activo' : 'Inactivo') . "</td>
                         <td>" . htmlspecialchars($fila["Fec_Cad"]) . "</td>

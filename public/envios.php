@@ -3,7 +3,7 @@ session_start();
 require_once '../server/conexion_bd.php';
 
 // Consulta de los envíos
-$sql = "SELECT ID_Envio, Estado_de_Envio, Fecha_Envio, Fecha_Recibo FROM envios";
+$sql = "SELECT ID_Envio, Estado_Envio,Maximo_Articulos, Fecha_Envio, Fecha_Recibo FROM envios";
 $resultado = $conexion->query($sql);
 ?>
 
@@ -111,6 +111,7 @@ $resultado = $conexion->query($sql);
     <tr>
         <th>ID Envío</th>
         <th>Estado</th>
+        <th>Maximo de Pedidos </th>
         <th>Fecha de Envío</th>
         <th>Fecha de Recibo</th>
         <?php if (tienePermiso(['Encargado de Bodega'])): ?>
@@ -122,7 +123,8 @@ $resultado = $conexion->query($sql);
         while ($fila = $resultado->fetch_assoc()) {
             echo "<tr>
                 <td>" . htmlspecialchars($fila["ID_Envio"]) . "</td>
-                <td>" . htmlspecialchars($fila["Estado_de_Envio"]) . "</td>
+                <td>" . htmlspecialchars($fila["Estado_Envio"]) . "</td>
+                <td>" . htmlspecialchars($fila["Maximo_Articulos"]) . "</td>
                 <td>" . htmlspecialchars($fila["Fecha_Envio"]) . "</td>
                 <td>" . ($fila["Fecha_Recibo"] ? htmlspecialchars($fila["Fecha_Recibo"]) : 'Pendiente') . "</td>";
             

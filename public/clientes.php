@@ -3,7 +3,7 @@ session_start();
 require_once '../server/conexion_bd.php';
 
 // Consulta de los envíos
-$sql = "SELECT ID_Prov, Nomb_Prov, Telefono_Prov, Tipo_Prov,Manejo_Camb, Direccion_Prov FROM  proveedor";
+$sql = "SELECT ID_Cliente, Nombre_Cliente, Apellido_Cliente, Direc_Cliente,Telef_Cliente FROM  cliente";
 $resultado = $conexion->query($sql);
 ?>
 
@@ -12,7 +12,7 @@ $resultado = $conexion->query($sql);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Proveedores </title>
+    <title> Clientes </title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
         body {
@@ -106,27 +106,25 @@ $resultado = $conexion->query($sql);
     <?php include 'sidebar.php'; ?>
 
     <main id="main">
-        <h2>proveedores</h2>
+        <h2>Clientes</h2>
         <table>
     <tr>
-        <th>ID Proveedor</th>
+        <th>ID Cliente</th>
         <th>Nombre</th>
-        <th>Telefono</th>
-        <th>Tipo</th>
-        <th>Maneja Cambio</th>
+        <th>Apellido</th>
         <th>Dirección</th>
+        <th>Telefono</th>
 
     </tr>
     <?php
     if ($resultado && $resultado->num_rows > 0) {
         while ($fila = $resultado->fetch_assoc()) {
             echo "<tr>
-                <td>" . htmlspecialchars($fila["ID_Prov"]) . "</td>
-                <td>" . htmlspecialchars($fila["Nomb_Prov"]) . "</td>
-                <td>" . htmlspecialchars($fila["Telefono_Prov"]) . "</td>
-                <td>" . htmlspecialchars($fila["Tipo_Prov"]) . "</td>
-                <td>" . htmlspecialchars($fila["Manejo_Camb"]) . "</td>
-                <td>" . htmlspecialchars($fila["Direccion_Prov"]) . "</td>
+                <td>" . htmlspecialchars($fila["ID_Cliente"]) . "</td>
+                <td>" . htmlspecialchars($fila["Nombre_Cliente"]) . "</td>
+                <td>" . htmlspecialchars($fila["Apellido_Cliente"]) . "</td>
+                <td>" . htmlspecialchars($fila["Direc_Cliente"]) . "</td>
+                <td>" . htmlspecialchars($fila["Telef_Cliente"]) . "</td>
             </tr>";
         }
     } else {
