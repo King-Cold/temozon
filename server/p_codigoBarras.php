@@ -6,12 +6,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_producto = $_POST['ID_Prod'];
     $nombre = $_POST['Nomb_Prod'];
     $descuento = $_POST['Desc_Prod'];
-    $lote = $_POST['Lote_Prod'];
+    $descripcion_id = $_POST['ID_Descrip'];
     $cantidad = $_POST['Cant_Disp_Prod'];
     $almacen_id = $_POST['ID_Almacen'];
     $precio_compra = $_POST['Prec_Comp'];
     $precio_venta = $_POST['Prec_vent'];
-    $proveedor = $_POST['Nombre_Prov'];
+    $proveedor_id = $_POST['ID_Prov'];
     $categoria_id = $_POST['ID_Categoria'];
     $estatus = isset($_POST['Prod_Estatus']) ? $_POST['Prod_Estatus'] : 1;
     $fecha_caducidad = $_POST['Fec_Cad'];
@@ -40,8 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Por si falla el invento de las claves foraneas de la tabla productos (no tan necesario)
-    if (!registroExiste($conexion, 'proveedor', 'Nomb_Prov', $proveedor)) {
-        mostrarError("El proveedor '$proveedor' no existe.");
+    if (!registroExiste($conexion, 'proveedor', 'ID_Prov', $proveedor_id)) {
+    mostrarError("El proveedor con ID '$proveedor_id' no existe.");
     }
 
     if (!registroExiste($conexion, 'almacen', 'ID_Almacen', $almacen_id)) {
@@ -59,11 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insertar el producto en la base de datos
     $sql = "INSERT INTO productos (
-                ID_Prod, Nomb_Prod, Desc_Prod, Lote_Prod, Cant_Disp_Prod,
-                ID_Almacen, Prec_Comp, Prec_vent, Nombre_Prov,
-                ID_Categoria, Prod_Estatus, Fec_Cad
+                ID_Prod, Nomb_Prod, ID_Descrip, Cant_Disp_Prod,
+                ID_Almacen, Prec_Comp, Prec_Vent, ID_Prov,
+                ID_Categoria, Prod_Estatus, Fec_Cad, Desc_Prod
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
     $stmt = $conexion->prepare($sql);
 
     if ($stmt === false) {
@@ -71,19 +70,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $stmt->bind_param(
-        "ssssisddssis",
+        "ssiiiddiiisi",
         $id_producto,
         $nombre,
-        $descuento,
-        $lote,
+        $descripcion_id,
         $cantidad,
         $almacen_id,
         $precio_compra,
         $precio_venta,
-        $proveedor,
+        $proveedor_id,
         $categoria_id,
         $estatus,
-        $fecha_caducidad
+        $fecha_caducidad,
+        $descuento
     );
 
     if ($stmt->execute()) {

@@ -4,20 +4,20 @@ require_once '../server/conexion_bd.php';
 require_once '../server/permisos.php';
 
 // Consulta principal del inventario
-$sql = "SELECT p.ID_Prod, p.Nomb_Prod, p.Desc_Prod, p.Cant_Disp_Prod, 
+$sql = "SELECT p.ID_Prod, p.Nomb_Prod, d.Descrip_Produc, p.Cant_Disp_Prod, 
                a.Direccion_Alm AS Almacen, p.Prec_Comp, p.Prec_vent, pr.Nomb_Prov, 
-               c.Categoria_Nombre, p.Prod_Estatus, p.Fec_Cad
+               c.Categoria_Nombre, p.Prod_Estatus, p.Fec_Cad, p.Desc_Prod
         FROM productos p
         LEFT JOIN almacen a ON p.ID_Almacen = a.ID_Almacen
         LEFT JOIN categoria c ON p.ID_Categoria = c.ID_Categoria
-        LEFT JOIN proveedor pr ON p.ID_Prov = pr.ID_Prov";
+        LEFT JOIN proveedor pr ON p.ID_Prov = pr.ID_Prov
+        LEFT JOIN descripcion_producto d ON p.ID_Descrip = d.ID_Descrip";
 
 $resultado = $conexion->query($sql);
 
 // Consultas para selects en el formulario
-$almacenes = $conexion->query("SELECT ID_Almacen FROM almacen");
-$categorias = $conexion->query("SELECT ID_Categoria, Categoria_Nombre FROM categoria");
-$proveedores = $conexion->query("SELECT ID_Prov FROM proveedor");
+
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -143,26 +143,32 @@ $proveedores = $conexion->query("SELECT ID_Prov FROM proveedor");
 
         <h2>Inventario de Productos</h2>
         <table border="1" cellspacing="0" cellpadding="5">
-            <tr>
-                <th>ID</th>
-                <th>Nombre</th>
-                <th>Descuento</th>
-                <th>Cantidad</th>
-                <th>Almacén</th>
-                <th>Precio Compra</th>
-                <th>Precio Venta</th>
-                <th>Proveedor</th>
-                <th>Categoría</th>
-                <th>Estatus</th>
-                <th>Fecha Caducidad</th>
-            </tr>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Almacén</th>
+            <th>Precio Compra</th>
+            <th>Precio Venta</th>
+            <th>Proveedor</th>
+            <th>Categoría</th>
+            <th>Estatus</th>
+            <th>Fecha Caducidad</th>
+            <th>Descuento (%)</th>
+            <th>Precio con Descuento</th>
+        </tr>
+
             <?php
             if ($resultado && $resultado->num_rows > 0) {
                 while ($fila = $resultado->fetch_assoc()) {
+                    $precioVenta = (float)$fila["Prec_vent"];
+                    $descuento = (int)$fila["Desc_Prod"];
+                    $precioConDescuento = $precioVenta * (1 - ($descuento / 100));
                     echo "<tr>
                         <td>" . htmlspecialchars($fila["ID_Prod"]) . "</td>
                         <td>" . htmlspecialchars($fila["Nomb_Prod"]) . "</td>
-                        <td>" . htmlspecialchars($fila["Desc_Prod"]) . "</td>
+                        <td>" . htmlspecialchars($fila["Descrip_Produc"]) . "</td>
                         <td>" . htmlspecialchars($fila["Cant_Disp_Prod"]) . "</td>
                         <td>" . htmlspecialchars($fila["Almacen"]) . "</td>
                         <td>$" . htmlspecialchars($fila["Prec_Comp"]) . "</td>
@@ -171,6 +177,8 @@ $proveedores = $conexion->query("SELECT ID_Prov FROM proveedor");
                         <td>" . htmlspecialchars($fila["Categoria_Nombre"]) . "</td>
                         <td>" . ($fila["Prod_Estatus"] ? 'Activo' : 'Inactivo') . "</td>
                         <td>" . htmlspecialchars($fila["Fec_Cad"]) . "</td>
+                        <td>" . htmlspecialchars($fila["Desc_Prod"]) . "</td>
+                        <td>$" . number_format($precioConDescuento, 2) . "</td>
                     </tr>";
                 }
             } else {
@@ -193,16 +201,30 @@ $proveedores = $conexion->query("SELECT ID_Prov FROM proveedor");
             <input type="hidden" name="ID_Prod" id="ID_Prod">
 
             <label>Nombre:</label><input type="text" name="Nomb_Prod" required><br>
-            <label>Descuento:</label><input type="text" name="Desc_Prod" maxlength="3" required><br>
-            <label>Lote:</label><input type="text" name="Lote_Prod" maxlength="6" required><br>
+            <label>Descuento (%):</label><input type="number" name="Desc_Prod" min="0" max="100" required><br>
+            <label>Descripción:</label>
+            <select name="ID_Descrip" required>
+                <?php
+                $descripciones = $conexion->query("SELECT ID_Descrip, Descrip_Produc FROM descripcion_producto");
+                if ($descripciones && $descripciones->num_rows > 0) {
+                    while ($d = $descripciones->fetch_assoc()) {
+                        echo '<option value="' . htmlspecialchars($d['ID_Descrip']) . '">' . htmlspecialchars($d['Descrip_Produc']) . '</option>';
+                    }
+                } else {
+                    echo '<option value="">No hay descripciones</option>';
+                }
+                ?>
+            </select><br>
+
             <label>Cantidad:</label><input type="number" name="Cant_Disp_Prod" required><br>
 
             <label>Almacén:</label>
             <select name="ID_Almacen" required>
                 <?php
+                $almacenes = $conexion->query("SELECT ID_Almacen, Direccion_Alm FROM almacen");
                 if ($almacenes && $almacenes->num_rows > 0) {
                     while ($a = $almacenes->fetch_assoc()) {
-                        echo '<option value="' . htmlspecialchars($a['ID_Almacen']) . '">' . htmlspecialchars($a['ID_Almacen']) . '</option>';
+                        echo '<option value="' . htmlspecialchars($a['ID_Almacen']) . '">' . htmlspecialchars($a['Direccion_Alm']) . '</option>';
                     }
                 } else {
                     echo '<option value="">No hay almacenes</option>';
@@ -211,13 +233,13 @@ $proveedores = $conexion->query("SELECT ID_Prov FROM proveedor");
             </select><br>
             <label>Precio Compra:</label><input type="number" step="0.01" name="Prec_Comp" required><br>
             <label>Precio Venta:</label><input type="number" step="0.01" name="Prec_vent" required><br>
-
             <label>Proveedor:</label>
-            <select name="Nombre_Prov" required>
+            <select name="ID_Prov" required>
                 <?php
+                $proveedores = $conexion->query("SELECT ID_Prov, Nomb_Prov FROM proveedor");
                 if ($proveedores && $proveedores->num_rows > 0) {
                     while ($p = $proveedores->fetch_assoc()) {
-                        echo '<option value="' . htmlspecialchars($p['Nomb_Prov']) . '">' . htmlspecialchars($p['Nomb_Prov']) . '</option>';
+                        echo '<option value="' . htmlspecialchars($p['ID_Prov']) . '">' . htmlspecialchars($p['Nomb_Prov']) . '</option>';
                     }
                 } else {
                     echo '<option value="">No hay proveedores</option>';
@@ -228,6 +250,7 @@ $proveedores = $conexion->query("SELECT ID_Prov FROM proveedor");
             <label>Categoría:</label>
             <select name="ID_Categoria" required>
                 <?php
+                $categorias = $conexion->query("SELECT ID_Categoria, Categoria_Nombre FROM categoria");
                 if ($categorias && $categorias->num_rows > 0) {
                     while ($c = $categorias->fetch_assoc()) {
                         echo '<option value="' . htmlspecialchars($c['ID_Categoria']) . '">' . htmlspecialchars($c['ID_Categoria']) . ' - ' . htmlspecialchars($c['Categoria_Nombre']) . '</option>';
