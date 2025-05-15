@@ -142,6 +142,10 @@ $resultado = $conexion->query($sql);
         <?php endif; ?>
 
         <h2>Inventario de Productos</h2>
+        
+        <!-- Barra de busqueda buscosa-->
+        <input type="text" id="buscador" placeholder="Buscar por nombre del producto..." style="width: 100%; padding: 10px; margin-bottom: 15px; font-size: 16px;">
+
         <table border="1" cellspacing="0" cellpadding="5">
         <tr>
             <th>ID</th>
@@ -283,5 +287,6 @@ $resultado = $conexion->query($sql);
         </div>
     </div>
     <script src="js/script.js"></script>
+    <script src="js/search.js"></script>
 </body>
 </html>

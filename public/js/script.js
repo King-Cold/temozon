@@ -80,6 +80,7 @@ function ventanaEscaneo() {
                 const input = document.getElementById('ID_Prod');
                 input.value = codigo;
 
+                console.log("Ya se cerro la cosa esa");
                 document.getElementById('modalEscaneo').style.display = 'none';
                 document.getElementById('modalForm').style.display = 'block';
                 input.focus();
