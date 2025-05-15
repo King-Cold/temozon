@@ -56,24 +56,17 @@ function cerrarForm() {
 }
 
 // Funcion para el boton de escaneo con el lector USB
-let handleKeyPress;
-
 function ventanaEscaneo() {
     document.getElementById('modalEscaneo').style.display = 'block';
 
     let buffer = '';
     let lastKeyTime = Date.now();
 
-    // Eliminar el listener anterior si existía
-    if (handleKeyPress) {
-        document.removeEventListener('keypress', handleKeyPress);
-    }
-
-    handleKeyPress = function (e) {
+    function handleKeyPress(e) {
         const currentTime = Date.now();
         const timeDiff = currentTime - lastKeyTime;
 
-        if (timeDiff > 250) buffer = '';
+        if (timeDiff > 100) buffer = '';
         lastKeyTime = currentTime;
 
         if (e.key !== 'Enter') {
@@ -81,30 +74,24 @@ function ventanaEscaneo() {
         } else {
             if (buffer.length >= 6) {
                 const codigo = buffer;
-                console.log("Código escáner USB:", codigo);
+                console.log("Código escaner USB: ", codigo);
                 buffer = '';
 
                 const input = document.getElementById('ID_Prod');
                 input.value = codigo;
 
-                document.getElementById('modalForm').style.display = 'block';
-                console.log("Cerrando modalEscaneo...");
                 document.getElementById('modalEscaneo').style.display = 'none';
+                document.getElementById('modalForm').style.display = 'block';
                 input.focus();
 
                 document.removeEventListener('keypress', handleKeyPress);
             }
         }
-    };
+    }
 
     document.addEventListener('keypress', handleKeyPress);
 }
 
 function cerrarModalEscaneo() {
     document.getElementById('modalEscaneo').style.display = 'none';
-
-    if (handleKeyPress) {
-        document.removeEventListener('keypress', handleKeyPress);
-        handleKeyPress = null;
-    }
 }
