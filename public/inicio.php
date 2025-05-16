@@ -1,4 +1,5 @@
 <?php
+
 session_start(); // Iniciar sesión al comienzo
 
 // Para propósitos de prueba, si no está definida la sesión puedes poner algo así:
