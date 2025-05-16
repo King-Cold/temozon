@@ -14,91 +14,98 @@ $resultado = $conexion->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Usuarios</title>
     <link rel="stylesheet" href="css/styles.css">
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f6f8;
-            margin: 0;
-        }
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: #f3f0f7;
+        margin: 0;
+        padding: 20px;
+    }
 
-        main#main {
-            padding: 20px;
-        }
+    main#main {
+        padding: 20px;
+    }
 
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 28px;
-        }
+    h2 {
+        text-align: center;
+        color: #4a148c;
+        margin-bottom: 25px;
+        font-size: 30px;
+        letter-spacing: 0.5px;
+    }
 
-        table {
-            width: 95%;
-            margin: auto;
-            border-collapse: collapse;
-            background-color: #ffffff;
-            box-shadow: 0 0 0 2px #000000;
-            border-radius: 8px;
-            overflow: hidden;
-        }
+    table {
+        width: 95%;
+        margin: auto;
+        border-collapse: collapse;
+        background-color: #ffffff;
+        box-shadow: 0 4px 8px rgba(74, 20, 140, 0.2);
+        border-radius: 10px;
+        overflow: hidden;
+    }
 
-        table th, table td {
-            padding: 12px 15px;
-            text-align: center;
-            border: 1px solid #ccc;
-        }
+    table th, table td {
+        padding: 14px 18px;
+        text-align: center;
+        border: 1px solid #e0d7f3;
+    }
 
-        table th {
-            background-color: rgb(0, 5, 8);
-            color: #ffffff;
-            font-weight: 600;
-        }
+    table th {
+        background-color: #552A69;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 16px;
+    }
 
-        table tr:nth-child(even) {
-            background-color: rgb(255, 255, 255);
-        }
+    table tr:nth-child(even) {
+        background-color: #f8f5fc;
+    }
 
-        table tr:nth-child(odd) {
-            background-color: rgb(213, 224, 231);
-        }
+    table tr:nth-child(odd) {
+        background-color: #ede7f6;
+    }
 
-        table tr:hover {
-            background-color: #c5cae9;
-        }
+    table tr:hover {
+        background-color: #d1c4e9;
+        transition: background-color 0.3s ease;
+    }
 
-        table td {
-            color: #333;
-            font-size: 14px;
-        }
+    table td {
+        color: #333;
+        font-size: 14.5px;
+    }
 
-        .btn {
-    padding: 6px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 13px;
-    text-decoration: none;
-    color: #fff;
-    margin: 2px;
-    display: inline-block;
-}
+    .btn {
+        padding: 8px 14px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        text-decoration: none;
+        color: #fff;
+        margin: 2px;
+        display: inline-block;
+        transition: background-color 0.3s ease, box-shadow 0.2s ease;
+    }
 
-.btn-edit {
-    background-color: #1976d2;
-}
+    .btn-edit {
+        background-color:rgb(40, 49, 163);
+    }
 
-.btn-edit:hover {
-    background-color: #125ea6;
-}
+    .btn-edit:hover {
+        background-color:rgb(70, 64, 161);
+        box-shadow: 0 2px 6px rgba(106, 27, 154, 0.4);
+    }
 
-.btn-delete {
-    background-color: #d32f2f;
-}
+    .btn-delete {
+        background-color:rgb(188, 71, 87);
+    }
 
-.btn-delete:hover {
-    background-color: #a52828;
-}
-    </style>
+    .btn-delete:hover {
+        background-color:rgb(176, 39, 39);
+        box-shadow: 0 2px 6px rgba(156, 39, 176, 0.4);
+    }
+</style>
 </head>
 <body>
 
@@ -110,7 +117,7 @@ $resultado = $conexion->query($sql);
         <table>
     <tr>
         <th>ID Usuario</th>
-        <th>Nombre del Usario</th>
+        <th>Usario</th>
         <th>Rol</th>
         <th>Email</th>
         <th>Contraseña</th>

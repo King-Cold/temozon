@@ -28,10 +28,10 @@ $resultado = $conexion->query($sql);
     <link rel="stylesheet" href="css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script> 
 
-    <style>
+   <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #f4f6f8;
+        background: #e8f5e9; /* verde muy claro */
         margin: 0;
         padding: 20px;
     }
@@ -42,61 +42,64 @@ $resultado = $conexion->query($sql);
 
     h2 {
         text-align: center;
-        color: #4527a0;
+        color: #01579b; /* azul corporativo */
         margin-bottom: 20px;
+        font-size: 28px;
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
         background-color: #ffffff;
-        box-shadow: 0 0 0 2px #000000; /* margen exterior morado */
-        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); /* sombra suave */
+        border-radius: 10px;
         overflow: hidden;
     }
 
     table th, table td {
-        padding: 12px 15px;
+        padding: 14px 18px;
         text-align: center;
-        border: 1px solid #ccc;
+        border: 1px solid #cfd8dc;
     }
 
     table th {
-        background-color:rgb(0, 5, 8); /* azul fuerte */
+        background-color: #00695c; /* verde fuerte */
         color: #ffffff;
         font-weight: 600;
+        font-size: 16px;
     }
 
     table tr:nth-child(even) {
-        background-color:rgb(255, 255, 255); /* morado muy clarito para filas pares */
+        background-color: #e0f7fa; /* azul verdoso clarito */
     }
 
     table tr:nth-child(odd) {
-        background-color:rgb(213, 224, 231); /* azul clarito para filas impares */
+        background-color: #ffffff;
     }
 
     table tr:hover {
-        background-color: #c5cae9; /* hover azul-morado suave */
+        background-color: #b2ebf2; /* hover azul-verde suave */
     }
 
     table td {
-        color: #333;
-        font-size: 14px;
+        color: #37474f;
+        font-size: 15px;
     }
 
     button {
-        background-color: #5e35b1;
+        background-color: #00796b;
         color: #fff;
         border: none;
-        padding: 10px 20px;
+        padding: 10px 24px;
         font-size: 16px;
-        border-radius: 6px;
+        border-radius: 8px;
         cursor: pointer;
-        transition: background-color 0.3s ease;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     button:hover {
-        background-color: #4527a0;
+        background-color: #004d40;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.25);
     }
 
     #escaneoCont {
@@ -104,7 +107,7 @@ $resultado = $conexion->query($sql);
         position: fixed;
         top: 0; left: 0;
         width: 100%; height: 100%;
-        background: #000000cc;
+        background: rgba(0, 0, 0, 0.7);
         z-index: 999;
     }
 
@@ -113,7 +116,7 @@ $resultado = $conexion->query($sql);
         height: 60%;
         margin: 50px auto;
         background: #000;
-        border-radius: 8px;
+        border-radius: 12px;
     }
 
     #escaneoCont button {
@@ -121,9 +124,7 @@ $resultado = $conexion->query($sql);
         top: 20px;
         right: 20px;
     }
-
- 
-    </style>
+</style>
 </head>
 <body>
     <?php include 'header.php'; ?>
