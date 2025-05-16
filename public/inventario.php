@@ -199,7 +199,7 @@ $resultado = $conexion->query($sql);
     </div>
 
     <!-- Ventana modal para el formulario -->
-    <div id="modalForm" style="display:none; position:fixed; top:10%; left:30%; background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
+    <div id="modalForm" style="display:none; position:fixed; top:10%; left:30%; background:#fff; padding:20px; border:1px solid #ccc; z-index:2000;">
         <h3>Registrar Nuevo Producto</h3>
         <form id="productoForm" action="../server/p_codigoBarras.php" method="POST">
             <input type="hidden" name="ID_Prod" id="ID_Prod">

@@ -82,8 +82,10 @@ function ventanaEscaneo() {
 
                 console.log("Ya se cerro la cosa esa");
                 document.getElementById('modalEscaneo').style.display = 'none';
-                document.getElementById('modalForm').style.display = 'block';
-                input.focus();
+                setTimeout(() => {
+                    document.getElementById('modalForm').style.display = 'block';
+                    input.focus();
+                }, 100);
 
                 document.removeEventListener('keypress', handleKeyPress);
             }
