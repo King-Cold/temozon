@@ -1,3 +1,33 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+include("../server/conexion_bd.php");
+
+if (isset($_SESSION['ID_Usuario'])) {
+    $id_usuario = intval($_SESSION['ID_Usuario']);
+
+    $sql = "SELECT avatar_url FROM usuario WHERE ID_Usuario = ?";
+    $stmt = mysqli_prepare($conexion, $sql);
+    mysqli_stmt_bind_param($stmt, "i", $id_usuario);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_result($stmt, $avatar_url);
+    mysqli_stmt_fetch($stmt);
+
+    if (!empty($avatar_url)) {
+        $avatar = $avatar_url;
+    } else {
+        $avatar = "../Icons/avatar/prueba.jpg";
+    }
+
+    mysqli_stmt_close($stmt);
+} else {
+    $avatar = "../Icons/avatar/prueba.jpg";
+    echo "Avatar recuperado de BD: " . $avatar_url . "<br>";
+}
+?>
+
 <header>
     <div class="left">
         <div class="menu-contenedor">
@@ -17,13 +47,13 @@
     <img src="../Icons/notification-13-svgrepo-com.svg" alt="notificacion" style="width: 30px;">
     <span id="contadorNotificaciones"
           style="position: absolute; top: -5px; right: -5px; background: red; color: white; 
-                border-radius: 50%; padding: 3px 7px; font-size: 12px; display: none;">
+                 border-radius: 50%; padding: 3px 7px; font-size: 12px; display: none;">
     </span>
 </a>
         <a href="../server/logout.php" class="icons-header">
             <img src="../Icons/logout-2-svgrepo-com.svg" alt="salida">
         </a>
-        <img src="../Icons/call-center_7381686.png" alt="img-user" class="user"> 
+        <img src="<?php echo $avatar; ?>" alt="img-user" class="user">
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -84,4 +114,3 @@ $(document).ready(function() {
 </div>
 </div>
 </header>
-

@@ -12,9 +12,9 @@ if (isset($_POST["btningresar"])) { // Verifica si se presionó el botón
 
         $sql=$conexion->query ("select * from usuario where Nombre_Usuario = '$usuario' AND Contraseña = '$clave' AND Email= '$correo'");
         if ($datos=$sql->fetch_object()) {
-            $_SESSION ["id"]=$datos->ID_Usuarios; 
-            $_SESSION ["nombre"]=$datos->Nombre_Usuario;
-            $_SESSION ["rol"]=$datos->Rol;
+    $_SESSION["ID_Usuario"] = $datos->ID_Usuario;
+    $_SESSION["nombre"] = $datos->Nombre_Usuario;
+    $_SESSION["rol"] = $datos->Rol;
 
             header("location:public/inicio.php");
 
