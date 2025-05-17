@@ -79,13 +79,68 @@ $resultado = $conexion->query($sql);
         }
 
         table tr:hover {
-            background-color: #f8c8c8;
+            background-color:rgb(214, 172, 218);
             transition: background-color 0.3s ease;
         }
 
         table td {
             color: #333;
             font-size: 14.5px;
+        }
+
+        table tr.seleccionado {
+            background-color:rgb(214, 172, 218) !important;
+            font-weight: bold;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #fff;
+            background-color:rgb(134, 28, 183);
+            margin-top: 20px;
+            transition: background-color 0.3s ease, box-shadow 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color:rgb(93, 19, 128);
+            box-shadow: 0 2px 6px rgba(105, 40, 226, 0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 32px; 
+            font-weight: bold; 
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .close:hover {
+            color: #e53935; 
         }
     </style>
 </head>
@@ -96,6 +151,11 @@ $resultado = $conexion->query($sql);
 
 <main id="main">
     <h2>PEDILLOS 🤮</h2>
+
+    <div style="text-align: center; margin: 20px;">
+        <button class="btn btn-edit" onclick="mostrarDetalles()">Ver Detalles</button>
+    </div>
+
     <table>
         <tr>
             <th>ID Pedido</th>
@@ -111,7 +171,7 @@ $resultado = $conexion->query($sql);
         <?php
         if ($resultado && $resultado->num_rows > 0) {
             while ($fila = $resultado->fetch_assoc()) {
-                echo "<tr>
+                echo "<tr onclick=\"seleccionarFila(this, '" . htmlspecialchars($fila["ID_Detalle_Pedido"] ?? '') . "')\">
                     <td>" . htmlspecialchars($fila["ID_Pedido"]) . "</td>
                     <td>" . htmlspecialchars($fila["ID_Detalle_Pedido"] ?? "N/A") . "</td>
                     <td>" . htmlspecialchars($fila["ID_Envio"]) . "</td>
@@ -128,8 +188,15 @@ $resultado = $conexion->query($sql);
         }
         ?>
     </table>
+    <div id="detalleModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <div id="detalleContenido">Cargando detalles...</div>
+        </div>
+    </div>
 </main>
 
 <script src="js/script.js"></script>
+<script src="js/modal_Pedidos.js"></script>
 </body>
 </html>
