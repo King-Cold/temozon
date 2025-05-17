@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-05-2025 a las 18:11:21
+-- Tiempo de generación: 17-05-2025 a las 22:09:36
 -- Versión del servidor: 10.4.32-MariaDB-log
 -- Versión de PHP: 8.2.12
 
@@ -221,6 +221,9 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`ID_Prod`, `Nomb_Prod`, `ID_Descrip`, `Cant_Disp_Prod`, `ID_Almacen`, `Prec_Comp`, `Prec_Vent`, `ID_Prov`, `ID_Categoria`, `Prod_Estatus`, `Fec_Cad`, `Desc_Prod`) VALUES
+('02417219', 'Paracetamlo', 2, 24, 6, 3434.00, 353.00, 1, 1, 1, '2025-05-28', 34),
+('5012345678900', 'Desimposilina ', 2, 2333, 1, 23.00, 45.00, 8, 5, 1, '2025-05-12', 0),
+('7702111812918', 'dssddsad', 1, 32, 1, 23.00, 34.00, 1, 1, 1, '2025-05-27', 34),
 ('PROD01', 'AmoxiVet 500mg', 1, 50, 1, 120.00, 150.00, 1, 1, 1, '2026-05-14', 0),
 ('PROD02', 'ParvoVac Plus', 2, 30, 2, 180.00, 220.00, 2, 2, 1, '2025-12-30', 0),
 ('PROD03', 'Vitacan B Complex', 3, 70, 3, 70.00, 95.00, 3, 3, 1, '2026-03-20', 0),
@@ -266,23 +269,25 @@ INSERT INTO `proveedor` (`ID_Prov`, `Nomb_Prov`, `Telefono_Prov`, `Tipo_Prov`, `
 CREATE TABLE `usuario` (
   `ID_Usuario` int(6) NOT NULL,
   `Nombre_Usuario` varchar(40) NOT NULL,
-  `Apellido_Usuario` varchar(40) NOT NULL,
   `Rol` varchar(20) NOT NULL,
   `Email` varchar(50) NOT NULL,
-  `Contraseña` varchar(10) NOT NULL
+  `Contraseña` varchar(10) NOT NULL,
+  `avatar_url` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`ID_Usuario`, `Nombre_Usuario`, `Apellido_Usuario`, `Rol`, `Email`, `Contraseña`) VALUES
-(1, 'Pepe', '', 'Admin', 'pepe@123', '123'),
-(2, 'Narcizo Ac', '', 'Encargado de Bodega', 'narcizo.ac@empresa.com', 'Encargado@'),
-(3, 'Alfredo Abreu', '', 'Gerente', 'alfredo.abreu@empresa.com', 'G3rente@24'),
-(4, 'Rocio Gancedo', '', 'Administrador', 'rocio.gancedo@empresa.com', 'Adm1n@2024'),
-(5, 'Sury Pech', '', 'Ayudante de Bodega', 'sury.pech@empresa.com', 'Ayudante@2'),
-(6, 'Neydi Poot', '', 'Ayudante de Bodega', 'neydi.poot@empresa.com', 'Bodega@202');
+INSERT INTO `usuario` (`ID_Usuario`, `Nombre_Usuario`, `Rol`, `Email`, `Contraseña`, `avatar_url`) VALUES
+(1, 'Pepe', 'Administrador', 'pepe@123', '123', '../Icons/avatar/goku.png'),
+(2, 'Narcizo Ac', 'Encargado de Bodega', 'narcizo.ac@empresa.com', '123', ''),
+(3, 'Alfredo Abreu', 'Gerente', 'alfredo.abreu@empresa.com', '123', '../Icons/Avatares/Preterminado.png'),
+(4, 'Rocio Gancedo', 'Administrador', 'rocio.gancedo@empresa.com', 'Adm1n@2024', '../Icons/Avatares/Preterminado.png'),
+(5, 'Sury Pech', 'Ayudante de Bodega', 'sury.pech@empresa.com', 'Ayudante@2', '../Icons/Avatares/Preterminado.png'),
+(6, 'Neydi Poot', 'Ayudante de Bodega', 'neydi.poot@empresa.com', 'Bodega@202', '../Icons/Avatares/Preterminado.png'),
+(7, 'Leticia Hau', 'Gerente', 'Leti@123', '123', '../Icons/avatar/prueba.jpg'),
+(8, 'Angeles Olvera', 'Encargado de Bodega', 'Angeles@123', '1234', '../Icons/avatar/angeles.jpg\r\n');
 
 --
 -- Índices para tablas volcadas
@@ -411,7 +416,7 @@ ALTER TABLE `proveedor`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `ID_Usuario` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `ID_Usuario` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Restricciones para tablas volcadas
