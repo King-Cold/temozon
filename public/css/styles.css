@@ -131,6 +131,7 @@ width: 2.5rem; /* o usa cualquier medida fija o relativa */
   overflow: hidden;
  border: 2px solid black;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
 
 }
 .sidebar{
@@ -144,6 +145,8 @@ width: 2.5rem; /* o usa cualquier medida fija o relativa */
     z-index: 100;
     padding: 1.1rem 0;
     overflow-y: auto;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+        border-radius: 20px 0 0 20px;
     transition: width 0.5s ease;
 
 }
@@ -246,5 +249,89 @@ main.menu-toggle{
 
 .cerrar:hover,
 .cerrar:focus {
-    color: black;
+    color: rgb(255, 255, 255);
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+.user-panel {
+    position: fixed;
+    top: 5px;
+    right: -350px;
+    width: 300px;
+    background: black;
+    color: #fff;
+    padding: 30px 20px;
+    border-radius: 20px 0 0 20px;
+    box-shadow: -5px 0 20px rgba(0, 0, 0, 0.4);
+    transition: right 0.4s ease;
+    z-index: 1000;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+
+.user-panel.active {
+    right: 0;
+}
+
+.user-panel #closeUserPanel {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+    font-size: 20px;
+    color: #fff;
+}
+
+.user-image img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.user-panel h2 {
+    margin: 5px 0 20px;
+    font-size: 22px;
+    font-weight: bold;
+        color: #ffffff;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.user-data span {
+    display: block;
+    font-size: 14px;
+    color: #ecf0f1;
+    letter-spacing: 0.1px;
+    margin-bottom: 2px;
+    font-weight: 600;
+}
+
+.user-data p {
+    font-size: 16px;
+    color: #f1f1f1;
+    margin: 0;
+    font-weight: 400;
+}
+#closeUserPanel {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 40px; /* tamaño grande */
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    z-index: 9999; /* por si acaso está detrás de algo */
+    user-select: none;
+}
+
+#closeUserPanel:hover {
+    color: #ce5b5b;
 }

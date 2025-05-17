@@ -8,12 +8,11 @@ include("../server/conexion_bd.php");
 if (isset($_SESSION['ID_Usuario'])) {
     $id_usuario = intval($_SESSION['ID_Usuario']);
 
-    $sql = "SELECT avatar_url FROM usuario WHERE ID_Usuario = ?";
-    $stmt = mysqli_prepare($conexion, $sql);
-    mysqli_stmt_bind_param($stmt, "i", $id_usuario);
-    mysqli_stmt_execute($stmt);
-    mysqli_stmt_bind_result($stmt, $avatar_url);
-    mysqli_stmt_fetch($stmt);
+    $sql = $conexion->prepare("SELECT avatar_url, Nombre_Usuario, Email, Rol FROM usuario WHERE ID_Usuario = ?");
+    $sql->bind_param("i", $id_usuario);
+    $sql->execute();
+    $sql->bind_result($avatar_url, $nombre_usuario, $correo_usuario, $rol_usuario);
+    $sql->fetch();
 
     if (!empty($avatar_url)) {
         $avatar = $avatar_url;
@@ -21,10 +20,14 @@ if (isset($_SESSION['ID_Usuario'])) {
         $avatar = "../Icons/avatar/prueba.jpg";
     }
 
-    mysqli_stmt_close($stmt);
+    $sql->close();
 } else {
+    // Si no hay sesión, valores por defecto
     $avatar = "../Icons/avatar/prueba.jpg";
-    echo "Avatar recuperado de BD: " . $avatar_url . "<br>";
+    $nombre_usuario = "Invitado";
+    $correo_usuario = "-";
+    $rol_usuario = "-";
+    $id_usuario = "0";
 }
 ?>
 
@@ -54,7 +57,27 @@ if (isset($_SESSION['ID_Usuario'])) {
             <img src="../Icons/logout-2-svgrepo-com.svg" alt="salida">
         </a>
         <img src="<?php echo $avatar; ?>" alt="img-user" class="user">
+<div id="userPanel" class="user-panel">
+    <span id="closeUserPanel">&times;</span>
+    <div class="user-image">
+        <img src="<?php echo $avatar; ?>" alt="Usuario">
     </div>
+    <h2><?php echo $nombre_usuario; ?></h2>
+    <div class="user-info">
+        <div class="user-data">
+            <span>ID</span>
+            <p><?php echo $id_usuario; ?></p>
+        </div>
+        <div class="user-data">
+            <span>Rol</span>
+            <p><?php echo $rol_usuario; ?></p>
+        </div>
+        <div class="user-data">
+            <span>Correo</span>
+            <p><?php echo $correo_usuario; ?></p>
+        </div>
+    </div>
+</div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -104,6 +127,16 @@ $(document).ready(function() {
     // Llamada inicial y en intervalos
     cargarNotificaciones();
     setInterval(cargarNotificaciones, 60000);
+});
+$(document).ready(function() {
+  // Panel de usuario
+  $('.user').click(function() {
+    $('#userPanel').css('right', '0');
+  });
+
+  $('#closeUserPanel').click(function() {
+    $('#userPanel').css('right', '-320px');
+  });
 });
 </script>
 <div id="modalNotificaciones" class="modal">
