@@ -24,7 +24,7 @@ require_once '../server/permisos.php';
                 </a>
             </li>
             <li>
-                <a href="pedios.php">
+                <a href="pedidos.php">
                     <img src="../Icons/list-check-svgrepo-com.svg" alt="Pedidos">
                     <span>PEDIDOS</span>
                 </a>
