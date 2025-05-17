@@ -135,7 +135,7 @@ width: 2.5rem; /* o usa cualquier medida fija o relativa */
 
 }
 .sidebar{
-    background: linear-gradient(135deg,#662952,rgb(17, 11, 105));
+    background: #252E34;
     margin-top: 3rem;
     width: 4rem;
     height: 100%;
