@@ -1,223 +1,32 @@
-<?php
-
-session_start(); // Iniciar sesión al comienzo
-
-// Para propósitos de prueba, si no está definida la sesión puedes poner algo así:
-// $_SESSION['nombre_usuario'] = 'Carlos';
-
-// Verificar si hay sesión activa
-$nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Invitado';
-
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pantalla de Inicio</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <style>
-@import url('https://fonts.googleapis.com/css2?family=Cal+Sans&family=Comfortaa:wght@300..700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
-
-body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f0f0f0;
-}
-
-.dashboard {
-    display: grid;
-    grid-template-areas: 
-    "productos ventas ingresos compras"
-    "ventas-mensuales ventas-mensuales acciones acciones"
-    "productos-vendidos productos-vendidos acciones acciones";
-    grid-gap: 20px;
-    grid-template-columns: repeat(4, 1fr);
-    margin-top: 4rem;
-    margin-left: 4rem;
-    transition:margin 0.5s ease;
-
-}
-.dashboard.menu-toggle{
-    margin-left: 15rem;
-}
-
-.box {
-    display: flex;
-    align-items: center;
-    background: white;
-    padding: 10px;
-    border-radius: 10px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    position: relative;
-    overflow: hidden;
-    
-}
-.box .icono {
-    width: 90px;
-    height: 90px;
-    opacity: 0.5;
-    margin-right: 5px;
-}
-.box::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 18px;
-    font-family: "Cal Sans", sans-serif;
-    letter-spacing: 4px;
-    opacity: 0.8;
-}
-.box .dato {
-    flex: 1;
-    text-align: right;
-    font-size: 40px;
-    font-family: "Cal Sans", sans-serif;
-    margin-top: 10px;
-    margin-right: 10px;
-    letter-spacing: 4px;
-}
-
-
-
-
-.productos {
-    grid-area: productos;
-    background: #2ecc71;
-}
-
-.ventas {
-    grid-area: ventas;
-    background: #3498db;
-}
-
-.ingresos {
-    grid-area: ingresos;
-    background: #e74c3c;
-}
-
-.compras {
-    grid-area: compras;
-    background: #f39c12;
-}
-
-.ventas-mensuales {
-    grid-area: ventas-mensuales;
-    background: white;
-    color: black;
-    
-}
-
-.productos-vendidos {
-    grid-area: productos-vendidos;
-    background: white;
-    color: black;
-    display: flex;
-    flex-direction: column;
-    align-items: flex;
-    padding: 20px;
-}
-
-.productos-vendidos h3 {
-    margin: 0 0 10px 0;
-    font-family: "Cal Sans", sans-serif;
-    color: #333;
-    letter-spacing: 2px;
-}
-
-.acciones {
-    grid-area: acciones;
-    background: white;
-    color: #333;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    
-    display: flex;
-    flex-direction: column;
-}
-
-.acciones h3 {
-    margin-top: 0;
-    font-family: "Cal Sans", sans-serif;
-    font-size: 20px;
-    margin-bottom: 15px;
-    letter-spacing: 2px;
-}
-
-.acciones table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: "Comfortaa", sans-serif;
-    font-size: 14px;
-    
-}
-
-.acciones th, .acciones td {
-    padding: 12px 10px;
-    text-align: left;
-    border-bottom: 1px solid #e0e0e0;
-    text-align: center;
-}
-
-.acciones th {
-    background-color: #f8f8f8;
-    font-weight: bold;
-}
-
-.acciones tr:hover {
-    background-color: #6b3f6780;
-}
-
-
-.ventas-mensuales {
-    display: flex;
-    flex-direction: column;
-    align-items: flex;
-    padding: 20px;
-}
-
-.ventas-mensuales h3 {
-    margin: 0 0 10px 0;
-    font-family: "Cal Sans", sans-serif;
-    color: #333;
-    letter-spacing: 2px;
-}
-
-.ventas-mensuales canvas {
-    width: 100% !important;
-    height: 250px !important; /* más pequeño */
-}
-    </style>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <?php include 'header.php'; ?>
-    <?php include 'sidebar.php'; ?>
 
- <div class="dashboard">
+<div class="dashboard">
 
     <div class="box productos" data-text="Productos">
-        <img src="../Icons/productos.png" alt="Productos" class="icono">
+        <img src="productos.png" alt="Productos" class="icono">
         <div class="dato">5,556</div>
     </div>
 
     <div class="box ventas" data-text="Ventas">
-        <img src="../Icons/ventas.png" alt="Ventas" class="icono">
+        <img src="ventas.png" alt="Ventas" class="icono">
         <div class="dato">3,454</div>
     </div>
 
     <div class="box ingresos" data-text="Ingresos">
-        <img src="../Icons/ingresos.png" alt="Ingresos" class="icono">
+        <img src="ingresos.png" alt="Ingresos" class="icono">
         <div class="dato">$999,999</div>
     </div>
 
     <div class="box compras" data-text="Compras">
-        <img src="../Icons/compras.png" alt="Compras" class="icono">
+        <img src="compras.png" alt="Compras" class="icono">
         <div class="dato">$8,122</div>
     </div>
 
@@ -252,14 +61,13 @@ body {
         <h3>Productos Más Vendidos</h3>
         <canvas id="graficaTopProductos"></canvas>
     </div>
-</div> 
+
+</div>
 </body>
 </html>
- <script src="js/script-dash.js"></script>
- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-
-fetch("../server/datos_ventas.php")
+fetch("datos_ventas.php")
 .then(response => response.json())
 .then(data => {
     const ctx = document.getElementById('graficaVentas').getContext('2d');
@@ -270,22 +78,18 @@ fetch("../server/datos_ventas.php")
             datasets: [{
                 label: 'Ventas ($)',
                 data: data.ventas,
-                borderColor: '#8B85F9',
-                backgroundColor: 'rgba(139, 133, 249, 0.81)',
+                borderColor: '#7169E5',
+                backgroundColor: 'rgba(139, 137, 244, 0.49)',
                 fill: true,
                 tension: 0.4,
-                pointBackgroundColor: 'white',
-                pointBorderColor: '#8B85F9',
-                pointRadius: 8,
+                pointBackgroundColor: '#fff',
+                pointBorderColor: '#7169E5',
+                pointRadius: 5,
                 pointHoverRadius: 7
             }]
         },
         options: {
             responsive: true,
-            interaction: {
-          mode: 'nearest',
-          intersect: true
-        },
             plugins: {
                 legend: {
                     display: false
@@ -320,7 +124,64 @@ fetch("../server/datos_ventas.php")
     });
 });
 
-fetch("../server/datos_productos.php")
+fetch("datos_ventas.php")
+.then(response => response.json())
+.then(data => {
+    const ctx = document.getElementById('graficaVentas').getContext('2d');
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: data.meses,
+            datasets: [{
+                label: 'Ventas ($)',
+                data: data.ventas,
+                borderColor: '#8B85F9',
+                backgroundColor: 'rgba(139, 133, 249, 0.81)',
+                fill: true,
+                tension: 0.4,
+                pointBackgroundColor: '#8B85F9',
+                pointBorderColor: '#black',
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    bodyFont: {
+                        size: 16
+                    },
+                    titleFont: {
+                        size: 18
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        font: {
+                            size: 14
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
+
+fetch("datos_productos.php")
 .then(response => response.json())
 .then(data => {
     const ctx = document.getElementById('graficaTopProductos').getContext('2d');
