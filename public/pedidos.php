@@ -2,7 +2,7 @@
 session_start();
 require_once '../server/conexion_bd.php';
 
-// Consulta solo con los campos requeridos
+// Consultas no medicas 
 $sql = "SELECT 
             pedidos.ID_Pedido,
             pedidos.ID_Detalle_Pedido,
@@ -150,7 +150,7 @@ $resultado = $conexion->query($sql);
 <?php include 'sidebar.php'; ?>
 
 <main id="main">
-    <h2>PEDILLOS 🤮</h2>
+    <h2>PEDILLOS🤮</h2>
 
     <div style="text-align: center; margin: 20px;">
         <button class="btn btn-edit" onclick="mostrarDetalles()">Ver Detalles</button>
