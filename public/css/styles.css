@@ -135,7 +135,8 @@ width: 2.5rem; /* o usa cualquier medida fija o relativa */
 
 }
 .sidebar{
-    background: #252E34;
+    background: linear-gradient( #360127, #1C1462);
+    /*  background:#360127; color bonito */
     margin-top: 3rem;
     width: 4rem;
     height: 100%;

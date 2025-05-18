@@ -76,7 +76,7 @@ body {
 .box .dato {
     flex: 1;
     text-align: right;
-    font-size: 40px;
+    font-size: 35px;
     font-family: "Cal Sans", sans-serif;
     margin-top: 10px;
     margin-right: 10px;
