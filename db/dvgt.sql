@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 17-05-2025 a las 22:09:36
+-- Tiempo de generación: 20-05-2025 a las 05:47:30
 -- Versión del servidor: 10.4.32-MariaDB-log
 -- Versión de PHP: 8.2.12
 
@@ -121,26 +121,15 @@ INSERT INTO `descripcion_producto` (`ID_Descrip`, `Descrip_Produc`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `detalles_pedido`
+-- Estructura de tabla para la tabla `detalle_pedido`
 --
 
-CREATE TABLE `detalles_pedido` (
-  `ID_Detalle_Pedido` int(6) NOT NULL,
-  `ID_Prod` varchar(30) NOT NULL,
-  `Cantidad` int(3) NOT NULL
+CREATE TABLE `detalle_pedido` (
+  `ID_Detalle` int(11) NOT NULL,
+  `ID_Pedido` int(11) DEFAULT NULL,
+  `ID_Prod` varchar(32) DEFAULT NULL,
+  `Cantidad` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `detalles_pedido`
---
-
-INSERT INTO `detalles_pedido` (`ID_Detalle_Pedido`, `ID_Prod`, `Cantidad`) VALUES
-(1, 'PROD01', 3),
-(2, 'PROD02', 5),
-(3, 'PROD03', 2),
-(4, 'PROD04', 4),
-(5, 'PROD05', 6),
-(6, 'PROD06', 1);
 
 -- --------------------------------------------------------
 
@@ -176,7 +165,6 @@ INSERT INTO `envios` (`ID_Envio`, `Estado_Envio`, `Maximo_Articulos`, `Fecha_Env
 
 CREATE TABLE `pedidos` (
   `ID_Pedido` int(6) NOT NULL,
-  `ID_Detalle_Pedido` int(6) DEFAULT NULL,
   `ID_Envio` int(6) DEFAULT NULL,
   `ID_Cliente` int(6) DEFAULT NULL,
   `Fecha` datetime NOT NULL,
@@ -187,13 +175,13 @@ CREATE TABLE `pedidos` (
 -- Volcado de datos para la tabla `pedidos`
 --
 
-INSERT INTO `pedidos` (`ID_Pedido`, `ID_Detalle_Pedido`, `ID_Envio`, `ID_Cliente`, `Fecha`, `Precio_Total`) VALUES
-(1, NULL, 1, 1, '2025-05-14 09:30:00', 1500.00),
-(2, NULL, 2, 2, '2025-05-10 10:00:00', 980.50),
-(3, NULL, 3, 3, '2025-05-16 12:15:00', 2300.75),
-(4, NULL, 4, 4, '2025-05-12 13:45:00', 650.00),
-(5, NULL, 5, 5, '2025-05-14 16:20:00', 1230.60),
-(6, NULL, 6, 6, '2025-05-11 15:10:00', 750.30);
+INSERT INTO `pedidos` (`ID_Pedido`, `ID_Envio`, `ID_Cliente`, `Fecha`, `Precio_Total`) VALUES
+(1, 1, 1, '2025-05-14 09:30:00', 1500.00),
+(2, 2, 2, '2025-05-10 10:00:00', 980.50),
+(3, 3, 3, '2025-05-16 12:15:00', 2300.75),
+(4, 4, 4, '2025-05-12 13:45:00', 650.00),
+(5, 5, 5, '2025-05-14 16:20:00', 1230.60),
+(6, 6, 6, '2025-05-11 15:10:00', 750.30);
 
 -- --------------------------------------------------------
 
@@ -287,7 +275,8 @@ INSERT INTO `usuario` (`ID_Usuario`, `Nombre_Usuario`, `Rol`, `Email`, `Contrase
 (5, 'Sury Pech', 'Ayudante de Bodega', 'sury.pech@empresa.com', 'Ayudante@2', '../Icons/Avatares/Preterminado.png'),
 (6, 'Neydi Poot', 'Ayudante de Bodega', 'neydi.poot@empresa.com', 'Bodega@202', '../Icons/Avatares/Preterminado.png'),
 (7, 'Leticia Hau', 'Gerente', 'Leti@123', '123', '../Icons/avatar/prueba.jpg'),
-(8, 'Angeles Olvera', 'Encargado de Bodega', 'Angeles@123', '1234', '../Icons/avatar/angeles.jpg\r\n');
+(8, 'Angeles Olvera', 'Encargado de Bodega', 'Angeles@123', '1234', '../Icons/avatar/angeles.jpg\r\n'),
+(9, 'Caballero', 'Gerente', 'eduardo@2003', '1234', '../Icons/avatar/caballero.jpg');
 
 --
 -- Índices para tablas volcadas
@@ -318,10 +307,11 @@ ALTER TABLE `descripcion_producto`
   ADD PRIMARY KEY (`ID_Descrip`);
 
 --
--- Indices de la tabla `detalles_pedido`
+-- Indices de la tabla `detalle_pedido`
 --
-ALTER TABLE `detalles_pedido`
-  ADD PRIMARY KEY (`ID_Detalle_Pedido`),
+ALTER TABLE `detalle_pedido`
+  ADD PRIMARY KEY (`ID_Detalle`),
+  ADD KEY `ID_Pedido` (`ID_Pedido`),
   ADD KEY `ID_Prod` (`ID_Prod`);
 
 --
@@ -389,10 +379,10 @@ ALTER TABLE `descripcion_producto`
   MODIFY `ID_Descrip` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT de la tabla `detalles_pedido`
+-- AUTO_INCREMENT de la tabla `detalle_pedido`
 --
-ALTER TABLE `detalles_pedido`
-  MODIFY `ID_Detalle_Pedido` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+ALTER TABLE `detalle_pedido`
+  MODIFY `ID_Detalle` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `envios`
@@ -416,17 +406,18 @@ ALTER TABLE `proveedor`
 -- AUTO_INCREMENT de la tabla `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `ID_Usuario` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `ID_Usuario` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `detalles_pedido`
+-- Filtros para la tabla `detalle_pedido`
 --
-ALTER TABLE `detalles_pedido`
-  ADD CONSTRAINT `detalles_pedido_ibfk_1` FOREIGN KEY (`ID_Prod`) REFERENCES `productos` (`ID_Prod`);
+ALTER TABLE `detalle_pedido`
+  ADD CONSTRAINT `detalle_pedido_ibfk_1` FOREIGN KEY (`ID_Pedido`) REFERENCES `pedidos` (`ID_Pedido`),
+  ADD CONSTRAINT `detalle_pedido_ibfk_2` FOREIGN KEY (`ID_Prod`) REFERENCES `productos` (`ID_Prod`);
 
 --
 -- Filtros para la tabla `pedidos`
