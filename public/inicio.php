@@ -159,19 +159,23 @@ body {
 }
 
 .acciones th, .acciones td {
-    padding: 12px 10px;
+    padding: 20px 10px;
     text-align: left;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solidrgb(224, 224, 224);
     text-align: center;
 }
 
 .acciones th {
-    background-color: #f8f8f8;
+    background-color:rgb(223, 223, 223);
     font-weight: bold;
 }
+.acciones td {
+    font-weight: 400;
+}
+
 
 .acciones tr:hover {
-    background-color: #6b3f6780;
+    background-color:rgba(89, 201, 149, 0.5);
 }
 
 
@@ -228,24 +232,36 @@ body {
     </div>
 
     <!-- ACCIONES a la derecha, ocupando dos filas -->
-    <div class="box acciones">
-        <h3>Acciones en la Empresa</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Usuario</th>
-                    <th>Acción</th>
-                    <th>Fecha</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>Pepe</td><td>Agregar Pedido</td><td>20-21-2297</td></tr>
-                <tr><td>Pepe</td><td>Agregar Pedido</td><td>20-21-2297</td></tr>
-                <tr><td>Pepe</td><td>Agregar Pedido</td><td>20-21-2297</td></tr>
-                <tr><td>Pepe</td><td>Eliminar Producto</td><td>20-21-2297</td></tr>
-            </tbody>
-        </table>
-    </div>
+<div class="box acciones">
+    <h3>Movimientos en la Empresa</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ACCIÓN</th>
+                <th>TABLA</th>
+                <th>DETALLE</th>
+                <th>FECHA</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php
+            include("../server/conexion_bd.php");
+
+            $consulta = "SELECT accion, tabla_afectada, detalle, fecha_hora FROM bitacora ORDER BY fecha_hora DESC LIMIT 10";
+            $resultado = mysqli_query($conexion, $consulta);
+
+            while ($fila = mysqli_fetch_assoc($resultado)) {
+                echo "<tr>";
+                echo "<td>" . $fila['accion'] . "</td>";
+                echo "<td>" . $fila['tabla_afectada'] . "</td>";
+                echo "<td>" . $fila['detalle'] . "</td>";
+                echo "<td>" . date("d-m-Y H:i:s", strtotime($fila['fecha_hora'])) . "</td>";
+                echo "</tr>";
+            }
+            ?>
+        </tbody>
+    </table>
+</div>
 
     <!-- PRODUCTOS MÁS VENDIDOS debajo -->
     <div class="box productos-vendidos">
@@ -273,7 +289,7 @@ fetch("../server/datos_ventas.php")
                 borderColor: '#8B85F9',
                 backgroundColor: 'rgba(139, 133, 249, 0.81)',
                 fill: true,
-                tension: 0.4,
+                tension: 0.2,
                 pointBackgroundColor: 'white',
                 pointBorderColor: '#8B85F9',
                 pointRadius: 8,
