@@ -8,7 +8,7 @@ if (!isset($_GET['id'])) {
 
 $id = intval($_GET['id']);
 
-$sql = "SELECT dp.ID_Detalle, dp.ID_Prod, p.Nomb_Prod, dp.Cantidad 
+$sql = "SELECT dp.ID_Detalle, dp.ID_Prod, p.Nomb_Prod, p.Prec_Vent, dp.Cantidad 
         FROM detalle_pedido dp
         LEFT JOIN productos p ON dp.ID_Prod = p.ID_Prod
         WHERE dp.ID_Pedido = ?";
@@ -73,6 +73,7 @@ if ($resultado && $resultado->num_rows > 0) {
                 <th>ID Detalle</th>
                 <th>ID Producto</th>
                 <th>Nombre del Producto</th>
+                <th>Precio</th>
                 <th>Cantidad</th>
             </tr>';
 
@@ -81,6 +82,7 @@ if ($resultado && $resultado->num_rows > 0) {
                 <td>" . htmlspecialchars($fila["ID_Detalle"]) . "</td>
                 <td>" . htmlspecialchars($fila["ID_Prod"]) . "</td>
                 <td>" . htmlspecialchars($fila["Nomb_Prod"]) . "</td>
+                <td>" . htmlspecialchars($fila["Prec_Vent"]) . "</td>
                 <td>" . htmlspecialchars($fila["Cantidad"]) . "</td>
               </tr>";
     }
