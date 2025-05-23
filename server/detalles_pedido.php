@@ -17,7 +17,7 @@ $stmt->bind_param("i", $id);
 $stmt->execute();
 $resultado = $stmt->get_result();
 
-if ($resultado && $fila = $resultado->fetch_assoc()) {
+if ($resultado && $resultado->num_rows > 0) {
     echo '
     <style>
         .tabla-formal {
@@ -74,16 +74,20 @@ if ($resultado && $fila = $resultado->fetch_assoc()) {
                 <th>ID Producto</th>
                 <th>Nombre del Producto</th>
                 <th>Cantidad</th>
-            </tr>
-            <tr>
-                <td>' . htmlspecialchars($fila["ID_Detalle"]) . '</td>
-                <td>' . htmlspecialchars($fila["ID_Prod"]) . '</td>
-                <td>' . htmlspecialchars($fila["Nomb_Prod"]) . '</td>
-                <td>' . htmlspecialchars($fila["Cantidad"]) . '</td>
-            </tr>
-        </table>
-    </div>';
+            </tr>';
+
+    while ($fila = $resultado->fetch_assoc()) {
+        echo "<tr>
+                <td>" . htmlspecialchars($fila["ID_Detalle"]) . "</td>
+                <td>" . htmlspecialchars($fila["ID_Prod"]) . "</td>
+                <td>" . htmlspecialchars($fila["Nomb_Prod"]) . "</td>
+                <td>" . htmlspecialchars($fila["Cantidad"]) . "</td>
+              </tr>";
+    }
+
+    echo '</table></div>';
 } else {
     echo "No hay detalles de este pedido.";
 }
+
 ?>

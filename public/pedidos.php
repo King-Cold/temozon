@@ -14,7 +14,8 @@ $sql = "SELECT
             pedidos.Precio_Total
         FROM pedidos
         INNER JOIN cliente ON pedidos.ID_Cliente = cliente.ID_Cliente
-        INNER JOIN envios ON pedidos.ID_Envio = envios.ID_Envio";
+        INNER JOIN envios ON pedidos.ID_Envio = envios.ID_Envio
+        ORDER BY pedidos.ID_Pedido ASC";
 
 $resultado = $conexion->query($sql);
 ?>
@@ -153,6 +154,7 @@ $resultado = $conexion->query($sql);
 
     <div style="text-align: center; margin: 20px;">
         <button class="btn btn-edit" onclick="mostrarDetalles()">Ver Detalles</button>
+        <button class="btn" onclick="abrirNuevoPedido()">Agregar pedido</button>
     </div>
 
     <table>
@@ -189,6 +191,57 @@ $resultado = $conexion->query($sql);
         <div class="modal-content">
             <span class="close" onclick="cerrarModal()">&times;</span>
             <div id="detalleContenido">Cargando detalles...</div>
+        </div>
+    </div>
+    
+    <?php
+    $envios = $conexion->query("SELECT ID_Envio, Estado_Envio FROM envios WHERE Estado_Envio = 'Pendiente'");
+    $clientes = $conexion->query("SELECT ID_Cliente, Nombre_Cliente FROM cliente");
+    $productos = $conexion->query("SELECT ID_Prod, Nomb_Prod, Prec_Vent FROM productos WHERE Prod_Estatus = 1");
+    ?>
+
+    <div id="nuevoPedidoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarNuevoPedido()">&times;</span>
+            <h2>Nuevo Pedido</h2>
+            <form id="formNuevoPedido">
+                <label for="ID_Envio">Envío:</label>
+                <select name="ID_Envio" required>
+                    <option value="">Seleccione un envío</option>
+                    <?php while ($env = $envios->fetch_assoc()) {
+                        echo "<option value='{$env['ID_Envio']}'>#{$env['ID_Envio']} - {$env['Estado_Envio']}</option>";
+                    } ?>
+                </select>
+
+                <label for="ID_Cliente">Cliente:</label>
+                <select name="ID_Cliente" required>
+                    <option value="">Seleccione un cliente</option>
+                    <?php while ($cli = $clientes->fetch_assoc()) {
+                        echo "<option value='{$cli['ID_Cliente']}'>#{$cli['ID_Cliente']} - {$cli['Nombre_Cliente']}</option>";
+                    } ?>
+                </select>
+
+                <div id="productosContainer">
+                    <div class="producto-item">
+                        <label>Producto:</label>
+                        <select name="productos[]" required>
+                            <option value="">Seleccione un producto</option>
+                            <?php
+                            $productos->data_seek(0); 
+                            while ($prod = $productos->fetch_assoc()) {
+                                echo "<option value='{$prod['ID_Prod']}' data-precio='{$prod['Prec_Vent']}'>{$prod['Nomb_Prod']} - {$prod['ID_Prod']}</option>";
+                            }
+                            ?>
+                        </select>
+                        <label>Cantidad:</label>
+                        <input type="number" name="cantidades[]" min="1" required>
+                    </div>
+                </div>
+
+                <button type="button" class="btn" onclick="agregarProducto()">Agregar otro producto</button>
+                <br><br>
+                <button type="submit" class="btn">Confirmar Pedido</button>
+            </form>
         </div>
     </div>
 </main>
