@@ -8,10 +8,10 @@ if (!isset($_GET['id'])) {
 
 $id = intval($_GET['id']);
 
-$sql = "SELECT dp.ID_Detalle_Pedido, dp.ID_Prod, p.Nomb_Prod, dp.Cantidad 
-        FROM detalles_pedido dp
+$sql = "SELECT dp.ID_Detalle, dp.ID_Prod, p.Nomb_Prod, dp.Cantidad 
+        FROM detalle_pedido dp
         LEFT JOIN productos p ON dp.ID_Prod = p.ID_Prod
-        WHERE dp.ID_Detalle_Pedido = ?";
+        WHERE dp.ID_Pedido = ?";
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param("i", $id);
 $stmt->execute();
@@ -76,7 +76,7 @@ if ($resultado && $fila = $resultado->fetch_assoc()) {
                 <th>Cantidad</th>
             </tr>
             <tr>
-                <td>' . htmlspecialchars($fila["ID_Detalle_Pedido"]) . '</td>
+                <td>' . htmlspecialchars($fila["ID_Detalle"]) . '</td>
                 <td>' . htmlspecialchars($fila["ID_Prod"]) . '</td>
                 <td>' . htmlspecialchars($fila["Nomb_Prod"]) . '</td>
                 <td>' . htmlspecialchars($fila["Cantidad"]) . '</td>
@@ -84,6 +84,6 @@ if ($resultado && $fila = $resultado->fetch_assoc()) {
         </table>
     </div>';
 } else {
-    echo "No se encontró información del detalle.";
+    echo "No hay detalles de este pedido.";
 }
 ?>

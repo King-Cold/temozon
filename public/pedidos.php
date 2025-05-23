@@ -5,7 +5,6 @@ require_once '../server/conexion_bd.php';
 // Consultas no medicas 
 $sql = "SELECT 
             pedidos.ID_Pedido,
-            pedidos.ID_Detalle_Pedido,
             pedidos.ID_Envio,
             envios.Estado_Envio,
             pedidos.ID_Cliente,
@@ -159,7 +158,6 @@ $resultado = $conexion->query($sql);
     <table>
         <tr>
             <th>ID Pedido</th>
-            <th>ID Detalle</th>
             <th>ID Envío</th>
             <th>Estado del Envío</th>
             <th>ID Cliente</th>
@@ -171,9 +169,8 @@ $resultado = $conexion->query($sql);
         <?php
         if ($resultado && $resultado->num_rows > 0) {
             while ($fila = $resultado->fetch_assoc()) {
-                echo "<tr onclick=\"seleccionarFila(this, '" . htmlspecialchars($fila["ID_Detalle_Pedido"] ?? '') . "')\">
+                echo "<tr onclick=\"seleccionarFila(this, '" . htmlspecialchars($fila["ID_Pedido"] ?? '') . "')\">
                     <td>" . htmlspecialchars($fila["ID_Pedido"]) . "</td>
-                    <td>" . htmlspecialchars($fila["ID_Detalle_Pedido"] ?? "N/A") . "</td>
                     <td>" . htmlspecialchars($fila["ID_Envio"]) . "</td>
                     <td>" . htmlspecialchars($fila["Estado_Envio"]) . "</td>
                     <td>" . htmlspecialchars($fila["ID_Cliente"]) . "</td>
