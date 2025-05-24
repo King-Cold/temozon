@@ -31,7 +31,7 @@ $resultado = $conexion->query($sql);
    <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #e8f5e9; /* verde muy claro */
+        background: #f0f0f0; /* verde muy claro */
         margin: 0;
         padding: 20px;
     }

@@ -37,25 +37,33 @@ include("server/controlador.php");
                 ?>
                 
 
-                <form action="" method="POST">
-                    <div class="input-group">
-                        <label for="email">Correo Electrónico</label>
-                        <input type="email" id="email" placeholder="Ingrese su correo" name="email">
-                    </div>
-                    <div class="input-group">
-                        <label for="usuario">Usuario</label>
-                        <input type="text" id="usuario" placeholder="Ingrese su usuario" name="usuario">
-                    </div>
-                    <div class="input-group password-group">
-    <label for="password">Contraseña</label>
-    <input type="password" id="password" placeholder="Ingrese su contraseña" name="contraseña">
-    <span class="ver-password" onclick="togglePassword()">
-        <img id="eyeIcon" src="Icons/ojo.png" alt="Ver contraseña" width="20" height="20">
-    </span>
-</div>
-                    <a href="#" class="olvide">Olvidé mi contraseña</a>
-                    <button type="submit" name="btningresar">INICIAR SESIÓN</button>
-                </form>
+<form action="" method="POST">
+
+    <div class="input-group">
+        <label for="email">Correo Electrónico</label>
+        <img src="Icons/email.svg" alt="Icono Correo">
+        <input type="email" id="email" placeholder="Ingrese su correo" name="email">
+    </div>
+
+    <div class="input-group">
+        <label for="usuario">Usuario</label>
+        <img src="Icons/user.svg" alt="Icono Usuario">
+        <input type="text" id="usuario" placeholder="Ingrese su usuario" name="usuario">
+    </div>
+
+    <div class="input-group password-group">
+        <label for="password">Contraseña</label>
+        <img src="Icons/candado.svg" alt="Icono Contraseña">
+        <input type="password" id="password" placeholder="Ingrese su contraseña" name="contraseña">
+        <span class="ver-password" onclick="togglePassword()">
+            <img id="eyeIcon" src="Icons/ojo.png" alt="Ver contraseña" width="20" height="20">
+        </span>
+    </div>
+
+    <a href="#" class="olvide">Olvidé mi contraseña</a>
+    <button type="submit" name="btningresar">INICIAR SESIÓN</button>
+
+</form>
             </div>
         </div>
     </div>

@@ -18,10 +18,9 @@ $nombreUsuario = isset($_SESSION['nombre']) ? $_SESSION['nombre'] : 'Invitado';
     <link rel="stylesheet" href="css/styles.css">
     <style>
 @import url('https://fonts.googleapis.com/css2?family=Cal+Sans&family=Comfortaa:wght@300..700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 body {
-    font-family: sans-serif;
     margin: 0;
     padding: 20px;
     background-color: #f0f0f0;
@@ -30,7 +29,7 @@ body {
 .dashboard {
     display: grid;
     grid-template-areas: 
-    "productos ventas ingresos compras"
+    "productos compras ventas ingresos"
     "ventas-mensuales ventas-mensuales acciones acciones"
     "productos-vendidos productos-vendidos acciones acciones";
     grid-gap: 20px;
@@ -41,7 +40,7 @@ body {
 
 }
 .dashboard.menu-toggle{
-    margin-left: 15rem;
+    margin-left: 13rem;
 }
 
 .box {
@@ -154,13 +153,13 @@ body {
 .acciones table {
     width: 100%;
     border-collapse: collapse;
-    font-family: "Comfortaa", sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 14px;
     
 }
 
 .acciones th, .acciones td {
-    padding: 20px 10px;
+    padding: 10px 10px;
     text-align: left;
     border-bottom: 1px solidrgb(224, 224, 224);
     text-align: center;
@@ -168,7 +167,7 @@ body {
 
 .acciones th {
     background-color:rgb(223, 223, 223);
-    font-weight: bold;
+    font-weight: 900;
 }
 .acciones td {
     font-weight: 400;
