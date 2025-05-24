@@ -5,7 +5,7 @@ require_once '../server/permisos.php';
     <nav>
         <ul>
             <li>
-                <a href="inicio.php">
+                <a href="inicio.php" >
                     <img src="../Icons/home-svgrepo-com.svg" alt="Home">
                     <span>PAGINA PRINCIPAL</span>
                 </a>
