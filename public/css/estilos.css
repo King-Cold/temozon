@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poetsen+One&family=Rowdies:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -29,10 +31,9 @@ body {
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
     border-radius: 30px;
     overflow: hidden;
-    background: white;
+    background: rgb(255, 255, 255);
     
 }
-
 /* Estilos para la parte izquierda */
 .login-left {
     width: 50%;
@@ -75,6 +76,7 @@ h2 {
   font-family: "Poetsen One", sans-serif;
   font-weight: 400;
   font-style: normal;
+  letter-spacing: 2px;
     
 }
 
@@ -82,21 +84,50 @@ h2 {
     margin-bottom: 15px;
     text-align: left;
     position: relative;
+    
 }
 
 .input-group label {
     font-size: 16px;
     display: block;
     margin-bottom: 5px;
+    font-family: "Nunito", sans-serif;
+        letter-spacing: 1px;
+            font-weight: 700;
+
 }
 
 .input-group input {
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 15px;
+    background-color: #ffffffcc;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1);
+    color: #000000;
+    font-family: "Nunito", sans-serif;
+     letter-spacing: 1px;
+
 }
 
+.input-group input::placeholder {
+    color: #888;
+      font-family: "Nunito", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+.input-group img {
+    position: absolute;
+    left: 15px;
+    top: 70%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+}
+.input-group input {
+    padding-left: 45px; /* espacio para el icono */
+}
 /* Ícono de ver contraseña */
 .password-group {
     position: relative;
@@ -105,9 +136,11 @@ h2 {
 .ver-password {
     cursor: pointer;
     position: absolute;
-    right: 15px;
-    top: 35px;
+    right: 55px;
+    top: 50px; /* mismo top que los íconos */
+
 }
+
 
 .olvide {
     display: block;

@@ -42,7 +42,7 @@ if (isset($_SESSION['ID_Usuario'])) {
         </div>
         <div class="brand">
             <img src="../Icons/logo-Photoroom-removebg-preview.png" alt="icon-udemy" class="logo">
-            <span class="name">DISTRIBUIDORA TEMOZÓN</span>
+            <span class="name">Distribuidora Veterinaria Grupo Temozón</span>
         </div>
     </div>
     <div class="right">

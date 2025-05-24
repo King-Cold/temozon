@@ -17,8 +17,7 @@ $resultado = $conexion->query($sql);
  <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #f4f4f4;
-        margin: 0;
+        background: #f0f0f0;
         padding: 20px;
     }
 
