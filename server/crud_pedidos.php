@@ -2,6 +2,22 @@
 require_once '../server/conexion_bd.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    if (isset($_POST['accion']) && $_POST['accion'] === 'eliminar') {
+        // ELIMINAR PEDIDO
+        $id_pedido = intval($_POST['id_pedido']);
+
+        // Eliminar detalles primero
+        $conexion->query("DELETE FROM detalle_pedido WHERE ID_Pedido = $id_pedido");
+
+        // Luego el pedido
+        $conexion->query("DELETE FROM pedidos WHERE ID_Pedido = $id_pedido");
+
+        header('Location: ../public/pedidos.php'); // redirigir después de eliminar
+        exit;
+    }
+
+    // AGREGAR PEDIDO
     $id_envio = intval($_POST['ID_Envio']);
     $id_cliente = intval($_POST['ID_Cliente']);
     $productos = $_POST['productos'];
@@ -32,11 +48,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt_detalle = $conexion->prepare("INSERT INTO detalle_pedido (ID_Pedido, ID_Prod, Cantidad) VALUES (?, ?, ?)");
     foreach ($productos as $i => $id_prod) {
         $cant = intval($cantidades[$i]);
-        $stmt_detalle->bind_param("isi", $id_pedido, $id_prod, $cant);
+        $stmt_detalle->bind_param("iii", $id_pedido, $id_prod, $cant);
         $stmt_detalle->execute();
     }
 
     echo "Pedido confirmado con éxito.";
+
 } else {
     http_response_code(405);
     echo "Método no permitido.";
