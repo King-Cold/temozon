@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&family=Rowdies:wght@300;400;700&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -18,14 +19,14 @@ body {
     /* 
     background: #302154;
     */
-    background-image: url("../../Icons/fondito2.png"); /* Ruta de tu imagen de fondo */
+    background-image: url("../../Icons/fondito.png"); /* Ruta de tu imagen de fondo */
 }
 
 .login-container {
     display: flex;
     width: 900px;
     height: 550px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
     border-radius: 30px;
     overflow: hidden;
     background: white;
@@ -71,7 +72,9 @@ body {
 h2 {
     margin-bottom: 20px;
     font-size: 34px;
-    font-family: Montserrat;
+  font-family: "Poetsen One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
     
 }
 
@@ -116,13 +119,13 @@ h2 {
 }
 
 button {
-    width: 100%;
+    width: 80%;
     padding: 10px;
     border: none;
     background: #9c367f;
     color: white;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     transition: 0.3s;
 }
@@ -133,12 +136,13 @@ button:hover {
 
 
 .mensaje-error {
-    color: #7f4fd9; /* Rojo suave */
-    background-color: #d7f8f6; /* Fondo rojo claro */
-    border: 1px solid #dec6f5;
+    color: #ffffff; /* Rojo suave */
+    background-color: hsla(0, 95%, 50%, 0.439); /* Fondo rojo claro */
+    border: 1px solid #ffa70531;
     padding: 10px;
     margin-top: 10px;
-    border-radius: 5px;
+    margin-bottom: 10px;
+    border-radius: 15px;
     text-align: center;
     width: 100%;
     font-family: montserrat;

@@ -20,7 +20,7 @@ if (isset($_POST["btningresar"])) { // Verifica si se presionó el botón
 
 
         } else {
-            $mensaje = "⚠️ USUARIO O CONTRASEÑA INCORRECTOS";
+            $mensaje = "USUARIO O CONTRASEÑA INCORRECTOS";
         }
     }
 }
