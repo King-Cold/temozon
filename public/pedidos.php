@@ -167,6 +167,7 @@ $resultado = $conexion->query($sql);
             <th>Dirección del Cliente</th>
             <th>Fecha</th>
             <th>Precio Total</th>
+            <th>Acciones</th>
         </tr>
         <?php
         if ($resultado && $resultado->num_rows > 0) {
@@ -180,6 +181,13 @@ $resultado = $conexion->query($sql);
                     <td>" . htmlspecialchars($fila["Direc_Cliente"]) . "</td>
                     <td>" . htmlspecialchars($fila["Fecha"]) . "</td>
                     <td>$" . number_format($fila["Precio_Total"], 2) . "</td>
+                    <td>
+                        <form method='POST' action='../server/crud_pedidos.php?id=" . $fila["ID_Pedido"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar el pedido #" . $fila["ID_Pedido"] . "?');\">
+                            <input type='hidden' name='accion' value='eliminar'>
+                            <input type='hidden' name='id_pedido' value='" . $fila["ID_Pedido"] . "'>
+                            <button type='submit' class='btn btn-delete'>Eliminar</button>
+                        </form>
+                </td>
                 </tr>";
             }
         } else {
@@ -229,7 +237,7 @@ $resultado = $conexion->query($sql);
                             <?php
                             $productos->data_seek(0); 
                             while ($prod = $productos->fetch_assoc()) {
-                                echo "<option value='{$prod['ID_Prod']}' data-precio='{$prod['Prec_Vent']}'>{$prod['Nomb_Prod']} - {$prod['Cant_Disp_Prod']} disponibles</option>";
+                                echo "<option value='{$prod['ID_Prod']}' data-precio='{$prod['Prec_Vent']}' data-disponible='{$prod['Cant_Disp_Prod']}'>{$prod['Nomb_Prod']} - {$prod['Cant_Disp_Prod']} disponibles</option>";
                             }
                             ?>
                         </select>

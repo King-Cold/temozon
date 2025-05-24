@@ -2,6 +2,30 @@
 require_once '../server/conexion_bd.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
+
+    if (isset($_POST['accion']) && $_POST['accion'] === 'eliminar') {
+        // ELIMINAR PEDIDO
+        $id_pedido = intval($_POST['id_pedido']);
+
+        // Restaurar cantidades antes de eliminar
+        $result = $conexion->query("SELECT ID_Prod, Cantidad FROM detalle_pedido WHERE ID_Pedido = $id_pedido");
+        while ($row = $result->fetch_assoc()) {
+            $id_prod = $row['ID_Prod'];
+            $cant = $row['Cantidad'];
+            $conexion->query("UPDATE productos SET Cant_Disp_Prod = Cant_Disp_Prod + $cant WHERE ID_Prod = '$id_prod'");
+        }
+
+        // Eliminar detalles primero
+        $conexion->query("DELETE FROM detalle_pedido WHERE ID_Pedido = $id_pedido");
+
+        // Luego el pedido
+        $conexion->query("DELETE FROM pedidos WHERE ID_Pedido = $id_pedido");
+
+        header('Location: ../public/pedidos.php'); // redirigir después de eliminar
+        exit;
+    }
+
+    // AGREGAR PEDIDO
     $id_envio = intval($_POST['ID_Envio']);
     $id_cliente = intval($_POST['ID_Cliente']);
     $productos = $_POST['productos'];
@@ -34,9 +58,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $cant = intval($cantidades[$i]);
         $stmt_detalle->bind_param("isi", $id_pedido, $id_prod, $cant);
         $stmt_detalle->execute();
+
+        // Descontar del stock
+        $conexion->query("UPDATE productos SET Cant_Disp_Prod = Cant_Disp_Prod - $cant WHERE ID_Prod = '$id_prod'");
     }
 
     echo "Pedido confirmado con éxito.";
+
 } else {
     http_response_code(405);
     echo "Método no permitido.";
