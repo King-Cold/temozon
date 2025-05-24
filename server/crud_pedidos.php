@@ -62,6 +62,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // Descontar del stock
         $conexion->query("UPDATE productos SET Cant_Disp_Prod = Cant_Disp_Prod - $cant WHERE ID_Prod = '$id_prod'");
     }
+    
+    //Actualizar la tabla envios pa ponerlos en transito
+    $actualizarEnvios = "
+        UPDATE envios e
+        JOIN (
+            SELECT ID_Envio, COUNT(*) AS total_pedidos
+            FROM pedidos
+            GROUP BY ID_Envio
+        ) p ON e.ID_Envio = p.ID_Envio
+        SET e.Estado_Envio = 'En tránsito'
+        WHERE p.total_pedidos >= e.Maximo_Articulos
+        AND e.Estado_Envio != 'En tránsito';
+    ";
+    $conexion->query($actualizarEnvios);
+
 
     echo "Pedido confirmado con éxito.";
 

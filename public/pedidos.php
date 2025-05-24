@@ -2,6 +2,19 @@
 session_start();
 require_once '../server/conexion_bd.php';
 
+//Actualizar el estado de los envíos
+$actualizarEnvios = "
+    UPDATE envios e
+    JOIN (
+        SELECT ID_Envio, COUNT(*) AS total_pedidos
+        FROM pedidos
+        GROUP BY ID_Envio
+    ) p ON e.ID_Envio = p.ID_Envio
+    SET e.Estado_Envio = 'En tránsito'
+    WHERE p.total_pedidos >= e.Maximo_Articulos
+    AND e.Estado_Envio != 'En tránsito';
+";
+$conexion->query($actualizarEnvios);
 // Consultas no medicas 
 $sql = "SELECT 
             pedidos.ID_Pedido,

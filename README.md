@@ -11,7 +11,13 @@
 - Encargado de Bodega
 - Gerente
 - Empleado Auxilar
-
+***
+## Estados de Envio
+- Pendiente
+- En transito
+- Entregado
+- Cancelado
+***
 ## PERMISOS SEGUN ROL
 ### INVENTARIO 
 > Todos lo ven
