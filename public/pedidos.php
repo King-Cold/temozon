@@ -229,7 +229,7 @@ $resultado = $conexion->query($sql);
                             <?php
                             $productos->data_seek(0); 
                             while ($prod = $productos->fetch_assoc()) {
-                                echo "<option value='{$prod['ID_Prod']}' data-precio='{$prod['Prec_Vent']}'>{$prod['Nomb_Prod']} - {$prod['Cant_Disp_Prod']} disponibles</option>";
+                                echo "<option value='{$prod['ID_Prod']}' data-precio='{$prod['Prec_Vent']}' data-disponible='{$prod['Cant_Disp_Prod']}'>{$prod['Nomb_Prod']} - {$prod['Cant_Disp_Prod']} disponibles</option>";
                             }
                             ?>
                         </select>
