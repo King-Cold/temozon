@@ -150,7 +150,7 @@ $resultado = $conexion->query($sql);
 <?php include 'sidebar.php'; ?>
 
 <main id="main">
-    <h2>PEDILLOS🤮</h2>
+    <h2>PEDIDOS</h2>
 
     <div style="text-align: center; margin: 20px;">
         <button class="btn btn-edit" onclick="mostrarDetalles()">Ver Detalles</button>

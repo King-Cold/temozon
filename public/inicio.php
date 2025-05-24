@@ -88,7 +88,8 @@ body {
 
 .productos {
     grid-area: productos;
-    background: #2ecc71;
+    background:    #D46DAD;
+
 }
 
 .ventas {
@@ -98,12 +99,12 @@ body {
 
 .ingresos {
     grid-area: ingresos;
-    background: #e74c3c;
+    background: #2ecc71
 }
 
 .compras {
     grid-area: compras;
-    background: #f39c12;
+    background: #F3BA53;
 }
 
 .ventas-mensuales {

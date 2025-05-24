@@ -1,3 +1,13 @@
+document.addEventListener('DOMContentLoaded', () => {
+  const links = document.querySelectorAll('.sidebar a');
+  const currentURL = window.location.href;
+
+  links.forEach(link => {
+    if (currentURL.includes(link.getAttribute('href'))) {
+      link.classList.add('active');
+    }
+  });
+});
 const menu = document.getElementById('menu');
 const sidebar = document.getElementById('sidebar');
 const main = document.getElementById('main');
@@ -7,6 +17,7 @@ menu.addEventListener('click', () => {
     menu.classList.toggle('menu-toggle');
     main.classList.toggle('menu-toggle');
 });
+
 
 // Escaneo del codigo de barras con cámara
 function mostrarEscaner() {
