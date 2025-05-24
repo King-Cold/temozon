@@ -1,17 +1,29 @@
 <?php
 session_start();
-require_once '../server/conexion_bd.php'; 
+require_once '../server/conexion_bd.php';
 require_once '../server/permisos.php';
 
 // Consulta principal del inventario
-$sql = "SELECT p.ID_Prod, p.Nomb_Prod, d.Descrip_Produc, p.Cant_Disp_Prod, 
-               a.Direccion_Alm AS Almacen, p.Prec_Comp, p.Prec_vent, pr.Nomb_Prov, 
-               c.Categoria_Nombre, p.Prod_Estatus, p.Fec_Cad, p.Desc_Prod
-        FROM productos p
-        LEFT JOIN almacen a ON p.ID_Almacen = a.ID_Almacen
-        LEFT JOIN categoria c ON p.ID_Categoria = c.ID_Categoria
-        LEFT JOIN proveedor pr ON p.ID_Prov = pr.ID_Prov
-        LEFT JOIN descripcion_producto d ON p.ID_Descrip = d.ID_Descrip";
+$sql = "SELECT 
+  p.ID_Prod, 
+  p.Nomb_Prod, 
+  d.Descrip_Produc, 
+  p.Cant_Disp_Prod, 
+  a.ID_Almacen AS ID_Almacen, -- Aquí el ID del almacén
+  u.Nombre_Usuario AS Encargado_Almacen, -- Aquí el nombre del encargado
+  p.Prec_Comp, 
+  p.Prec_vent, 
+  pr.Nomb_Prov, 
+  c.Categoria_Nombre, 
+  p.Prod_Estatus, 
+  p.Fec_Cad, 
+  p.Desc_Prod
+FROM productos p
+LEFT JOIN almacen a ON p.ID_Almacen = a.ID_Almacen
+LEFT JOIN usuario u ON a.Encarga_Alm = u.ID_Usuario -- Este es el join importante
+LEFT JOIN categoria c ON p.ID_Categoria = c.ID_Categoria
+LEFT JOIN proveedor pr ON p.ID_Prov = pr.ID_Prov
+LEFT JOIN descripcion_producto d ON p.ID_Descrip = d.ID_Descrip;";
 
 $resultado = $conexion->query($sql);
 
@@ -21,120 +33,127 @@ $resultado = $conexion->query($sql);
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inventario</title>
     <link rel="stylesheet" href="css/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
 
-   <style>
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #f0f0f0; /* verde muy claro */
-        margin: 0;
-        padding: 20px;
-    }
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f0f0;
+            padding: 20px;
+        }
 
-    main#main {
-        padding: 20px;
-    }
+        main#main {
+            padding: 20px;
+        }
 
-    h2 {
-        text-align: center;
-        color: #01579b; /* azul corporativo */
-        margin-bottom: 20px;
-        font-size: 28px;
-    }
+        h2 {
+            text-align: center;
+            color: #333333;
+            margin-bottom: 25px;
+            font-size: 30px;
+            letter-spacing: 0.5px;
+        }
 
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        background-color: #ffffff;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12); /* sombra suave */
-        border-radius: 10px;
-        overflow: hidden;
-    }
+        table {
+            width: 95%;
+            margin: auto;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(51, 51, 51, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+        }
 
-    table th, table td {
-        padding: 14px 18px;
-        text-align: center;
-        border: 1px solid #cfd8dc;
-    }
+        table th,
+        table td {
+            padding: 14px 18px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+        }
 
-    table th {
-        background-color: #00695c; /* verde fuerte */
-        color: #ffffff;
-        font-weight: 600;
-        font-size: 16px;
-    }
+        table th {
+            background-color: #2ECC71;
+            color: #ffffff;
+            font-weight: 600;
+            font-size: 16px;
+        }
 
-    table tr:nth-child(even) {
-        background-color: #e0f7fa; /* azul verdoso clarito */
-    }
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
 
-    table tr:nth-child(odd) {
-        background-color: #ffffff;
-    }
+        table tr:nth-child(odd) {
+            background-color: #eeeeee;
+        }
 
-    table tr:hover {
-        background-color: #b2ebf2; /* hover azul-verde suave */
-    }
+        table tr:hover {
+            background-color: #d6d6d6;
+            transition: background-color 0.3s ease;
+        }
 
-    table td {
-        color: #37474f;
-        font-size: 15px;
-    }
+        table td {
+            color: #333333;
+            font-size: 14.5px;
+        }
 
-    button {
-        background-color: #00796b;
-        color: #fff;
-        border: none;
-        padding: 10px 24px;
-        font-size: 16px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
+        button {
+            background-color: #00796b;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
 
-    button:hover {
-        background-color: #004d40;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-    }
+        button:hover {
+            background-color: #004d40;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        }
 
-    #escaneoCont {
-        display: none;
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        z-index: 999;
-    }
+        #escaneoCont {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 999;
+        }
 
-    #lector {
-        width: 80%;
-        height: 60%;
-        margin: 50px auto;
-        background: #000;
-        border-radius: 12px;
-    }
+        #lector {
+            width: 80%;
+            height: 60%;
+            margin: 50px auto;
+            background: #000;
+            border-radius: 12px;
+        }
 
-    #escaneoCont button {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-    }
-</style>
+        #escaneoCont button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
 </head>
+
 <body>
     <?php include 'header.php'; ?>
     <?php include 'sidebar.php'; ?>
 
     <main id="main">
 
-        <?php if (tienePermiso(['Encargado de Bodega','Gerente'])): ?>
-        <!-- El boton :O-->
-        <button onclick="ventanaEscaneo()" style="
+        <?php if (tienePermiso(['Encargado de Bodega', 'Gerente'])): ?>
+            <!-- El boton :O-->
+            <button onclick="ventanaEscaneo()" style="
             display: block;
             margin: 5px auto 1px;
             padding: 10px 20px;
@@ -143,26 +162,27 @@ $resultado = $conexion->query($sql);
         <?php endif; ?>
 
         <h2>Inventario de Productos</h2>
-        
+
         <!-- Barra de busqueda buscosa-->
         <input type="text" id="buscador" placeholder="Buscar por nombre del producto..." style="width: 100%; padding: 10px; margin-bottom: 15px; font-size: 16px;">
 
         <table border="1" cellspacing="0" cellpadding="5">
-        <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Descripción</th>
-            <th>Cantidad</th>
-            <th>Almacén</th>
-            <th>Precio Compra</th>
-            <th>Precio Venta</th>
-            <th>Proveedor</th>
-            <th>Categoría</th>
-            <th>Estatus</th>
-            <th>Fecha Caducidad</th>
-            <th>Descuento (%)</th>
-            <th>Precio con Descuento</th>
-        </tr>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Cantidad</th>
+                <th>Categoría</th>
+                <th>ID Almacen</th>
+                <th>Encargado de Almacen</th>
+                <th>Precio Compra</th>
+                <th>Precio Venta</th>
+                <th>Proveedor</th>
+                <th>Estatus</th>
+                <th>Fecha Caducidad</th>
+                <th>Descuento (%)</th>
+                <th>Precio con Descuento</th>
+            </tr>
 
             <?php
             if ($resultado && $resultado->num_rows > 0) {
@@ -175,11 +195,12 @@ $resultado = $conexion->query($sql);
                         <td>" . htmlspecialchars($fila["Nomb_Prod"]) . "</td>
                         <td>" . htmlspecialchars($fila["Descrip_Produc"]) . "</td>
                         <td>" . htmlspecialchars($fila["Cant_Disp_Prod"]) . "</td>
-                        <td>" . htmlspecialchars($fila["Almacen"]) . "</td>
+                        <td>" . htmlspecialchars($fila["Categoria_Nombre"]) . "</td>
+                        <td>" . htmlspecialchars($fila["ID_Almacen"]) . "</td>
+<td>" . htmlspecialchars($fila["Encargado_Almacen"]) . "</td>
                         <td>$" . htmlspecialchars($fila["Prec_Comp"]) . "</td>
                         <td>$" . htmlspecialchars($fila["Prec_vent"]) . "</td>
                         <td>" . htmlspecialchars($fila["Nomb_Prov"]) . "</td>
-                        <td>" . htmlspecialchars($fila["Categoria_Nombre"]) . "</td>
                         <td>" . ($fila["Prod_Estatus"] ? 'Activo' : 'Inactivo') . "</td>
                         <td>" . htmlspecialchars($fila["Fec_Cad"]) . "</td>
                         <td>" . htmlspecialchars($fila["Desc_Prod"]) . "</td>
@@ -290,4 +311,5 @@ $resultado = $conexion->query($sql);
     <script src="js/script.js"></script>
     <script src="js/search.js"></script>
 </body>
+
 </html>

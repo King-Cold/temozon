@@ -205,7 +205,7 @@ body {
 
  <div class="dashboard">
 
-    <div class="box productos" data-text="Productos">
+    <div class="box productos" data-text="# Productos">
         <img src="../Icons/productos.png" alt="Productos" class="icono">
         <div class="dato">5,556</div>
     </div>
@@ -215,7 +215,7 @@ body {
         <div class="dato">3,454</div>
     </div>
 
-    <div class="box ingresos" data-text="Ingresos">
+    <div class="box ingresos" data-text="# Ingresos">
         <img src="../Icons/ingresos.png" alt="Ingresos" class="icono">
         <div class="dato">$999,999</div>
     </div>
