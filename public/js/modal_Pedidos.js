@@ -43,8 +43,11 @@ function cerrarNuevoPedido() {
 
 function agregarProducto() {
     const container = document.getElementById("productosContainer");
+
     const item = document.createElement("div");
     item.className = "producto-item";
+    item.style.marginBottom = "10px";
+
     item.innerHTML = `
         <label>Producto:</label>
         <select name="productos[]" required>
@@ -53,6 +56,18 @@ function agregarProducto() {
         <label>Cantidad:</label>
         <input type="number" name="cantidades[]" min="1" required>
     `;
+
+    const btnEliminar = document.createElement("button");
+    btnEliminar.type = "button";
+    btnEliminar.textContent = "Eliminar";
+    btnEliminar.className = "btn";
+    btnEliminar.style.backgroundColor = "rgb(200, 50, 50)";
+    btnEliminar.style.marginLeft = "10px";
+    btnEliminar.onclick = () => {
+        container.removeChild(item);
+    };
+
+    item.appendChild(btnEliminar);
     container.appendChild(item);
 }
 
