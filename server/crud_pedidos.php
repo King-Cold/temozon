@@ -7,6 +7,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // ELIMINAR PEDIDO
         $id_pedido = intval($_POST['id_pedido']);
 
+        // Restaurar cantidades antes de eliminar
+        $result = $conexion->query("SELECT ID_Prod, Cantidad FROM detalle_pedido WHERE ID_Pedido = $id_pedido");
+        while ($row = $result->fetch_assoc()) {
+            $id_prod = $row['ID_Prod'];
+            $cant = $row['Cantidad'];
+            $conexion->query("UPDATE productos SET Cant_Disp_Prod = Cant_Disp_Prod + $cant WHERE ID_Prod = '$id_prod'");
+        }
+
         // Eliminar detalles primero
         $conexion->query("DELETE FROM detalle_pedido WHERE ID_Pedido = $id_pedido");
 
@@ -48,8 +56,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $stmt_detalle = $conexion->prepare("INSERT INTO detalle_pedido (ID_Pedido, ID_Prod, Cantidad) VALUES (?, ?, ?)");
     foreach ($productos as $i => $id_prod) {
         $cant = intval($cantidades[$i]);
-        $stmt_detalle->bind_param("iii", $id_pedido, $id_prod, $cant);
+        $stmt_detalle->bind_param("isi", $id_pedido, $id_prod, $cant);
         $stmt_detalle->execute();
+
+        // Descontar del stock
+        $conexion->query("UPDATE productos SET Cant_Disp_Prod = Cant_Disp_Prod - $cant WHERE ID_Prod = '$id_prod'");
     }
 
     echo "Pedido confirmado con éxito.";
