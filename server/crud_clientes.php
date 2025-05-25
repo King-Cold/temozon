@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar'])) {
         header("Location: ../public/clientes.php");
         exit;
     } else {
-        echo "<p style='color:red; text-align:center;'>Error al eliminar usuario.</p>";
+        echo "<p style='color:red; text-align:center;'>Error al eliminar cliente.</p>";
     }
 }
 
@@ -84,95 +84,115 @@ $usuario = $resultado->fetch_assoc();
 
 <head>
     <meta charset="UTF-8">
-    <title>Editar Usuario</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background: #f0f2f5;
-            padding: 40px;
-            margin: 0;
-        }
+    <title>Editar Cliente</title>
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #f0f2f5;
+        padding: 40px;
+        margin: 0;
+    }
 
-        h2 {
-            text-align: center;
-            color: #333;
-            margin-bottom: 30px;
-        }
+    h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 30px;
+        font-size: 28px;
+    }
 
+    form {
+        background: #fff;
+        padding: 35px;
+        border-radius: 16px;
+        max-width: 600px;
+        margin: auto;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    label {
+        font-weight: 600;
+        color: #444;
+        margin-bottom: 6px;
+        display: block;
+    }
+
+    input,
+    select {
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 15px;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    input:focus,
+    select:focus {
+        border-color: #1976d2;
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(25, 118, 210, 0.12);
+    }
+
+    .botones {
+        display: flex;
+        justify-content: flex-end;
+        gap: 15px;
+        margin-top: 10px;
+    }
+
+    button,
+    .cancelar {
+        padding: 14px 28px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background 0.3s ease, transform 0.2s ease;
+        text-decoration: none;
+        font-size: 15px;
+    }
+
+    .guardar {
+        background: #1976d2;
+        color: #fff;
+    }
+
+    .guardar:hover {
+        background: #125ea6;
+        transform: translateY(-2px);
+    }
+
+    .cancelar {
+        background: #a31818;
+        color: #fff;
+    }
+
+    .cancelar:hover {
+        background: #811212;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 640px) {
         form {
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 500px;
-            margin: auto;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-
-        }
-
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: 600;
-            color: #555;
-        }
-
-        input,
-        select {
-            width: 100%;
-            padding: 12px;
-            margin-top: 8px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
-        }
-
-        input:focus,
-        select:focus {
-            border-color: #1976d2;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.15);
+            padding: 25px;
+            max-width: 90%;
         }
 
         .botones {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 30px;
+            flex-direction: column;
+            gap: 12px;
         }
 
         button,
         .cancelar {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
+            width: 100%;
             text-align: center;
-            font-weight: 600;
-            transition: background 0.3s ease, transform 0.2s ease;
-            text-decoration: none;
-            font-size: 14px;
         }
-
-        .guardar {
-            background: #1976d2;
-            color: #fff;
-        }
-
-        .guardar:hover {
-            background: #125ea6;
-            transform: translateY(-1px);
-        }
-
-        .cancelar {
-            background: rgb(163, 24, 59);
-            color: #fff;
-        }
-
-        .cancelar:hover {
-            background: #a31818;
-            transform: translateY(-1px);
-        }
-    </style>
+    }
+</style>
 </head>
 
 <body>

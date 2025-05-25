@@ -117,6 +117,45 @@ $resultado = $conexion->query($sql);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         }
 
+            .btn {
+        padding: 8px 14px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 14px;
+        text-decoration: none;
+        color: #fff;
+        margin: 2px;
+        display: inline-block;
+        transition: background-color 0.3s ease, box-shadow 0.2s ease;
+    }
+
+    .btn-edit {
+        background-color:rgb(40, 49, 163);
+    }
+
+    .btn-edit:hover {
+        background-color:rgb(70, 64, 161);
+        box-shadow: 0 2px 6px rgba(106, 27, 154, 0.4);
+    }
+
+    .btn-delete {
+        background-color:rgb(188, 71, 87);
+    }
+
+    .btn-delete:hover {
+        background-color:rgb(176, 39, 39);
+        box-shadow: 0 2px 6px rgba(156, 39, 176, 0.4);
+    }
+        .btn-add {
+        background-color: #388e3c;
+    }
+
+    .btn-add:hover {
+        background-color: #2e7d32;
+        box-shadow: 0 2px 6px rgba(76, 175, 80, 0.4);
+    }
+
         #escaneoCont {
             display: none;
             position: fixed;
@@ -141,6 +180,95 @@ $resultado = $conexion->query($sql);
             top: 20px;
             right: 20px;
         }
+
+        .modal-content {
+    background-color: #fff;
+    margin: 60px auto;
+    padding: 35px 30px;
+    border-radius: 16px;
+    width: 55%;
+    max-width: 720px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 0.4s ease;
+    border: 1px solid #e0d7f3;
+}
+
+.modal-content h2 {
+    color: #8e24aa;
+    margin-bottom: 25px;
+    text-align: center;
+    font-size: 26px;
+    letter-spacing: 0.5px;
+}
+
+.modal-content label {
+    display: block;
+    margin: 14px 0 8px;
+    font-weight: 600;
+    color: #4a148c;
+    font-size: 14.5px;
+}
+
+.modal-content select,
+.modal-content input[type="number"] {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14.5px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    margin-bottom: 12px;
+}
+
+.modal-content select:focus,
+.modal-content input[type="number"]:focus {
+    border-color: #7e57c2;
+    box-shadow: 0 0 5px rgba(126, 87, 194, 0.3);
+    outline: none;
+}
+
+.producto-item {
+    background: #f3e5f5;
+    padding: 18px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #e1bee7;
+}
+
+.producto-item label {
+    margin-top: 10px;
+    color: #4a148c;
+    font-weight: 600;
+}
+
+.modal-content .btn {
+    width: auto;
+    display: inline-block;
+    margin-top: 12px;
+    font-weight: bold;
+    padding: 11px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, box-shadow 0.2s ease;
+}
+
+.close {
+    color: #999;
+    float: right;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close:hover {
+    color: #d32f2f;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
     </style>
 </head>
 
@@ -181,6 +309,7 @@ $resultado = $conexion->query($sql);
                 <th>Fecha Caducidad</th>
                 <th>Descuento (%)</th>
                 <th>Precio con Descuento</th>
+                <th>Acciones</th>
             </tr>
 
             <?php
@@ -204,6 +333,13 @@ $resultado = $conexion->query($sql);
                         <td>" . htmlspecialchars($fila["Fec_Cad"]) . "</td>
                         <td>" . htmlspecialchars($fila["Desc_Prod"]) . "</td>
                         <td>$" . number_format($precioConDescuento, 2) . "</td>
+                         <td>
+                    <a class='btn btn-edit' href='../server/crud_productos.php?id=" . $fila["ID_Prod"] . "'>Modificar</a>
+                    <form method='POST' action='../server/crud_productos.php?id=" . $fila["ID_Prod"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar este envío?');\">
+                        <input type='hidden' name='eliminar' value='1'>
+                        <button type='submit' class='btn btn-delete'>Eliminar</button>
+                    </form>
+                </td>
                     </tr>";
                 }
             } else {

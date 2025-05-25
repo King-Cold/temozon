@@ -123,7 +123,7 @@ $resultado = $conexion->query($sql);
     <main id="main">
         <div style="width:95%; margin:auto; display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
     <h2 style="margin:0;">Clientes</h2>
-    <button onclick="document.getElementById('formAgregar').style.display='block'" class="btn btn-add">Agregar Usuario</button>
+    <button onclick="document.getElementById('formAgregar').style.display='block'" class="btn btn-add">Agregar Cliente</button>
 </div>
         
             <div id="formAgregar" style="display:none; background:#fff; padding:20px; border-radius:8px; width:95%; margin:auto; margin-bottom:20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">

@@ -14,10 +14,9 @@ $resultado = $conexion->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Proveedores </title>
     <link rel="stylesheet" href="css/styles.css">
-<style>
-    body {
+<style>    body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: #f0f0f0; /* azul cielo muy claro */
+        background: #f0f0f0;
         margin: 0;
         padding: 20px;
     }
@@ -28,16 +27,18 @@ $resultado = $conexion->query($sql);
 
     h2 {
         text-align: center;
-        color: #0d47a1; /* azul intenso */
-        margin-bottom: 20px;
-        font-size: 28px;
+        color: #0F4BFF;
+        margin-bottom: 25px;
+        font-size: 30px;
+        letter-spacing: 0.5px;
     }
 
     table {
-        width: 100%;
+        width: 95%;
+        margin: auto;
         border-collapse: collapse;
         background-color: #ffffff;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+        box-shadow: 0 4px 8px rgba(32, 20, 140, 0.2);
         border-radius: 10px;
         overflow: hidden;
     }
@@ -45,70 +46,71 @@ $resultado = $conexion->query($sql);
     table th, table td {
         padding: 14px 18px;
         text-align: center;
-        border: 1px solid #bbdefb;
+        border: 1px solid #e0d7f3;
     }
 
     table th {
-        background-color: #1565c0; /* azul fuerte */
+        background-color: #008FB8;
         color: #ffffff;
         font-weight: 600;
         font-size: 16px;
     }
 
     table tr:nth-child(even) {
-        background-color: #e3f2fd; /* azul claro */
+        background-color: #f8f5fc;
     }
 
     table tr:nth-child(odd) {
-        background-color: #ffffff;
+        background-color:rgb(234, 231, 246);
     }
 
     table tr:hover {
-        background-color: #bbdefb; /* azul pastel intermedio */
+        background-color:rgba(141, 79, 255, 0.34);
+        transition: background-color 0.3s ease;
     }
 
     table td {
-        color: #263238;
-        font-size: 15px;
+        color: #333;
+        font-size: 14.5px;
     }
 
-    button {
-        background-color: #1565c0;
-        color: #fff;
+    .btn {
+        padding: 8px 14px;
         border: none;
-        padding: 10px 24px;
-        font-size: 16px;
-        border-radius: 8px;
+        border-radius: 6px;
         cursor: pointer;
-        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        font-size: 14px;
+        text-decoration: none;
+        color: #fff;
+        margin: 2px;
+        display: inline-block;
+        transition: background-color 0.3s ease, box-shadow 0.2s ease;
     }
 
-    button:hover {
-        background-color: #0d47a1;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    .btn-edit {
+        background-color:rgb(40, 49, 163);
     }
 
-    #escaneoCont {
-        display: none;
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        z-index: 999;
+    .btn-edit:hover {
+        background-color:rgb(70, 64, 161);
+        box-shadow: 0 2px 6px rgba(106, 27, 154, 0.4);
     }
 
-    #lector {
-        width: 80%;
-        height: 60%;
-        margin: 50px auto;
-        background: #000;
-        border-radius: 12px;
+    .btn-delete {
+        background-color:rgb(188, 71, 87);
     }
 
-    #escaneoCont button {
-        position: absolute;
-        top: 20px;
-        right: 20px;
+    .btn-delete:hover {
+        background-color:rgb(176, 39, 39);
+        box-shadow: 0 2px 6px rgba(156, 39, 176, 0.4);
+    }
+        .btn-add {
+        background-color: #388e3c;
+    }
+
+    .btn-add:hover {
+        background-color: #2e7d32;
+        box-shadow: 0 2px 6px rgba(76, 175, 80, 0.4);
     }
 </style>
 </head>
@@ -118,7 +120,33 @@ $resultado = $conexion->query($sql);
     <?php include 'sidebar.php'; ?>
 
     <main id="main">
-        <h2>proveedores</h2>
+                <div style="width:95%; margin:auto; display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2 style="margin:0;">Proveedores</h2>
+    <button onclick="document.getElementById('formAgregar').style.display='block'" class="btn btn-add">Agregar Proveedor</button>
+</div>
+        
+            <div id="formAgregar" style="display:none; background:#fff; padding:20px; border-radius:8px; width:95%; margin:auto; margin-bottom:20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+                <form method="POST" action="../server/crud_proveedores.php" style="display: flex; flex-wrap: wrap; gap: 10px;">
+                    <input type="text" name="nombre" placeholder="Nombre Proveedor" required style="flex:1; padding:8px;">
+                    <input type="text" name="telefono" placeholder="Teléfono" required style="flex:1; padding:8px;">
+            <select name="tipo" required style="flex:1; padding:8px; border-radius:5px; border:1px solid #ccc;">
+            <option value="">Selecciona Tipo</option>
+            <option value="Minorista">Minorista</option>
+            <option value="Mayorista">Mayorista</option>
+        </select>
+           <select name="cambio" required style="flex:1; padding:8px; border-radius:5px; border:1px solid #ccc;">
+            <option value="">¿Maneja Cambio?</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+        </select>
+         <input type="text" name="direccion" placeholder="Dirección" required style="flex:1; padding:8px;">
+
+            <div style="flex:1; display:flex; gap:10px;">
+                <button type="submit" name="agregar" class="btn btn-add">Guardar</button>
+                <button type="button" onclick="document.getElementById('formAgregar').style.display='none'" class="btn btn-delete">Cancelar</button>
+            </div>
+        </form>
+    </div>
         <table>
     <tr>
         <th>ID Proveedor</th>
@@ -127,6 +155,7 @@ $resultado = $conexion->query($sql);
         <th>Tipo</th>
         <th>Maneja Cambio</th>
         <th>Dirección</th>
+        <th>Acciones</th>
 
     </tr>
     <?php
@@ -137,8 +166,15 @@ $resultado = $conexion->query($sql);
                 <td>" . htmlspecialchars($fila["Nomb_Prov"]) . "</td>
                 <td>" . htmlspecialchars($fila["Telefono_Prov"]) . "</td>
                 <td>" . htmlspecialchars($fila["Tipo_Prov"]) . "</td>
-                <td>" . htmlspecialchars($fila["Manejo_Camb"]) . "</td>
+                <td>" . ($fila["Manejo_Camb"] == 1 ? 'Sí' : 'No') . "</td>
                 <td>" . htmlspecialchars($fila["Direccion_Prov"]) . "</td>
+                <td>
+                    <a class='btn btn-edit' href='../server/crud_proveedores.php?id=" . $fila["ID_Prov"] . "'>Modificar</a>
+                    <form method='POST' action='../server/crud_proveedores.php?id=" . $fila["ID_Prov"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar este envío?');\">
+                        <input type='hidden' name='eliminar' value='1'>
+                        <button type='submit' class='btn btn-delete'>Eliminar</button>
+                    </form>
+                </td>
             </tr>";
         }
     } else {

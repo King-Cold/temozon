@@ -5,51 +5,49 @@ require_once '../server/conexion_bd.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar'])) {
     $id = $_GET['id'];
 
-    $sqlDelete = "DELETE FROM usuario WHERE ID_Usuario = ?";
+    $sqlDelete = "DELETE FROM envios WHERE ID_Envio = ?";
     $stmtDelete = $conexion->prepare($sqlDelete);
     $stmtDelete->bind_param("s", $id);
 
     if ($stmtDelete->execute()) {
-        header("Location: ../public/usuarios.php");
+        header("Location: ../public/envios.php");
         exit;
     } else {
-        echo "<p style='color:red; text-align:center;'>Error al eliminar usuario.</p>";
+        echo "<p style='color:red; text-align:center;'>Error al eliminar envio.</p>";
     }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['agregar'])) {
-    $usuario = $_POST['nombre'];
-    $rol = $_POST['rol'];
-    $email = $_POST['email'];
-    $password = $_POST['contrasena'];
+    $maximo = $_POST['maximo'];
 
-    $sqlInsert = "INSERT INTO usuario (Nombre_Usuario, Rol, Email, Contraseña)
-                  VALUES (?, ?, ?, ?)";
+
+    $sqlInsert = "INSERT INTO envios (Maximo_Articulos)
+                  VALUES (?)";
     $stmtInsert = $conexion->prepare($sqlInsert);
-    $stmtInsert->bind_param("ssss", $usuario, $rol, $email, $password);
+    $stmtInsert->bind_param("s",$maximo);
 
     if ($stmtInsert->execute()) {
-        header("Location: ../public/usuarios.php");
+        header("Location: ../public/envios.php");
         exit;
     } else {
-        echo "<p style='color:red; text-align:center;'>Error al agregar usuario.</p>";
+        echo "<p style='color:red; text-align:center;'>Error al agregar envio.</p>";
     }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar'])) {
     // Actualizar usuario
     $id = $_POST['id'];
-    $nombre = $_POST['nombre'];
-    $rol = $_POST['rol'];
-    $email = $_POST['email'];
-    $contrasena = $_POST['contrasena'];
+    $estado = $_POST['estado'];
+    $maximo = $_POST['maximo'];
+    $f_envio = $_POST['f_envio'];
+    $f_recibo = $_POST['f_recibo'];
 
-    $sqlUpdate = "UPDATE usuario SET Nombre_Usuario = ?, Rol = ?, Email = ?, Contraseña = ? WHERE ID_Usuario = ?";
+    $sqlUpdate = "UPDATE envios SET Estado_Envio = ?, Maximo_Articulos = ?, Fecha_Envio = ?, Fecha_Recibo = ? WHERE ID_Envio = ?";
     $stmtUpdate = $conexion->prepare($sqlUpdate);
-    $stmtUpdate->bind_param("sssss", $nombre, $rol, $email, $contrasena, $id);
+    $stmtUpdate->bind_param("sssss", $estado, $maximo, $f_envio, $f_recibo, $id);
 
     if ($stmtUpdate->execute()) {
-        header("Location: ../public/usuarios.php");
+        header("Location: ../public/envios.php");
         exit;
     } else {
         echo "Error al actualizar.";
@@ -57,14 +55,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar'])) {
 }
 // Verificar si se envió el ID por GET
 if (!isset($_GET['id'])) {
-    echo "ID de usuario no especificado.";
+    echo "ID de envio no especificado.";
     exit;
 }
 
 $id = $_GET['id'];
 
 // Consultar los datos del usuario
-$sql = "SELECT * FROM usuario WHERE ID_Usuario = ?";
+$sql = "SELECT * FROM envios WHERE ID_Envio = ?";
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param("s", $id);
 $stmt->execute();
@@ -173,30 +171,30 @@ $usuario = $resultado->fetch_assoc();
 </head>
 <body>
 
-<h2 style="text-align:center;">Editar Usuario #<?php echo $id; ?></h2>
+<h2 style="text-align:center;">Editar Envio #<?php echo $id; ?></h2>
 
 <form method="POST">
-    <label>Nombre de Usuario:</label>
-    <input type="text" name="nombre" value="<?php echo htmlspecialchars($usuario['Nombre_Usuario']); ?>" required>
-
-    <label>Rol:</label>
-    <select name="rol" required>
-        <option value="Administrador" <?= $usuario['Rol'] == "Administrador" ? "selected" : "" ?>>Administrador</option>
-        <option value="Encargado de Bodega" <?= $usuario['Rol'] == "Encargado de Bodega" ? "selected" : "" ?>>Encargado de Bodega</option>
-        <option value="Gerente" <?= $usuario['Rol'] == "Gerente" ? "selected" : "" ?>>Gerente</option>
-        <option value="Empleado Auxilar" <?= $usuario['Rol'] == "Empleado Auxilar" ? "selected" : "" ?>>Empleado Auxilar</option>
+    <label>Estado</label>
+   <select name="estado" required>
+        <option value="Entregado" <?= $usuario['Estado_Envio'] == "Entregado" ? "selected" : "" ?>>Entregado</option>
+        <option value="En transito" <?= $usuario['Estado_Envio'] == "En transito" ? "selected" : "" ?>>En transito</option>
+        <option value="Pendiente" <?= $usuario['Estado_Envio'] == "Pendiente" ? "selected" : "" ?>>Pendiente</option>
+        <option value="Cancelado" <?= $usuario['Estado_Envio'] == "Cancelado" ? "selected" : "" ?>>Cancelado</option>
     </select>
 
-    <label>Email:</label>
-    <input type="email" name="email" value="<?php echo htmlspecialchars($usuario['Email']); ?>" required>
+    <label>Maximo de Envios:</label>
+    <input type="number" name="maximo" value="<?php echo htmlspecialchars($usuario['Maximo_Articulos']); ?>" required>
 
-    <label>Contraseña:</label>
-    <input type="text" name="contrasena" value="<?php echo htmlspecialchars($usuario['Contraseña']); ?>" required>
-<input type="hidden" name="id" value="<?php echo $id; ?>">
+<label>Fecha de Envio:</label>
+<label>Fecha de Envio:</label>
+<input type="datetime-local" name="f_envio" value="<?php echo date('Y-m-d\TH:i', strtotime($usuario['Fecha_Envio'])); ?>" required>
+
+<label>Fecha de Recibo:</label>
+<input type="datetime-local" name="f_recibo" value="<?php echo date('Y-m-d\TH:i', strtotime($usuario['Fecha_Recibo'])); ?>" required>
 <input type="hidden" name="actualizar" value="1">
 <div class="botones">
     <button type="submit" class="guardar">Guardar Cambios</button>
-    <a href="../public/usuarios.php" class="cancelar">Cancelar</a>
+    <a href="../public/envios.php" class="cancelar">Cancelar</a>
 </div>
 </form>
 

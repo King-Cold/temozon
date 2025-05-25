@@ -18,6 +18,7 @@ $resultado = $conexion->query($sql);
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         background: #f0f0f0;
+        margin: 0;
         padding: 20px;
     }
 
@@ -27,7 +28,7 @@ $resultado = $conexion->query($sql);
 
     h2 {
         text-align: center;
-        color: #333333;
+        color:#212121;
         margin-bottom: 25px;
         font-size: 30px;
         letter-spacing: 0.5px;
@@ -38,7 +39,7 @@ $resultado = $conexion->query($sql);
         margin: auto;
         border-collapse: collapse;
         background-color: #ffffff;
-        box-shadow: 0 4px 8px rgba(51, 51, 51, 0.2);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
         border-radius: 10px;
         overflow: hidden;
     }
@@ -46,31 +47,31 @@ $resultado = $conexion->query($sql);
     table th, table td {
         padding: 14px 18px;
         text-align: center;
-        border: 1px solid #e0e0e0;
+        border: 1px solid rgb(219, 215, 243);
     }
 
     table th {
-        background-color: #424242;
+        background-color: #3F3F3F;
         color: #ffffff;
         font-weight: 600;
         font-size: 16px;
     }
 
     table tr:nth-child(even) {
-        background-color: #f9f9f9;
+        background-color: #f8f5fc;
     }
 
     table tr:nth-child(odd) {
-        background-color: #eeeeee;
+        background-color: #ede7f6;
     }
 
     table tr:hover {
-        background-color: #d6d6d6;
+        background-color:rgba(141, 79, 255, 0.34);
         transition: background-color 0.3s ease;
     }
 
     table td {
-        color: #333333;
+        color: #333;
         font-size: 14.5px;
     }
 
@@ -88,21 +89,29 @@ $resultado = $conexion->query($sql);
     }
 
     .btn-edit {
-        background-color: #616161;
+        background-color:rgb(40, 49, 163);
     }
 
     .btn-edit:hover {
-        background-color: #424242;
-        box-shadow: 0 2px 6px rgba(66, 66, 66, 0.4);
+        background-color:rgb(70, 64, 161);
+        box-shadow: 0 2px 6px rgba(106, 27, 154, 0.4);
     }
 
     .btn-delete {
-        background-color: #757575;
+        background-color:rgb(188, 71, 87);
     }
 
     .btn-delete:hover {
-        background-color: #616161;
-        box-shadow: 0 2px 6px rgba(97, 97, 97, 0.4);
+        background-color:rgb(176, 39, 39);
+        box-shadow: 0 2px 6px rgba(156, 39, 176, 0.4);
+    }
+        .btn-add {
+        background-color: #388e3c;
+    }
+
+    .btn-add:hover {
+        background-color: #2e7d32;
+        box-shadow: 0 2px 6px rgba(76, 175, 80, 0.4);
     }
 </style>
 </head>
@@ -112,7 +121,21 @@ $resultado = $conexion->query($sql);
     <?php include 'sidebar.php'; ?>
 
     <main id="main">
-        <h2>Registro de Envíos</h2>
+         <div style="width:95%; margin:auto; display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2 style="margin:0;">Envios</h2>
+    <button onclick="document.getElementById('formAgregar').style.display='block'" class="btn btn-add">Agregar Envio</button>
+</div>
+        
+            <div id="formAgregar" style="display:none; background:#fff; padding:20px; border-radius:8px; width:95%; margin:auto; margin-bottom:20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+        <form method="POST" action="../server/crud_envios.php" style="display: flex; flex-wrap: wrap; gap: 10px;">
+            <input type="text" name="maximo" placeholder="Maximo de pedidos" required style="flex:1; padding:8px;">
+
+            <div style="flex:1; display:flex; gap:10px;">
+                <button type="submit" name="agregar" class="btn btn-add">Guardar</button>
+                <button type="button" onclick="document.getElementById('formAgregar').style.display='none'" class="btn btn-delete">Cancelar</button>
+            </div>
+        </form>
+    </div>
         <table>
     <tr>
         <th>ID Envío</th>
