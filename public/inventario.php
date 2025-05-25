@@ -29,7 +29,6 @@ $resultado = $conexion->query($sql);
 
 // Consultas para selects en el formulario
 
-
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -247,7 +246,7 @@ $resultado = $conexion->query($sql);
             <label>Almacén:</label>
             <select name="ID_Almacen" required>
                 <?php
-                $almacenes = $conexion->query("SELECT ID_Almacen, Direccion_Alm FROM almacen");
+                $almacenes = $conexion->query("SELECT ID_Almacen, Encarga_Alm FROM almacen");
                 if ($almacenes && $almacenes->num_rows > 0) {
                     while ($a = $almacenes->fetch_assoc()) {
                         echo '<option value="' . htmlspecialchars($a['ID_Almacen']) . '">' . htmlspecialchars($a['Direccion_Alm']) . '</option>';
@@ -310,6 +309,9 @@ $resultado = $conexion->query($sql);
     </div>
     <script src="js/script.js"></script>
     <script src="js/search.js"></script>
+    <script>
+  console.log("script cargado correctamente");
+</script>
 </body>
 
 </html>
