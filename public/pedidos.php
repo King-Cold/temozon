@@ -222,7 +222,7 @@ $resultado = $conexion->query($sql);
     
     <?php
     $envios = $conexion->query("SELECT ID_Envio, Estado_Envio FROM envios WHERE Estado_Envio = 'Pendiente'");
-    $clientes = $conexion->query("SELECT ID_Cliente, Nombre_Cliente, Apellido_Cliente FROM cliente");
+    $clientes = $conexion->query("SELECT ID_Cliente, Nombre_Cliente FROM cliente");
     $productos = $conexion->query("SELECT ID_Prod, Nomb_Prod, Cant_Disp_Prod, Prec_Vent FROM productos WHERE Prod_Estatus = 1");
     ?>
 
@@ -243,7 +243,7 @@ $resultado = $conexion->query($sql);
                 <select name="ID_Cliente" required>
                     <option value="">Seleccione un cliente</option>
                     <?php while ($cli = $clientes->fetch_assoc()) {
-                        echo "<option value='{$cli['ID_Cliente']}'>#{$cli['ID_Cliente']} - {$cli['Nombre_Cliente']} {$cli['Apellido_Cliente']}</option>";
+                        echo "<option value='{$cli['ID_Cliente']}'>#{$cli['ID_Cliente']}</option>";
                     } ?>
                 </select>
 

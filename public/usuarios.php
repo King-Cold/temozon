@@ -129,7 +129,6 @@ $resultado = $conexion->query($sql);
 
 <div id="formAgregar" style="display:none; background:#fff; padding:20px; border-radius:8px; width:95%; margin:auto; margin-bottom:20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
    <form method="POST" action="../server/crud_user.php" style="display: flex; flex-wrap: wrap; gap: 10px;">
-
         <input type="text" name="nombre" placeholder="Nombre Usuario" required style="flex:1; padding:8px; border-radius:5px; border:1px solid #ccc;">
         <select name="rol" required style="flex:1; padding:8px; border-radius:5px; border:1px solid #ccc;">
             <option value="">Selecciona Rol</option>

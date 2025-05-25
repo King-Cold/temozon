@@ -17,7 +17,7 @@ $resultado = $conexion->query($sql);
 <style>
     body {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background:#f0f0f0;
+        background: #f0f0f0;
         margin: 0;
         padding: 20px;
     }
@@ -28,7 +28,7 @@ $resultado = $conexion->query($sql);
 
     h2 {
         text-align: center;
-        color: #b71c1c;
+        color: #FC0052;
         margin-bottom: 25px;
         font-size: 30px;
         letter-spacing: 0.5px;
@@ -39,7 +39,7 @@ $resultado = $conexion->query($sql);
         margin: auto;
         border-collapse: collapse;
         background-color: #ffffff;
-        box-shadow: 0 4px 8px rgba(183, 28, 28, 0.2);
+        box-shadow: 0 4px 8px rgba(190, 73, 103, 0.2);
         border-radius: 10px;
         overflow: hidden;
     }
@@ -47,26 +47,26 @@ $resultado = $conexion->query($sql);
     table th, table td {
         padding: 14px 18px;
         text-align: center;
-        border: 1px solid #f8d7da;
+        border: 1px solid rgb(219, 215, 243);
     }
 
     table th {
-        background-color: #E5524F;
+        background-color:rgba(255, 77, 92, 0.75);
         color: #ffffff;
         font-weight: 600;
         font-size: 16px;
     }
 
     table tr:nth-child(even) {
-        background-color: #fff5f5;
+        background-color: #f8f5fc;
     }
 
     table tr:nth-child(odd) {
-        background-color: #fdeaea;
+        background-color: #ede7f6;
     }
 
     table tr:hover {
-        background-color: #f8c8c8;
+        background-color:rgba(141, 79, 255, 0.34);
         transition: background-color 0.3s ease;
     }
 
@@ -105,13 +105,14 @@ $resultado = $conexion->query($sql);
         background-color:rgb(176, 39, 39);
         box-shadow: 0 2px 6px rgba(156, 39, 176, 0.4);
     }
-    .btn-add {
-    background-color: #43a047;
-}
-.btn-add:hover {
-    background-color: #388e3c;
-    box-shadow: 0 2px 6px rgba(56, 142, 60, 0.4);
-}
+        .btn-add {
+        background-color: #388e3c;
+    }
+
+    .btn-add:hover {
+        background-color: #2e7d32;
+        box-shadow: 0 2px 6px rgba(76, 175, 80, 0.4);
+    }
 </style>
 </head>
 <body>
@@ -126,7 +127,7 @@ $resultado = $conexion->query($sql);
 </div>
         
             <div id="formAgregar" style="display:none; background:#fff; padding:20px; border-radius:8px; width:95%; margin:auto; margin-bottom:20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
-        <form method="POST" action="crud_cliente.php" style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <form method="POST" action="../server/crud_clientes.php" style="display: flex; flex-wrap: wrap; gap: 10px;">
             <input type="text" name="nombre" placeholder="Nombre Cliente" required style="flex:1; padding:8px;">
             <input type="text" name="direccion" placeholder="Dirección" required style="flex:1; padding:8px;">
             <input type="text" name="telefono" placeholder="Teléfono" required style="flex:1; padding:8px;">
