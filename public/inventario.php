@@ -246,10 +246,10 @@ $resultado = $conexion->query($sql);
             <label>Almacén:</label>
             <select name="ID_Almacen" required>
                 <?php
-                $almacenes = $conexion->query("SELECT ID_Almacen, Encarga_Alm FROM almacen");
+                $almacenes = $conexion->query("SELECT ID_Almacen FROM almacen");
                 if ($almacenes && $almacenes->num_rows > 0) {
                     while ($a = $almacenes->fetch_assoc()) {
-                        echo '<option value="' . htmlspecialchars($a['ID_Almacen']) . '">' . htmlspecialchars($a['Direccion_Alm']) . '</option>';
+                        echo '<option value="' . htmlspecialchars($a['ID_Almacen']) . '">Almacén #' . htmlspecialchars($a['ID_Almacen']) . '</option>';
                     }
                 } else {
                     echo '<option value="">No hay almacenes</option>';
