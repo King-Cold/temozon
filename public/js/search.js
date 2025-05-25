@@ -6,7 +6,7 @@ document.getElementById("buscador").addEventListener("keyup", function () {
         if (index === 0) return;
 
         const nombreProducto = fila.cells[1]?.textContent.toLowerCase() || "";
-        if (nombreProducto.includes(filtro)) {
+        if (nombreProducto.includes(filtro)) {http://localhost:3000/public/envios.php
             fila.style.display = "";
         } else {
             fila.style.display = "none";

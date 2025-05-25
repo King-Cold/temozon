@@ -247,7 +247,7 @@ body {
             <?php
             include("../server/conexion_bd.php");
 
-            $consulta = "SELECT accion, tabla_afectada, detalle, fecha_hora FROM bitacora ORDER BY fecha_hora DESC LIMIT 10";
+            $consulta = "SELECT accion, tabla_afectada, detalle, fecha_hora FROM bitacora ORDER BY fecha_hora DESC LIMIT 15";
             $resultado = mysqli_query($conexion, $consulta);
 
             while ($fila = mysqli_fetch_assoc($resultado)) {

@@ -105,6 +105,14 @@ $resultado = $conexion->query($sql);
         background-color:rgb(176, 39, 39);
         box-shadow: 0 2px 6px rgba(156, 39, 176, 0.4);
     }
+        .btn-add {
+        background-color: #388e3c;
+    }
+
+    .btn-add:hover {
+        background-color: #2e7d32;
+        box-shadow: 0 2px 6px rgba(76, 175, 80, 0.4);
+    }
 </style>
 </head>
 <body>
@@ -113,7 +121,32 @@ $resultado = $conexion->query($sql);
     <?php include 'sidebar.php'; ?>
 
     <main id="main">
-        <h2>Usuarios</h2>
+        
+        <div style="width:95%; margin:auto; display:flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2 style="margin:0;">Usuarios</h2>
+    <button onclick="document.getElementById('formAgregar').style.display='block'" class="btn btn-add">Agregar Usuario</button>
+</div>
+
+<div id="formAgregar" style="display:none; background:#fff; padding:20px; border-radius:8px; width:95%; margin:auto; margin-bottom:20px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+   <form method="POST" action="../server/crud_user.php" style="display: flex; flex-wrap: wrap; gap: 10px;">
+
+        <input type="text" name="nombre" placeholder="Nombre Usuario" required style="flex:1; padding:8px; border-radius:5px; border:1px solid #ccc;">
+        <select name="rol" required style="flex:1; padding:8px; border-radius:5px; border:1px solid #ccc;">
+            <option value="">Selecciona Rol</option>
+            <option value="Administrador">Administrador</option>
+            <option value="Encargado de Bodega">Encargado de Bodega</option>
+            <option value="Gerente">Gerente</option>
+            <option value="Empleado Auxilar">Empleado Auxilar</option>
+        </select>
+        <input type="email" name="email" placeholder="Email" required style="flex:1; padding:8px; border-radius:5px; border:1px solid #ccc;">
+        <input type="text" name="contrasena" placeholder="Contraseña" required style="flex:1; padding:8px; border-radius:5px; border:1px solid #ccc;">
+
+        <div style="flex:1; display:flex; gap:10px;">
+            <button type="submit" name="agregar" class="btn btn-add" style="padding:10px 20px;">Guardar</button>
+            <button type="button" onclick="document.getElementById('formAgregar').style.display='none'" class="btn btn-delete" style="padding:10px 20px;">Cancelar</button>
+        </div>
+    </form>
+</div>
         <table>
     <tr>
         <th>ID Usuario</th>
