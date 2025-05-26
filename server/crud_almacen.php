@@ -5,12 +5,12 @@ require_once '../server/conexion_bd.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar'])) {
     $id = $_GET['id'];
 
-    $sqlDelete = "DELETE FROM envios WHERE ID_Envio = ?";
+    $sqlDelete = "DELETE FROM almacen WHERE ID_Almacen = ?";
     $stmtDelete = $conexion->prepare($sqlDelete);
     $stmtDelete->bind_param("s", $id);
 
     if ($stmtDelete->execute()) {
-        header("Location: ../public/envios.php");
+        header("Location: ../public/almacen.php");
         exit;
     } else {
         echo "<p style='color:red; text-align:center;'>Error al eliminar envio.</p>";
@@ -18,16 +18,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['eliminar'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['agregar'])) {
-    $maximo = $_POST['maximo'];
+    $encargado = $_POST['encargado'];
 
 
-    $sqlInsert = "INSERT INTO envios (Maximo_Articulos)
-                  VALUES (?)";
+    $sqlInsert = "INSERT INTO almacen (Encarga_Alm)
+    VALUES (?)";
     $stmtInsert = $conexion->prepare($sqlInsert);
-    $stmtInsert->bind_param("s",$maximo);
+    $stmtInsert->bind_param("s",$encargado);
 
     if ($stmtInsert->execute()) {
-        header("Location: ../public/envios.php");
+        header("Location: ../public/almacen.php");
         exit;
     } else {
         echo "<p style='color:red; text-align:center;'>Error al agregar envio.</p>";
@@ -37,17 +37,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['agregar'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar'])) {
     // Actualizar usuario
     $id = $_POST['id'];
-    $estado = $_POST['estado'];
-    $maximo = $_POST['maximo'];
-    $f_envio = $_POST['f_envio'];
-    $f_recibo = $_POST['f_recibo'];
+    $encargado = $_POST['encargado'];
 
-    $sqlUpdate = "UPDATE envios SET Estado_Envio = ?, Maximo_Articulos = ?, Fecha_Envio = ?, Fecha_Recibo = ? WHERE ID_Envio = ?";
+    $sqlUpdate = "UPDATE almacen SET Encarga_Alm = ? WHERE ID_Almacen = ?";
     $stmtUpdate = $conexion->prepare($sqlUpdate);
-    $stmtUpdate->bind_param("sssss", $estado, $maximo, $f_envio, $f_recibo, $id);
+    $stmtUpdate->bind_param("ss", $encargado, $id);
 
     if ($stmtUpdate->execute()) {
-        header("Location: ../public/envios.php");
+        header("Location: ../public/almacen.php");
         exit;
     } else {
         echo "Error al actualizar.";
@@ -55,21 +52,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['actualizar'])) {
 }
 // Verificar si se envió el ID por GET
 if (!isset($_GET['id'])) {
-    echo "ID de envio no especificado.";
+    echo "ID de almacen no especificado.";
     exit;
 }
 
 $id = $_GET['id'];
 
 // Consultar los datos del usuario
-$sql = "SELECT * FROM envios WHERE ID_Envio = ?";
+$sql = "SELECT * FROM almacen WHERE ID_Almacen = ?";
 $stmt = $conexion->prepare($sql);
 $stmt->bind_param("s", $id);
 $stmt->execute();
 $resultado = $stmt->get_result();
 
 if ($resultado->num_rows === 0) {
-    echo "Usuario no encontrado.";
+    echo "Almacen no encontrado.";
     exit;
 }
 
@@ -171,33 +168,18 @@ $usuario = $resultado->fetch_assoc();
 </head>
 <body>
 
-<h2 style="text-align:center;">Editar Envio #<?php echo $id; ?></h2>
+<h2 style="text-align:center;">Editar Almacen #<?php echo $id; ?></h2>
 
-<form method="POST">
-    <label>Estado</label>
-   <select name="estado" required>
-        <option value="Entregado" <?= $usuario['Estado_Envio'] == "Entregado" ? "selected" : "" ?>>Entregado</option>
-        <option value="En transito" <?= $usuario['Estado_Envio'] == "En transito" ? "selected" : "" ?>>En transito</option>
-        <option value="Pendiente" <?= $usuario['Estado_Envio'] == "Pendiente" ? "selected" : "" ?>>Pendiente</option>
-        <option value="Cancelado" <?= $usuario['Estado_Envio'] == "Cancelado" ? "selected" : "" ?>>Cancelado</option>
-    </select>
+   <form method="POST">
 
-    <label>Maximo de Envios:</label>
-    <input type="number" name="maximo" value="<?php echo htmlspecialchars($usuario['Maximo_Articulos']); ?>" required>
-
-<label>Fecha de Envio:</label>
-<label>Fecha de Envio:</label>
-<input type="datetime-local" name="f_envio" value="<?php echo date('Y-m-d\TH:i', strtotime($usuario['Fecha_Envio'])); ?>" required>
-
-<label>Fecha de Recibo:</label>
-<input type="datetime-local" name="f_recibo" value="<?php echo date('Y-m-d\TH:i', strtotime($usuario['Fecha_Recibo'])); ?>" required>
-    <input type="hidden" name="id" value="<?php echo $id; ?>">
-<input type="hidden" name="actualizar" value="1">
-<div class="botones">
-    <button type="submit" class="guardar">Guardar Cambios</button>
-    <a href="../public/envios.php" class="cancelar">Cancelar</a>
-</div>
-</form>
-
+        <label>Encargado de Almacen:</label>
+        <input type="text" name="encargado" value="<?php echo htmlspecialchars($usuario['Encarga_Alm']); ?>" required>
+        <input type="hidden" name="id" value="<?php echo $id; ?>">
+        <input type="hidden" name="actualizar" value="1">
+        <div class="botones">
+            <button type="submit" class="guardar">Guardar Cambios</button>
+            <a href="../public/usuarios.php" class="cancelar">Cancelar</a>
+        </div>
+    </form>
 </body>
 </html>

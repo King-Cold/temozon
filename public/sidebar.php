@@ -38,6 +38,14 @@ require_once '../server/permisos.php';
             </li>
             <?php if (tienePermiso(['Administrador'])): ?>
             <li>
+                <a href="almacen.php">
+                    <img src="../Icons/almacen.svg" alt="Usuarios">
+                    <span>ALMACEN</span>
+                </a>
+            </li>
+            <?php endif; ?>
+            <?php if (tienePermiso(['Administrador'])): ?>
+            <li>
                 <a href="usuarios.php">
                     <img src="../Icons/users-group-svgrepo-com.svg" alt="Usuarios">
                     <span>USUARIOS</span>
