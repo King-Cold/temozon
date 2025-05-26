@@ -32,7 +32,7 @@ $resultado = $conexion->query($sql);
 
     h2 {
         text-align: center;
-        color: #FC0052;
+        color: #B05463;
         margin-bottom: 25px;
         font-size: 30px;
         letter-spacing: 0.5px;
@@ -55,7 +55,7 @@ $resultado = $conexion->query($sql);
     }
 
     table th {
-        background-color:rgba(255, 77, 92, 0.75);
+        background-color: #B07354;
         color: #ffffff;
         font-weight: 600;
         font-size: 16px;
