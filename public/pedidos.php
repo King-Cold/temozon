@@ -15,7 +15,6 @@ $actualizarEnvios = "
     AND e.Estado_Envio != 'En tránsito';
 ";
 $conexion->query($actualizarEnvios);
-// Consultas no medicas 
 $sql = "SELECT 
             pedidos.ID_Pedido,
             pedidos.ID_Envio,
@@ -116,6 +115,7 @@ $resultado = $conexion->query($sql);
             background-color:rgb(134, 28, 183);
             margin-top: 20px;
             transition: background-color 0.3s ease, box-shadow 0.2s ease;
+            text-decoration: none;
         }
 
         .btn:hover {
@@ -197,6 +197,7 @@ $resultado = $conexion->query($sql);
                     <td>";
                     if ($fila["Estado_Envio"] !== "En tránsito") {
                         echo "
+                        <a class='btn btn-edit' href='../server/editar_pedido.php?id=" . $fila["ID_Pedido"] . "'>Modificar</a>
                         <form method='POST' action='../server/crud_pedidos.php?id=" . $fila["ID_Pedido"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar el pedido #" . $fila["ID_Pedido"] . "?');\">
                             <input type='hidden' name='accion' value='eliminar'>
                             <input type='hidden' name='id_pedido' value='" . $fila["ID_Pedido"] . "'>
