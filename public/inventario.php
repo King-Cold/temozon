@@ -309,7 +309,9 @@ $resultado = $conexion->query($sql);
                 <th>Fecha Caducidad</th>
                 <th>Descuento (%)</th>
                 <th>Precio con Descuento</th>
+                <?php if (tienePermiso(['Encargado de Bodega','Gerente'])): ?>
                 <th>Acciones</th>
+                <?php endif; ?>
             </tr>
 
             <?php
@@ -325,22 +327,24 @@ $resultado = $conexion->query($sql);
                         <td>" . htmlspecialchars($fila["Cant_Disp_Prod"]) . "</td>
                         <td>" . htmlspecialchars($fila["Categoria_Nombre"]) . "</td>
                         <td>" . htmlspecialchars($fila["ID_Almacen"]) . "</td>
-<td>" . htmlspecialchars($fila["Encargado_Almacen"]) . "</td>
+                        <td>" . htmlspecialchars($fila["Encargado_Almacen"]) . "</td>
                         <td>$" . htmlspecialchars($fila["Prec_Comp"]) . "</td>
                         <td>$" . htmlspecialchars($fila["Prec_vent"]) . "</td>
                         <td>" . htmlspecialchars($fila["Nomb_Prov"]) . "</td>
                         <td>" . ($fila["Prod_Estatus"] ? 'Activo' : 'Inactivo') . "</td>
                         <td>" . htmlspecialchars($fila["Fec_Cad"]) . "</td>
                         <td>" . htmlspecialchars($fila["Desc_Prod"]) . "</td>
-                        <td>$" . number_format($precioConDescuento, 2) . "</td>
-                         <td>
-                    <a class='btn btn-edit' href='../server/crud_productos.php?id=" . $fila["ID_Prod"] . "'>Modificar</a>
-                    <form method='POST' action='../server/crud_productos.php?id=" . $fila["ID_Prod"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar este envío?');\">
-                        <input type='hidden' name='eliminar' value='1'>
-                        <button type='submit' class='btn btn-delete'>Eliminar</button>
-                    </form>
-                </td>
-                    </tr>";
+                        <td>$" . number_format($precioConDescuento, 2) . "</td>";
+                        if (tienePermiso(['Encargado de Bodega','Gerente'])) {
+                            echo "<td>
+                                <a class='btn btn-edit' href='../server/crud_productos.php?id=" . $fila["ID_Prod"] . "'>Modificar</a>
+                                    <form method='POST' action='../server/crud_productos.php?id=" . $fila["ID_Prod"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar este envío?');\">
+                                    <input type='hidden' name='eliminar' value='1'>
+                                    <button type='submit' class='btn btn-delete'>Eliminar</button>
+                                </form>
+                            </td>
+                            </tr>";
+                        }      
                 }
             } else {
                 echo "<tr><td colspan='12'>No hay productos en el inventario.</td></tr>";

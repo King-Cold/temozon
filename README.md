@@ -34,18 +34,18 @@
 
 | ROL                 | SOLO LECTURA | CRUD completo |
 | ------------------- | ------------ | ------------- |
-| Administrador       | ✅           |               |
-| Gerente             | ✅           |               |
-| Encargado de Bodega |              | ✅            |
-| Empleado Auxilar    | ✅           |               |
+| Administrador       | ✅            |               |
+| Gerente             | ✅            |               |
+| Encargado de Bodega |              | ✅             |
+| Empleado Auxilar    | ✅            |               |
 
 ### PEDIDOS
 > Todos lo ven
 
 | ROL                 | SOLO LECTURA | CRUD completo |
 | ------------------- | ------------ | ------------- |
-| Administrador       | ✅           |               |
-| Gerente             | ✅           |               |
+| Administrador       | ✅            |               |
+| Gerente             | ✅            |               |
 | Encargado de Bodega |              | ✅             |
 | Empleado Auxilar    | ✅            |               |
 
@@ -62,15 +62,23 @@
 ### USUARIOS
 > Solo Administrador
 
-| ROL                 | SOLO LECTURA | CRUD completo |
-| ------------------- | ------------ | ------------- |
-| Administrador       |              |  ✅           |
+| ROL           | SOLO LECTURA | CRUD completo |
+| ------------- | ------------ | ------------- |
+| Administrador |              | ✅             |
 
 ### Clientes
 > Solo lo ve Encargado de Bodega y Gerente
 
 | ROL                 | SOLO LECTURA | CRUD completo |
 | ------------------- | ------------ | ------------- |
-| Encargado de Bodega | ✅           |               |
-| Gerente             |              |  ✅           |
+| Encargado de Bodega | ✅            |               |
+| Gerente             |              | ✅             |
+
+### Almacen
+> Solo lo ve Administrador y Gerente
+
+| ROL           | SOLO LECTURA | CRUD completo |
+| ------------- | ------------ | ------------- |
+| Administrador |              | ✅             |
+| Gerente       |              |               |
 

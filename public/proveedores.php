@@ -155,7 +155,9 @@ $resultado = $conexion->query($sql);
         <th>Tipo</th>
         <th>Maneja Cambio</th>
         <th>Dirección</th>
+        <?php if (tienePermiso(['Encargado de Bodega','Gerente'])): ?>
         <th>Acciones</th>
+        <?php endif; ?>
 
     </tr>
     <?php
@@ -167,15 +169,17 @@ $resultado = $conexion->query($sql);
                 <td>" . htmlspecialchars($fila["Telefono_Prov"]) . "</td>
                 <td>" . htmlspecialchars($fila["Tipo_Prov"]) . "</td>
                 <td>" . ($fila["Manejo_Camb"] == 1 ? 'Sí' : 'No') . "</td>
-                <td>" . htmlspecialchars($fila["Direccion_Prov"]) . "</td>
-                <td>
-                    <a class='btn btn-edit' href='../server/crud_proveedores.php?id=" . $fila["ID_Prov"] . "'>Modificar</a>
-                    <form method='POST' action='../server/crud_proveedores.php?id=" . $fila["ID_Prov"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar este envío?');\">
-                        <input type='hidden' name='eliminar' value='1'>
-                        <button type='submit' class='btn btn-delete'>Eliminar</button>
-                    </form>
-                </td>
-            </tr>";
+                <td>" . htmlspecialchars($fila["Direccion_Prov"]) . "</td>";
+                if (tienePermiso(['Encargado de Bodega','Gerente'])) {
+                    echo "<td>
+                        <a class='btn btn-edit' href='../server/crud_proveedores.php?id=" . $fila["ID_Prov"] . "'>Modificar</a>
+                        <form method='POST' action='../server/crud_proveedores.php?id=" . $fila["ID_Prov"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar este envío?');\">
+                            <input type='hidden' name='eliminar' value='1'>
+                            <button type='submit' class='btn btn-delete'>Eliminar</button>
+                        </form>
+                    </td>
+                    </tr>";
+                }
         }
     } else {
         echo "<tr><td colspan='5'>No hay registros de envíos.</td></tr>";

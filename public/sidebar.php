@@ -36,7 +36,7 @@ require_once '../server/permisos.php';
                     <span>PROVEEDORES</span>
                 </a>
             </li>
-            <?php if (tienePermiso(['Administrador'])): ?>
+            <?php if (tienePermiso(['Administrador','Gerente'])): ?>
             <li>
                 <a href="almacen.php">
                     <img src="../Icons/almacen.svg" alt="Usuarios">
