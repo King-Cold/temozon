@@ -15,7 +15,6 @@ $actualizarEnvios = "
     AND e.Estado_Envio != 'En tránsito';
 ";
 $conexion->query($actualizarEnvios);
-// Consultas no medicas 
 $sql = "SELECT 
             pedidos.ID_Pedido,
             pedidos.ID_Envio,
@@ -106,60 +105,22 @@ $resultado = $conexion->query($sql);
             font-weight: bold;
         }
 
-.btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    color: #fff;
-    margin: 5px;
-    transition: background-color 0.3s ease, box-shadow 0.2s ease;
-    background-color: #1565c0;
-}
-.btn:hover{
-    background-color:rgb(15, 58, 107);
-}
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            color: #fff;
+            background-color:rgb(134, 28, 183);
+            margin-top: 20px;
+            transition: background-color 0.3s ease, box-shadow 0.2s ease;
+        }
 
-/* Botón Agregar */
-.btn-add {
-    background-color: #43a047;
-}
-
-.btn-add:hover {
-    background-color: #388e3c;
-    box-shadow: 0 2px 6px rgba(67, 160, 71, 0.4);
-}
-
-/* Botón Eliminar */
-.btn-delete {
-    background-color: #e53935;
-}
-
-.btn-delete:hover {
-    background-color: #c62828;
-    box-shadow: 0 2px 6px rgba(229, 57, 53, 0.4);
-}
-
-/* Botón Detalles */
-.btn-detail {
-    background-color:rgb(104, 52, 150);
-}
-
-.btn-detail:hover {
-    background-color:rgba(104, 52, 150, 0.53);
-    box-shadow: 0 2px 6px rgba(97, 97, 97, 0.4);
-}
-
-/* Botón Modificar */
-.btn-edit {
-    background-color: #1e88e5;
-}
-
-.btn-edit:hover {
-    background-color: #1565c0;
-    box-shadow: 0 2px 6px rgba(30, 136, 229, 0.4);
-}
+        .btn:hover {
+            background-color:rgb(93, 19, 128);
+            box-shadow: 0 2px 6px rgba(105, 40, 226, 0.4);
+        }
 
         .modal {
             display: none;
@@ -289,24 +250,19 @@ $resultado = $conexion->query($sql);
                     <td>" . htmlspecialchars($fila["Direc_Cliente"]) . "</td>
                     <td>" . htmlspecialchars($fila["Fecha"]) . "</td>
                     <td>$" . number_format($fila["Precio_Total"], 2) . "</td>
-<td>";
-if ($fila["Estado_Envio"] !== "En tránsito") {
-    echo "
-    <form method='POST' action='../server/crud_pedidos.php?id=" . $fila["ID_Pedido"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar el pedido #" . $fila["ID_Pedido"] . "?');\">
-        <input type='hidden' name='accion' value='eliminar'>
-        <input type='hidden' name='id_pedido' value='" . $fila["ID_Pedido"] . "'>
-        <button type='submit' class='btn btn-delete'>Eliminar</button>
-    </form>
-
-    <form method='GET' action='editar_pedido.php' style='display:inline; margin-left: 5px;'>
-        <input type='hidden' name='id_pedido' value='" . $fila["ID_Pedido"] . "'>
-        <button type='submit' class='btn btn-edit'>Modificar</button>
-    </form>";
-} else {
-    echo "<span style='color: gray; font-style: italic;'>No disponible</span>";
-}
-echo "</td>
-";
+                    <td>";
+                    if ($fila["Estado_Envio"] !== "En tránsito") {
+                        echo "
+                        <form method='POST' action='../server/crud_pedidos.php?id=" . $fila["ID_Pedido"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar el pedido #" . $fila["ID_Pedido"] . "?');\">
+                            <input type='hidden' name='accion' value='eliminar'>
+                            <input type='hidden' name='id_pedido' value='" . $fila["ID_Pedido"] . "'>
+                            <button type='submit' class='btn btn-delete'>Eliminar</button>
+                        </form>";
+                    } else {
+                        echo "<span style='color: gray; font-style: italic;'>No disponible</span>";
+                    }
+                    echo "</td>
+                </tr>";
             }
         } else {
             echo "<tr><td colspan='9'>No hay registros de pedidos.</td></tr>";
