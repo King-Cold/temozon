@@ -40,25 +40,26 @@ $resultado = $conexion->query($sql);
     <title>Pedidos</title>
     <link rel="stylesheet" href="css/styles.css">
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f0f0f0;
-            margin: 0;
-            padding: 20px;
-        }
+       body {
+    font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f9f9f9;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+}
 
         main#main {
             padding: 20px;
         }
 
-        h2 {
-            text-align: center;
-            color: #FF7A00;
-            margin-bottom: 25px;
-            font-size: 30px;
-            letter-spacing: 0.5px;
-        }
-
+h2 {
+    text-align: center;
+    color:rgba(255, 123, 0, 0.69);
+    margin-bottom: 25px;
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 0.7px;
+}
         table {
             width: 95%;
             margin: auto;
@@ -105,22 +106,64 @@ $resultado = $conexion->query($sql);
             font-weight: bold;
         }
 
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 14px;
-            color: #fff;
-            background-color:rgb(134, 28, 183);
-            margin-top: 20px;
-            transition: background-color 0.3s ease, box-shadow 0.2s ease;
-        }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
 
-        .btn:hover {
-            background-color:rgb(93, 19, 128);
-            box-shadow: 0 2px 6px rgba(105, 40, 226, 0.4);
-        }
+/* Botón general */
+.btn-detail {
+    background: linear-gradient(135deg, #8e24aa, #6a1b9a);
+    color: #fff;
+}
+
+.btn-detail:hover {
+    background: linear-gradient(135deg, #6a1b9a, #4a148c);
+    transform: translateY(-1px);
+}
+
+/* Botón agregar */
+.btn-add {
+    background:rgb(11, 177, 52);
+    color: #fff;
+}
+
+.btn-add:hover {
+    background:rgb(0, 116, 39);
+    transform: translateY(-1px);
+}
+
+/* Botón eliminar */
+.btn-delete {
+    background: linear-gradient(135deg, #d32f2f, #b71c1c);
+    color: #fff;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 6px;
+}
+
+.btn-delete:hover {
+    background: linear-gradient(135deg, #b71c1c, #7f0000);
+    transform: translateY(-1px);
+}
+
+/* Iconos en botones */
+.btn img {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    vertical-align: middle;
+}
 
         .modal {
             display: none;
