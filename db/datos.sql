@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 19-05-2025 a las 01:30:51
+-- Tiempo de generación: 30-05-2025 a las 15:48:03
 -- Versión del servidor: 10.4.32-MariaDB-log
 -- Versión de PHP: 8.2.12
 
@@ -73,8 +73,8 @@ INSERT INTO `ventas_mensuales` (`id`, `mes`, `ventas`) VALUES
 (8, 'Ago', 4800.00),
 (9, 'Sep', 5300.00),
 (10, 'Oct', 5900.00),
-(11, 'Nov', 6100.00),
-(12, 'Dic', 7000.00);
+(11, 'Nov', 5500.00),
+(12, 'Dic', 1000.00);
 
 --
 -- Índices para tablas volcadas

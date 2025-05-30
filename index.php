@@ -20,11 +20,11 @@ include("server/controlador.php");
 <body>
     <div class="login-container">
         <div class="login-left">
-            <img src="icons/logo.png" alt="Fondo" class="fondo">
+            <img src="Icons/logo.png" alt="Fondo" class="fondo">
         </div>
         <div class="login-right">
             <div class="login-box">
-                <img src="icons/gatito.png" alt="Usuario" class="avatar">
+                <img src="Icons/gatito.png" alt="Usuario" class="avatar">
                 <h2>BIENVENIDO</h2>
 
                 <!-- Mostrar mensaje de error -->
