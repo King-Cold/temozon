@@ -16,7 +16,7 @@ if (isset($_POST["btningresar"])) { // Verifica si se presionó el botón
     $_SESSION["nombre"] = $datos->Nombre_Usuario;
     $_SESSION["rol"] = $datos->Rol;
 
-            header("location:public/inicio.php");
+            header("location: public/inicio.php");
 
 
         } else {
