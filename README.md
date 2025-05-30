@@ -80,5 +80,5 @@
 | ROL           | SOLO LECTURA | CRUD completo |
 | ------------- | ------------ | ------------- |
 | Administrador |              | ✅             |
-| Gerente       |              |               |
+| Gerente       |              | ✅             |
 

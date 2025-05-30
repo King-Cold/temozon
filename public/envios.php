@@ -158,14 +158,20 @@ $resultado = $conexion->query($sql);
                 <td>" . ($fila["Fecha_Recibo"] ? htmlspecialchars($fila["Fecha_Recibo"]) : 'Pendiente') . "</td>";
             
             if (tienePermiso(['Encargado de Bodega'])) {
-                echo "<td>
-                    <a class='btn btn-edit' href='../server/crud_envios.php?id=" . $fila["ID_Envio"] . "'>Modificar</a>
-                    <form method='POST' action='../server/crud_envios.php?id=" . $fila["ID_Envio"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar este envío?');\">
-                        <input type='hidden' name='eliminar' value='1'>
-                        <button type='submit' class='btn btn-delete'>Eliminar</button>
-                    </form>
-                </td>";
+                echo "<td>";
+                if ($fila["Estado_Envio"] !== "En tránsito") {
+                    echo "
+                        <a class='btn btn-edit' href='../server/crud_envios.php?id=" . $fila["ID_Envio"] . "'>Modificar</a>
+                        <form method='POST' action='../server/crud_envios.php?id=" . $fila["ID_Envio"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar este envío?');\">
+                            <input type='hidden' name='eliminar' value='1'>
+                            <button type='submit' class='btn btn-delete'>Eliminar</button>
+                        </form>";
+                }else{
+                    echo "<span style='color: gray; font-style: italic;'>No disponible</span>";
+                }
+                echo "</td>";
             }
+            echo "</tr>";
         }
     } else {
         echo "<tr><td colspan='5'>No hay registros de envíos.</td></tr>";
