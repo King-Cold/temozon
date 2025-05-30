@@ -554,7 +554,7 @@ $resultado = $conexion->query($sql);
 
     <!-- Ventana modal para selección de escaneo -->
     <div id="modalEscaneo" style="display:none; position:fixed; top:20%; left:35%; background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
-        <h3>Checar producteishon</h3>
+        <h3>Escanea el producto</h3>
         <div style="margin-top: 20px;">
             <button onclick="mostrarEscaner()">O escanear con la cámara</button>
             <button onclick="cerrarModalEscaneo()" style="margin-left: 10px;">Cancelar</button>
@@ -563,8 +563,21 @@ $resultado = $conexion->query($sql);
     <script src="js/script.js"></script>
     <script src="js/search.js"></script>
     <script>
-  console.log("script cargado correctamente");
-</script>
+        const modalForm = document.getElementById("modalForm");
+        const modalEscaneo = document.getElementById("modalEscaneo");
+
+        const checador = new MutationObserver(() => {
+            const tasviendo = getComputedStyle(modalForm).display === "block";
+            if (tasviendo) {
+
+                if (modalEscaneo.style.display === "block") {
+                    modalEscaneo.style.display = "none";
+                }
+            }
+        });
+        
+        checador.observe(modalForm, { attributes: true, attributeFilter: ['style'] });
+    </script>
 </body>
 
 </html>
