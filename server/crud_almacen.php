@@ -178,7 +178,7 @@ $usuario = $resultado->fetch_assoc();
         <input type="hidden" name="actualizar" value="1">
         <div class="botones">
             <button type="submit" class="guardar">Guardar Cambios</button>
-            <a href="../public/usuarios.php" class="cancelar">Cancelar</a>
+            <a href="../public/almacen.php" class="cancelar">Cancelar</a>
         </div>
     </form>
 </body>

@@ -205,25 +205,25 @@ body {
 
  <div class="dashboard">
 
-    <div class="box productos" data-text="# Productos">
-        <img src="../Icons/productos.png" alt="Productos" class="icono">
-        <div class="dato">5,556</div>
-    </div>
+   <div class="box productos" data-text="# Productos">
+    <img src="../Icons/productos.png" alt="Productos" class="icono">
+    <div class="dato" id="dato-productos">0</div>
+</div>
 
-    <div class="box ventas" data-text="Ventas">
-        <img src="../Icons/ventas.png" alt="Ventas" class="icono">
-        <div class="dato">3,454</div>
-    </div>
+<div class="box ventas" data-text="Ventas">
+    <img src="../Icons/ventas.png" alt="Ventas" class="icono">
+    <div class="dato" id="dato-ventas">0</div>
+</div>
 
-    <div class="box ingresos" data-text="# Ingresos">
-        <img src="../Icons/ingresos.png" alt="Ingresos" class="icono">
-        <div class="dato">$999,999</div>
-    </div>
+<div class="box ingresos" data-text="# Ingresos">
+    <img src="../Icons/ingresos.png" alt="Ingresos" class="icono">
+    <div class="dato" id="dato-ingresos">$0</div>
+</div>
 
-    <div class="box compras" data-text="Compras">
-        <img src="../Icons/compras.png" alt="Compras" class="icono">
-        <div class="dato">$8,122</div>
-    </div>
+<div class="box compras" data-text="Compras">
+    <img src="../Icons/compras.png" alt="Compras" class="icono">
+    <div class="dato" id="dato-compras">$0</div>
+</div>
 
     <!-- VENTAS MENSUALES (Gráfica más pequeña) -->
     <div class="box ventas-mensuales">
@@ -408,4 +408,13 @@ fetch("../server/datos_productos.php")
     });
 });
 
+fetch("../server/datos_dashboard.php")
+.then(response => response.json())
+.then(data => {
+    document.getElementById('dato-productos').textContent = data.productos;
+    document.getElementById('dato-ventas').textContent = data.ventas;
+    document.getElementById('dato-ingresos').textContent = "$" + parseFloat(data.ingresos).toFixed(2);
+    document.getElementById('dato-compras').textContent = "$" + parseFloat(data.compras).toFixed(2);
+})
+.catch(error => console.error('Error al obtener los datos del dashboard:', error));
 </script>

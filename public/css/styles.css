@@ -302,7 +302,7 @@ main.menu-toggle {
     top: 5px;
     right: -350px;
     width: 300px;
-    background: black;
+    background: rgba(0, 0, 0, 0.884);
     color: #fff;
     padding: 30px 20px;
     border-radius: 20px 0 0 20px;
@@ -323,7 +323,7 @@ main.menu-toggle {
     top: 15px;
     right: 20px;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 25px;
     color: #fff;
 }
 
@@ -346,7 +346,7 @@ main.menu-toggle {
 .user-info {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 0px;
 }
 
 .user-data span {
