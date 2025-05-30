@@ -428,7 +428,7 @@ $resultado = $conexion->query($sql);
                                 <a class='btn btn-edit' href='../server/crud_productos.php?id=" . $fila["ID_Prod"] . "'>Modificar</a>
                                     <form method='POST' action='../server/crud_productos.php?id=" . $fila["ID_Prod"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar este envío?');\">
                                     <input type='hidden' name='eliminar' value='1'>
-                                    <button type='submit' class='btn btn-delete'>Eliminar</button>
+                                    <button type='submit' class='btn btn-delete'>Dar de baja</button>
                                 </form>
                             </td>
                             </tr>";
