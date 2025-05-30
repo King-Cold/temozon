@@ -303,7 +303,7 @@ h2 {
                         <form method='POST' action='../server/crud_pedidos.php?id=" . $fila["ID_Pedido"] . "' style='display:inline;' onsubmit=\"return confirm('¿Seguro que deseas eliminar el pedido #" . $fila["ID_Pedido"] . "?');\">
                             <input type='hidden' name='accion' value='eliminar'>
                             <input type='hidden' name='id_pedido' value='" . $fila["ID_Pedido"] . "'>
-                            <button type='submit' class='btn btn-delete'>Eliminar</button>
+                            <button type='submit' class='btn btn-delete'>Dar de baja</button>
                         </form>";
                     } else {
                         echo "<span style='color: gray; font-style: italic;'>No disponible</span>";
