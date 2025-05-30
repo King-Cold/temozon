@@ -21,7 +21,7 @@ body {
     /* 
     background: #302154;
     */
-    background-image: url("../../Icons/fondito.png"); /* Ruta de tu imagen de fondo */
+    background-image: url("../../Icons/fondito.avif"); /* Ruta de tu imagen de fondo */
 }
 
 .login-container {

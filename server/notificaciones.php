@@ -79,7 +79,7 @@
 session_start();
 require_once 'conexion_bd.php'; 
             $sql = "SELECT ID_Prod, Nomb_Prod, Cant_Disp_Prod, Fec_Cad FROM productos
-                    WHERE Fec_Cad BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 100 DAY)
+                    WHERE Fec_Cad BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 15 DAY)
                     AND Prod_Estatus = 1
                     ORDER BY Fec_Cad ASC";
             $resultado = $conexion->query($sql);

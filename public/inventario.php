@@ -156,29 +156,38 @@ $resultado = $conexion->query($sql);
         box-shadow: 0 2px 6px rgba(76, 175, 80, 0.4);
     }
 
+       
         #escaneoCont {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 999;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
         }
 
         #lector {
             width: 80%;
-            height: 60%;
-            margin: 50px auto;
+            max-width: 600px;
+            height: 400px;
             background: #000;
-            border-radius: 12px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.6);
         }
 
         #escaneoCont button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+            margin-top: 20px;
+            background: #ef5350;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #fff;
+            cursor: pointer;
         }
 
         .modal-content {
@@ -201,30 +210,109 @@ $resultado = $conexion->query($sql);
     letter-spacing: 0.5px;
 }
 
-.modal-content label {
-    display: block;
-    margin: 14px 0 8px;
-    font-weight: 600;
-    color: #4a148c;
-    font-size: 14.5px;
+#modalForm {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+    z-index: 2000;
+    width: 450px;
+    max-width: 95%;
+    max-height: 90vh;
+    overflow-y: auto;
+    font-family: 'Arial', sans-serif;
 }
 
-.modal-content select,
-.modal-content input[type="number"] {
-    width: 100%;
-    padding: 11px 14px;
+#modalForm h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+#productoForm {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 10px;
+    align-items: center;
+}
+
+.form-row label {
+    font-weight: bold;
+    color: #555;
+    font-size: 14px;
+}
+
+.form-row input[type="text"],
+.form-row input[type="number"],
+.form-row input[type="date"],
+.form-row select {
+    padding: 8px 12px;
     border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 14.5px;
-    transition: border-color 0.3s, box-shadow 0.3s;
-    margin-bottom: 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border 0.3s;
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.modal-content select:focus,
-.modal-content input[type="number"]:focus {
-    border-color: #7e57c2;
-    box-shadow: 0 0 5px rgba(126, 87, 194, 0.3);
+.form-row input:focus,
+.form-row select:focus {
+    border-color: #008cba;
     outline: none;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-primary, .btn-secondary {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-primary {
+    background-color: #008cba;
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: #006e96;
+}
+
+.btn-secondary {
+    background-color: #ccc;
+    color: #333;
+}
+
+.btn-secondary:hover {
+    background-color: #b3b3b3;
+}
+
+/* Responsive: si la pantalla es muy estrecha, las filas se vuelven columna */
+@media (max-width: 500px) {
+    .form-row {
+        grid-template-columns: 1fr;
+    }
 }
 
 .producto-item {
@@ -360,84 +448,109 @@ $resultado = $conexion->query($sql);
     </div>
 
     <!-- Ventana modal para el formulario -->
-    <div id="modalForm" style="display:none; position:fixed; top:10%; left:30%; background:#fff; padding:20px; border:1px solid #ccc; z-index:2000;">
-        <h3>Registrar Nuevo Producto</h3>
-        <form id="productoForm" action="../server/p_codigoBarras.php" method="POST">
-            <input type="hidden" name="ID_Prod" id="ID_Prod">
+   <div id="modalForm">
+    <h3>Registrar Nuevo Producto</h3>
+    <form id="productoForm" action="../server/p_codigoBarras.php" method="POST">
+        <input type="hidden" name="ID_Prod" id="ID_Prod">
 
-            <label>Nombre:</label><input type="text" name="Nomb_Prod" required><br>
-            <label>Descuento (%):</label><input type="number" name="Desc_Prod" min="0" max="100" required><br>
-            <label>Descripción:</label>
-            <select name="ID_Descrip" required>
-                <?php
-                $descripciones = $conexion->query("SELECT ID_Descrip, Descrip_Produc FROM descripcion_producto");
-                if ($descripciones && $descripciones->num_rows > 0) {
-                    while ($d = $descripciones->fetch_assoc()) {
-                        echo '<option value="' . htmlspecialchars($d['ID_Descrip']) . '">' . htmlspecialchars($d['Descrip_Produc']) . '</option>';
-                    }
-                } else {
-                    echo '<option value="">No hay descripciones</option>';
-                }
-                ?>
-            </select><br>
+        <div class="form-row">
+            <label>Nombre:</label>
+            <input type="text" name="Nomb_Prod" required>
+        </div>
 
-            <label>Cantidad:</label><input type="number" name="Cant_Disp_Prod" required><br>
+        <div class="form-row">
+            <label>Descuento (%):</label>
+            <input type="number" name="Desc_Prod" min="0" max="100" required>
 
-            <label>Almacén:</label>
-            <select name="ID_Almacen" required>
-                <?php
-                $almacenes = $conexion->query("SELECT ID_Almacen FROM almacen");
-                if ($almacenes && $almacenes->num_rows > 0) {
-                    while ($a = $almacenes->fetch_assoc()) {
-                        echo '<option value="' . htmlspecialchars($a['ID_Almacen']) . '">Almacén #' . htmlspecialchars($a['ID_Almacen']) . '</option>';
-                    }
-                } else {
-                    echo '<option value="">No hay almacenes</option>';
-                }
-                ?>
-            </select><br>
-            <label>Precio Compra:</label><input type="number" step="0.01" name="Prec_Comp" required><br>
-            <label>Precio Venta:</label><input type="number" step="0.01" name="Prec_vent" required><br>
-            <label>Proveedor:</label>
-            <select name="ID_Prov" required>
-                <?php
-                $proveedores = $conexion->query("SELECT ID_Prov, Nomb_Prov FROM proveedor");
-                if ($proveedores && $proveedores->num_rows > 0) {
-                    while ($p = $proveedores->fetch_assoc()) {
-                        echo '<option value="' . htmlspecialchars($p['ID_Prov']) . '">' . htmlspecialchars($p['Nomb_Prov']) . '</option>';
-                    }
-                } else {
-                    echo '<option value="">No hay proveedores</option>';
-                }
-                ?>
-            </select><br>
+            <label>Cantidad:</label>
+            <input type="number" name="Cant_Disp_Prod" required>
+        </div>
 
-            <label>Categoría:</label>
-            <select name="ID_Categoria" required>
-                <?php
-                $categorias = $conexion->query("SELECT ID_Categoria, Categoria_Nombre FROM categoria");
-                if ($categorias && $categorias->num_rows > 0) {
-                    while ($c = $categorias->fetch_assoc()) {
-                        echo '<option value="' . htmlspecialchars($c['ID_Categoria']) . '">' . htmlspecialchars($c['ID_Categoria']) . ' - ' . htmlspecialchars($c['Categoria_Nombre']) . '</option>';
-                    }
-                } else {
-                    echo '<option value="">No hay categorías</option>';
-                }
-                ?>
-            </select><br>
+      <div class="form-row">
+    <label>Descripción:</label>
+    <select name="ID_Descrip" required>
+        <?php
+        $descripciones = $conexion->query("SELECT ID_Descrip, Descrip_Produc FROM descripcion_producto");
+        if ($descripciones && $descripciones->num_rows > 0) {
+            while ($d = $descripciones->fetch_assoc()) {
+                echo '<option value="' . htmlspecialchars($d['ID_Descrip']) . '">' . htmlspecialchars($d['Descrip_Produc']) . '</option>';
+            }
+        } else {
+            echo '<option value="">No hay descripciones</option>';
+        }
+        ?>
+    </select>
 
+    <label>Almacén:</label>
+    <select name="ID_Almacen" required>
+        <?php
+        $almacenes = $conexion->query("SELECT ID_Almacen FROM almacen");
+        if ($almacenes && $almacenes->num_rows > 0) {
+            while ($a = $almacenes->fetch_assoc()) {
+                echo '<option value="' . htmlspecialchars($a['ID_Almacen']) . '">Almacén #' . htmlspecialchars($a['ID_Almacen']) . '</option>';
+            }
+        } else {
+            echo '<option value="">No hay almacenes</option>';
+        }
+        ?>
+    </select>
+</div>
+
+        <div class="form-row">
+            <label>Precio Compra:</label>
+            <input type="number" step="0.01" name="Prec_Comp" required>
+
+            <label>Precio Venta:</label>
+            <input type="number" step="0.01" name="Prec_vent" required>
+        </div>
+
+        <div class="form-row">
+    <label>Proveedor:</label>
+    <select name="ID_Prov" required>
+        <?php
+        $proveedores = $conexion->query("SELECT ID_Prov, Nomb_Prov FROM proveedor");
+        if ($proveedores && $proveedores->num_rows > 0) {
+            while ($p = $proveedores->fetch_assoc()) {
+                echo '<option value="' . htmlspecialchars($p['ID_Prov']) . '">' . htmlspecialchars($p['Nomb_Prov']) . '</option>';
+            }
+        } else {
+            echo '<option value="">No hay proveedores</option>';
+        }
+        ?>
+    </select>
+
+    <label>Categoría:</label>
+    <select name="ID_Categoria" required>
+        <?php
+        $categorias = $conexion->query("SELECT ID_Categoria, Categoria_Nombre FROM categoria");
+        if ($categorias && $categorias->num_rows > 0) {
+            while ($c = $categorias->fetch_assoc()) {
+                echo '<option value="' . htmlspecialchars($c['ID_Categoria']) . '">' . htmlspecialchars($c['ID_Categoria']) . ' - ' . htmlspecialchars($c['Categoria_Nombre']) . '</option>';
+            }
+        } else {
+            echo '<option value="">No hay categorías</option>';
+        }
+        ?>
+    </select>
+</div>
+
+        <div class="form-row">
             <label>Estatus:</label>
             <select name="Prod_Estatus">
                 <option value="1">Activo</option>
                 <option value="0">Inactivo</option>
-            </select><br>
+            </select>
 
-            <label>Fecha Caducidad:</label><input type="date" name="Fec_Cad" required><br><br>
+            <label>Fecha Caducidad:</label>
+            <input type="date" name="Fec_Cad" required>
+        </div>
 
-            <button type="submit">Guardar Producto</button>
-            <button type="button" onclick="cerrarForm()">Cancelar</button>
-        </form>
-    </div>
+        <div class="form-buttons">
+            <button type="submit" class="btn-primary">Guardar</button>
+            <button type="button" class="btn-secondary" onclick="cerrarForm()">Cancelar</button>
+        </div>
+    </form>
+</div>
 
     <!-- Ventana modal para selección de escaneo -->
     <div id="modalEscaneo" style="display:none; position:fixed; top:20%; left:35%; background:#fff; padding:20px; border:1px solid #ccc; z-index:1000;">
